@@ -2,6 +2,7 @@ package com.game.main;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,8 +21,13 @@ public class SetTower extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_tower);
 
-        //mGameView = (GameView) findViewById(R.id.tv);
-        //mGameView.setTextView((TextView) findViewById(R.id.text));
+        mGameView = (GameView) findViewById(R.id.tv);
+        //mGameView.setAdapter(new MapUnitAdapter(this));
+        mGameView.setOnItemClickListener(new OnItemClickListener() {
+        	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+        		Toast.makeText(SetTower.this, "test" + position, Toast.LENGTH_SHORT).show();
+        	}
+        });
 
         
         GridView menu_gridview = (GridView) findViewById(R.id.grid_menu);

@@ -19,7 +19,7 @@ import android.widget.ImageView;
  * drawables.
  * 
  */
-public class GameView extends GridView {
+public class GameView2 extends GridView {
 
     /**
      * Parameters controlling the size of the tiles and their range within view.
@@ -42,6 +42,7 @@ public class GameView extends GridView {
      * drawable that will be used for that reference
      */
     private Bitmap[][] mTileArray;  
+    private ImageView[][] mImageViewArray;
 
     /**
      * A two-dimensional array of integers in which the number represents the
@@ -53,12 +54,12 @@ public class GameView extends GridView {
     private static final int RED_STAR = 1;
     Resources r;
 
-    public GameView(Context context, AttributeSet attrs, int defStyle) {
+    public GameView2(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.init();
     }
 
-    public GameView(Context context, AttributeSet attrs) {
+    public GameView2(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.init();
 
@@ -66,6 +67,7 @@ public class GameView extends GridView {
     public void init(){
         r = this.getContext().getResources();
         mTileArray = new Bitmap[mXTileCount][mYTileCount];
+        mImageViewArray = new ImageView[mXTileCount][mYTileCount];
         
         for(int i=0; i < mXTileCount; i++){
 			for( int j=0;j< mYTileCount;j++){
@@ -110,6 +112,16 @@ public class GameView extends GridView {
         tile.setBounds(0, 0, mTileSize, mTileSize);
         tile.draw(canvas);
         
+        ImageView imageView = new ImageView(getContext());
+        imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setPadding(1, 1, 1, 1);
+        imageView.layout(1, 1, 10, 10);
+
+
+        imageView.setImageResource(1);
+        
+        mImageViewArray[X][Y] = imageView;
 
         mTileArray[X][Y] = bitmap;
     }
