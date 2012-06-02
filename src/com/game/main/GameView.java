@@ -29,8 +29,8 @@ public class GameView extends View {
 
     protected static int mTileSize = 30;
 
-    protected static int mXTileCount =11;
-    protected static int mYTileCount =11;
+    protected static int mXTileCount =110;
+    protected static int mYTileCount =110;
 
     private static int mXOffset = 1;
     private static int mYOffset = 1;
@@ -47,66 +47,52 @@ public class GameView extends View {
      * A two-dimensional array of integers in which the number represents the
      * index of the tile that should be drawn at that locations
      */
-   // private int[][] mTileGrid;
+    private int[][] mTileGrid;
 
     private final Paint mPaint = new Paint();
     private static final int RED_STAR = 1;
+    Resources r;
 
     public GameView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mTileSize = 10;
-        mTileArray = new Bitmap[mXTileCount][mYTileCount];
-        
-        for(int i=0; i < mXTileCount; i++){
-        	for( int j=0;j< mYTileCount;j++){
-            	Bitmap bitmap = Bitmap.createBitmap(mTileSize, mTileSize, Bitmap.Config.ARGB_8888);
-            	bitmap.setPixel(0, 0, Color.GREEN);
-            	mTileArray[i][j]=bitmap;
-        	}
-        }
-        Resources r = this.getContext().getResources();
-        loadTile(RED_STAR, r.getDrawable(R.drawable.redstar));
+        this.init();
     }
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.init();
+
+    }
+    public void init(){
+        r = this.getContext().getResources();
         mTileArray = new Bitmap[mXTileCount][mYTileCount];
         
         for(int i=0; i < mXTileCount; i++){
         	for( int j=0;j< mYTileCount;j++){
-            	Bitmap bitmap = Bitmap.createBitmap(mTileSize, mTileSize, Bitmap.Config.ARGB_8888);
-            	bitmap.setPixel(0, 0, Color.GREEN);
-            	mTileArray[i][j]=bitmap;
+            	//Bitmap bitmap = Bitmap.createBitmap(mTileSize, mTileSize, Bitmap.Config.ARGB_8888);
+            	//bitmap.setPixel(0, 0, Color.GREEN);
+            	loadTile(i, j, RED_STAR, r.getDrawable(R.drawable.redstar));
+            	//mTileArray[i][j]=bitmap;
+            	
         	}
         }
-        Resources r = this.getContext().getResources();
-        loadTile(RED_STAR, r.getDrawable(R.drawable.redstar));
+        
+        
     }
 
 
-
-    /**
-     * Rests the internal array of Bitmaps used for drawing tiles, and
-     * sets the maximum index of tiles to be inserted
-     * 
-     * @param tilecount
-     */
-
-    public void resetTiles(int tilecount) {
-        //mTileArray = new Bitmap[tilecount];
-    }
 
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        //mXTileCount = (int) Math.floor(w / mTileSize);
-        //mYTileCount = (int) Math.floor(h / mTileSize);
+        mXTileCount = (int) Math.floor(w / mTileSize);
+        mYTileCount = (int) Math.floor(h / mTileSize);
 
         mXOffset = ((w - (mTileSize * mXTileCount)) / 2);
         mYOffset = ((h - (mTileSize * mYTileCount)) / 2);
 
-        //mTileGrid = new int[mXTileCount][mYTileCount];
-        clearTiles();
+       // mTileGrid = new int[mXTileCount][mYTileCount];
+        //clearTiles();
     }
 
     /**
@@ -116,13 +102,13 @@ public class GameView extends View {
      * @param key
      * @param tile
      */
-    public void loadTile(int key, Drawable tile) {
+    public void loadTile(int X, int Y,int image, Drawable tile) {
         Bitmap bitmap = Bitmap.createBitmap(mTileSize, mTileSize, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         tile.setBounds(0, 0, mTileSize, mTileSize);
         tile.draw(canvas);
 
-        mTileArray[5][5] = bitmap;
+        mTileArray[X][Y] = bitmap;
     }
 
     /**
@@ -132,7 +118,7 @@ public class GameView extends View {
     public void clearTiles() {
         for (int x = 0; x < mXTileCount; x++) {
             for (int y = 0; y < mYTileCount; y++) {
-                setTile(0, x, y);
+              //  setTile(0, x, y);
             }
         }
     }
@@ -146,8 +132,8 @@ public class GameView extends View {
      * @param x
      * @param y
      */
-    public void setTile(int tileindex, int x, int y) {
-       // mTileGrid[x][y] = tileindex;
+    public void setTile(int Xtileindex, int Ytileindex, int x, int y) {
+        //mTileGrid[x][y] = Xtileindex;
     }
 
 
