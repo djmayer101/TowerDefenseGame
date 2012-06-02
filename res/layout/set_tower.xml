@@ -1,51 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="325dp"
-        android:background= "#FFFFFF"
-        android:weightSum="4">
-         <TextView
-                 android:id="@+id/text"
-                        android:text="Hi"
-                        android:visibility="visible"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:gravity="center_horizontal"
-                        android:textColor="#ff8888ff"
-                        android:textSize="24sp"/>
-        
+        android:background="#FFFFFF"
+        android:weightSum="4" >
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:text="Hi"
+            android:textColor="#ff8888ff"
+            android:textSize="24sp"
+            android:visibility="visible" />
     </FrameLayout>
-  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:weightSum = "1"
-    >
-             <TextView
-                 android:id="@+id/text"
-                        android:text="Hello"
-                        android:visibility="visible"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:gravity="center_horizontal"
-                        android:textColor="#ff8888ff"
-                        android:textSize="24sp"/>
-        <Button 
-          android:id="@+id/startbtn"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/startbtnstring"
-          android:onClick="startGame"
-          android:layout_gravity="center_vertical|center_horizontal"
-          />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <GridView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:columnWidth="40dp"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dp" />
     </LinearLayout>
 
-    
 </LinearLayout>
