@@ -3,4 +3,8 @@
     <string name="hello">Hello World, GameMain!</string>
     <string name="app_name">Tower Defense</string>
     <string name="startbtnstring">Start a New Game</string>
+     <string name="mode_ready">Ready</string>
+      <string name="mode_pause">Pause</string>
+      <string name="mode_lose_prefix">Pause</string>
+      <string name="mode_lose_suffix">Pause</string>
 </resources>
