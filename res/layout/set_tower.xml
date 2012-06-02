@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <FrameLayout
+    <FrameLayout 
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="325dp"
@@ -30,9 +30,9 @@
         android:orientation="vertical"
         android:weightSum="1" >
 
-        <GridView
+        <GridView 
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/gridview"
+            android:id="@+id/grid_menu"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:columnWidth="40dp"

@@ -18,15 +18,16 @@ public class SetTower extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_tower);
         
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
+        GridView menu_gridview = (GridView) findViewById(R.id.grid_menu);
+        menu_gridview.setAdapter(new ImageAdapter(this));
 
         
-        //gridview.setOnItemClickListener(new OnItemClickListener());
+        menu_gridview.setOnItemClickListener(new OnItemClickListener() {
+        	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+        		Toast.makeText(SetTower.this, "test" + position, Toast.LENGTH_SHORT).show();
+        	}
+        });
+        
     }
-    
-    /*public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Toast.makeText(SetTower.this, "" + position, Toast.LENGTH_SHORT).show();
-    }*/
      
 }
