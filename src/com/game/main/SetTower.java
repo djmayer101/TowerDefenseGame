@@ -15,13 +15,13 @@ import android.widget.Toast;
 public class SetTower extends Activity {
     /** Called when the activity is first created. */
 	Button myButton;
-	GameView mGameView;
+	GameView2 mGameView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_tower);
 
-        mGameView = (GameView) findViewById(R.id.tv);
+        mGameView = (GameView2) findViewById(R.id.tv);
         //mGameView.setAdapter(new MapUnitAdapter(this));
         mGameView.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {

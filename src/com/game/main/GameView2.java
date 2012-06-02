@@ -6,11 +6,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.GridView;
-import android.widget.ImageView;
+
 
 
 
@@ -42,7 +40,7 @@ public class GameView2 extends GridView {
      * drawable that will be used for that reference
      */
     private Bitmap[][] mTileArray;  
-    private ImageView[][] mImageViewArray;
+    private MapUnitView[][] mMapUnitViewArray;
 
     /**
      * A two-dimensional array of integers in which the number represents the
@@ -54,29 +52,30 @@ public class GameView2 extends GridView {
     private static final int RED_STAR = 1;
     Resources r;
 
+	private AttributeSet attrs;
+
     public GameView2(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.attrs = attrs;
         this.init();
     }
 
     public GameView2(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.attrs = attrs;
         this.init();
 
     }
     public void init(){
         r = this.getContext().getResources();
         mTileArray = new Bitmap[mXTileCount][mYTileCount];
-        mImageViewArray = new ImageView[mXTileCount][mYTileCount];
+        mMapUnitViewArray = new MapUnitView[mXTileCount][mYTileCount];
         
         for(int i=0; i < mXTileCount; i++){
 			for( int j=0;j< mYTileCount;j++){
-            	//Bitmap bitmap = Bitmap.createBitmap(mTileSize, mTileSize, Bitmap.Config.ARGB_8888);
-            	//bitmap.setPixel(0, 0, Color.GREEN);
-            	loadTile(i, j, RED_STAR, r.getDrawable(R.drawable.redstar));
-            	
-            	//mTileArray[i][j]=bitmap;
-              
+            	int mapUnitViewXOffset = mXOffset + i*mTileSize;
+            	int mapUnitViewYOffset = mYOffset + j*mTileSize;
+            	mMapUnitViewArray[i][j]=new MapUnitView(getContext(),attrs, mTileSize, mapUnitViewXOffset, mapUnitViewYOffset);
         	}
         }
         
@@ -94,37 +93,9 @@ public class GameView2 extends GridView {
 
         mXOffset = ((w - (mTileSize * mXTileCount)) / 2);
         mYOffset = ((h - (mTileSize * mYTileCount)) / 2);
-
-       // mTileGrid = new int[mXTileCount][mYTileCount];
-        //clearTiles();
     }
 
-    /**
-     * Function to set the specified Drawable as the tile for a particular
-     * integer key.
-     * 
-     * @param key
-     * @param tile
-     */
-    public void loadTile(int X, int Y,int image, Drawable tile) {
-        Bitmap bitmap = Bitmap.createBitmap(mTileSize, mTileSize, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        tile.setBounds(0, 0, mTileSize, mTileSize);
-        tile.draw(canvas);
-        
-        ImageView imageView = new ImageView(getContext());
-        imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setPadding(1, 1, 1, 1);
-        imageView.layout(1, 1, 10, 10);
 
-
-        imageView.setImageResource(1);
-        
-        mImageViewArray[X][Y] = imageView;
-
-        mTileArray[X][Y] = bitmap;
-    }
 
     /**
      * Resets all tiles to 0 (empty)
@@ -157,12 +128,8 @@ public class GameView2 extends GridView {
         super.onDraw(canvas);
         for (int x = 0; x < mXTileCount; x += 1) {
             for (int y = 0; y < mYTileCount; y += 1) {
+            	mMapUnitViewArray[x][y].draw(canvas);
             	
-            	canvas.drawBitmap(mTileArray[x][y], 
-                        mXOffset + x * mTileSize,
-                        mYOffset + y * mTileSize,
-                        mPaint);
-
             }
         }
 
