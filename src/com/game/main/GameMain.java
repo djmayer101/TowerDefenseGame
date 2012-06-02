@@ -12,5 +12,6 @@ public class GameMain extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         Button myButton = (Button) findViewById(R.id.startbtn);
+        
     }
 }
