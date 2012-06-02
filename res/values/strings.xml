@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, GameMain!</string>
     <string name="app_name">Tower Defense</string>
+    <string name="startbtnstring">Start a New Game</string>
 </resources>
