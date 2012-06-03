@@ -11,7 +11,7 @@
 	android:gravity="center">
 
     <ImageButton
-        android:src="@drawable/icon"
+        android:src="@drawable/basic_castle_desc"
 		android:id="@+id/basic_tower"
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
@@ -20,7 +20,7 @@
 		android:layout_weight=".20"
 		android:contentDescription="Basic Tower" />
     <ImageButton
-        android:src="@drawable/icon"
+        android:src="@drawable/awesome_castle_desc"
 		android:id="@+id/good_tower"
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
@@ -29,7 +29,7 @@
 		android:layout_weight=".20"
 		android:contentDescription="Awesome Tower" />
 	<ImageButton
-	    android:src="@drawable/icon"
+	    android:src="@drawable/start_image"
 		android:id="@+id/start_round"
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
