@@ -26,24 +26,13 @@ public final class R {
     }
     public static final class id {
         public static final int basic_tower=0x7f060002;
-<<<<<<< HEAD
-        public static final int gametablelayout=0x7f060005;
-=======
-        public static final int gametablelayout=0x7f060007;
->>>>>>> d978595639f148ac32ef085a3e46f85664179be1
+        public static final int gametablelayout=0x7f060006;
         public static final int good_tower=0x7f060003;
         public static final int lbl_game_info=0x7f060005;
         public static final int new_game=0x7f060000;
-<<<<<<< HEAD
-        public static final int placing_tower=0x7f060006;
+        public static final int placing_tower=0x7f060007;
         public static final int start_round=0x7f060004;
         public static final int startbtn=0x7f060001;
-=======
-        public static final int placing_tower=0x7f060008;
-        public static final int start_round=0x7f060004;
-        public static final int startbtn=0x7f060001;
-        public static final int tv=0x7f060006;
->>>>>>> d978595639f148ac32ef085a3e46f85664179be1
     }
     public static final class layout {
         public static final int done_set_tower=0x7f030000;

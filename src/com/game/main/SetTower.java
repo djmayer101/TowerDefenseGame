@@ -63,23 +63,29 @@ public class SetTower extends Activity {
         });*/
         
         TableLayout mGameTableLayout = (TableLayout) findViewById(R.id.gametablelayout);
+        for (int i = 0; i < 16; i++){
+        	TableRow tr = new TableRow(this);
+        	for (int j = 0; j < 9; j++){
+        		 ImageView imageView = new ImageView(mGameTableLayout.getContext());
+        	        //imageView.getLayoutParams().height = 50;
+        	        //imageView.setLayoutParams(new TableLayout.LayoutParams(400, 400));
+        	        imageView.setImageResource(R.drawable.clearyellow);
+        			tr.addView(imageView);
+        			imageView.setOnClickListener(new OnClickListener(){
 
-        TableRow tr = new TableRow(this);
-        ImageView imageView = new ImageView(mGameTableLayout.getContext());
-        //imageView.getLayoutParams().height = 50;
-        //imageView.setLayoutParams(new TableLayout.LayoutParams(400, 400));
-        imageView.setImageResource(R.drawable.clearyellow);
-		tr.addView(imageView);
-		imageView.setOnClickListener(new OnClickListener(){
-
-			public void onClick(View arg0) {
-				int id = arg0.getId();
-				Toast.makeText(SetTower.this,"pressd"+ id, Toast.LENGTH_SHORT).show();
-			}});
+        				public void onClick(View arg0) {
+        					int id = arg0.getId();
+        					Toast.makeText(SetTower.this,"pressd"+ id, Toast.LENGTH_SHORT).show();
+        				}});
+        	}
+        
+        
+        	mGameTableLayout.addView(tr);
+        }
 		
  
       
-       mGameTableLayout.addView(tr);
+       
      
 
  
