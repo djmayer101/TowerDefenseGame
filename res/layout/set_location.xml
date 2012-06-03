@@ -10,26 +10,29 @@
 	android:paddingBottom="20dp"
 	android:gravity="center">
 
-    <Button
+    <ImageButton
+        android:src="@drawable/icon"
 		android:id="@+id/basic_tower"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:paddingLeft="8dp"
 		android:paddingRight="8dp"
-		android:text="Basic Tower" />
-    <Button
+		android:contentDescription="Basic Tower" />
+    <ImageButton
+        android:src="@drawable/icon"
 		android:id="@+id/good_tower"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:paddingLeft="8dp"
 		android:paddingRight="8dp"
-		android:text="Awesome Tower" />
-	<Button
+		android:contentDescription="Awesome Tower" />
+	<ImageButton
+	    android:src="@drawable/icon"
 		android:id="@+id/start_round"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:paddingLeft="8dp"
 		android:paddingRight="8dp"
-		android:text="Start Next Round" />
+		android:contentDescription="Start Next Round" />
 
 </LinearLayout>
