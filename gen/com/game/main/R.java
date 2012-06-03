@@ -42,11 +42,15 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040001;
+        public static final int awesome_tower_string=0x7f040008;
+        public static final int basic_tower_string=0x7f040009;
+        public static final int game_info_string=0x7f04000a;
         public static final int hello=0x7f040000;
         public static final int mode_lose_prefix=0x7f040005;
         public static final int mode_lose_suffix=0x7f040006;
         public static final int mode_pause=0x7f040004;
         public static final int mode_ready=0x7f040003;
+        public static final int start_round_string=0x7f040007;
         public static final int startbtnstring=0x7f040002;
     }
     public static final class style {
