@@ -3,6 +3,7 @@ package com.game.main;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -44,7 +45,8 @@ public class MapUnitImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(R.drawable.gs);
+        //imageView.setImageResource(R.drawable.gs);
+
         return imageView;
     }
 

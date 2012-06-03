@@ -2,6 +2,7 @@ package com.game.main;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +11,9 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableLayout.LayoutParams;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 
@@ -19,34 +23,58 @@ public class SetTower extends Activity {
 	Button myButton;
 
 
-	GridView mGameView;
+	GameView mGameView;
 	int gameViewNumColumns = 10;
 	private int columnWidth;
 	private int gameViewHeight;
-	private int gameViewWidth = 390;
-	private int numSquares = 160;
+	private int gameViewWidth = 400;
+	private int numSquares = 100;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.set_tower);
-        mGameView = (GridView) findViewById(R.id.tv);
+        mGameView = (GameView) findViewById(R.id.tv);
 
         gameViewHeight = mGameView.getHeight();
-        //gameViewWidth = mGameView.getWidth();
         mGameView.setNumColumns(this.gameViewNumColumns);
         columnWidth =(int) (this.gameViewWidth*1.0/this.gameViewNumColumns);
         mGameView.setColumnWidth(columnWidth);
+        mGameView.mTileSize = columnWidth;
         mGameView.setAdapter(new MapUnitImageAdapter(this,this.columnWidth,this.numSquares));
         
         mGameView.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         		ImageView myImageView = (ImageView) v;
         		myImageView.setImageResource(R.drawable.yellowsquare);
-        		Toast.makeText(SetTower.this, "test" + position, Toast.LENGTH_SHORT).show();
+                int[] location = new int[2]; 
+                v.getLocationOnScreen(location);
+                Log.v("testing", "my location is: " + location[0] +" " + location[1]);
+        		Toast.makeText(SetTower.this, "test " + location[0] +" " +  location[1], Toast.LENGTH_SHORT).show();
         	}
         });
-       
+        /**
+        GameTableLayout mGameTableLayout = (GameTableLayout) findViewById(R.id.gametablelayout);
+
+        TableRow tr = new TableRow(this);
+
+        tr.setLayoutParams(new LayoutParams(
+                       LayoutParams.WRAP_CONTENT,
+                       LayoutParams.MATCH_PARENT));
+        Button b = new Button(this);
+        b.setText("Dynamic Button");
+        b.setLayoutParams(new LayoutParams(
+                  LayoutParams.FILL_PARENT,
+                  LayoutParams.WRAP_CONTENT));
+
+        tr.addView(b);
+     
+
+   mGameTableLayout.addView(tr,new TableLayout.LayoutParams(
+             LayoutParams.FILL_PARENT,
+             LayoutParams.WRAP_CONTENT));
+        
+      */
  
 		Button button = (Button)findViewById(R.id.start_round);
 

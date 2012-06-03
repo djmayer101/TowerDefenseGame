@@ -27,9 +27,9 @@ public class GameView extends GridView {
      * dimensions. X/Y Tile Counts are the number of tiles that will be drawn.
      */
 
-    protected static int mTileSize = 40;
+    public static int mTileSize = 50;
 
-    protected static int mXTileCount =30;
+    protected static int mXTileCount =10;
     protected static int mYTileCount =30;
 
     private static int mXOffset = 1;
@@ -86,8 +86,8 @@ public class GameView extends GridView {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        mXTileCount = (int) Math.floor(w / mTileSize);
-        mYTileCount = (int) Math.floor(h / mTileSize);
+        //mXTileCount = (int) Math.floor(w / mTileSize);
+        //mYTileCount = (int) Math.floor(h / mTileSize);
     	
 
         mXOffset = ((w - (mTileSize * mXTileCount)) / 2);
@@ -109,35 +109,9 @@ public class GameView extends GridView {
         Canvas canvas = new Canvas(bitmap);
         tile.setBounds(0, 0, mTileSize, mTileSize);
         tile.draw(canvas);
-        
-
         mTileArray[X][Y] = bitmap;
     }
 
-    /**
-     * Resets all tiles to 0 (empty)
-     * 
-     */
-    public void clearTiles() {
-        for (int x = 0; x < mXTileCount; x++) {
-            for (int y = 0; y < mYTileCount; y++) {
-              //  setTile(0, x, y);
-            }
-        }
-    }
-
-    /**
-     * Used to indicate that a particular tile (set with loadTile and referenced
-     * by an integer) should be drawn at the given x/y coordinates during the
-     * next invalidate/draw cycle.
-     * 
-     * @param tileindex
-     * @param x
-     * @param y
-     */
-    public void setTile(int Xtileindex, int Ytileindex, int x, int y) {
-        //mTileGrid[x][y] = Xtileindex;
-    }
 
 
     @Override
