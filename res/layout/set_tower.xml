@@ -2,24 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:clickable="false">
     
      
 
-    <FrameLayout 
+    <LinearLayout 
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="390dp"
-        android:weightSum="4" >
-         <com.game.main.GameView2
+        android:weightSum="4"
+        android:clickable="false" >
+         <GridView
     	android:id="@+id/tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tileSize="24"
-                />
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:scrollingCache="false"
+            android:horizontalSpacing="0dp"
+            />
 
      
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,6 +39,7 @@
             android:layout_height="fill_parent"
             android:columnWidth="80dp"
             android:gravity="center"
+            android:scrollingCache="false"
             android:horizontalSpacing="5dp"
             android:numColumns="auto_fit"
             android:stretchMode="columnWidth"

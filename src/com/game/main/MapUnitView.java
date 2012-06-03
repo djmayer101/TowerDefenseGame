@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+
 public class MapUnitView extends View {
 	private int mTileSize;
 	private Resources r;
@@ -25,6 +26,10 @@ public class MapUnitView extends View {
 		r = this.getContext().getResources();
 		loadTile(r.getDrawable(R.drawable.redstar));
 		this.image_id = R.drawable.redstar;
+		this.setClickable(true);
+		this.setEnabled(true);
+		
+		
 		
 	}
 
