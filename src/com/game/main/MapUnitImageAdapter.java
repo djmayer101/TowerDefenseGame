@@ -42,6 +42,7 @@ public class MapUnitImageAdapter extends BaseAdapter {
             //imageView.setPadding(0, 0, 0, 0);
         } else {
             imageView = (ImageView) convertView;
+           
         }
 
         imageView.setImageResource(R.drawable.gs);
