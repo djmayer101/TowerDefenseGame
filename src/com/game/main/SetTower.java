@@ -23,14 +23,19 @@ public class SetTower extends Activity {
 	        
 	        setContentView(R.layout.set_tower);
 	        mGameView = (GameView2) findViewById(R.id.tv);
-	        mGameView.setAdapter(new MapUnitAdapter(this,mGameView.mFullMapArray));
+	        //mGameView.setAdapter(new MapUnitAdapter(this,mGameView.mFullMapArray));
 
-	        mGameView.setOnItemClickListener(new OnItemClickListener() {
-	        	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-	        		
-	        		Toast.makeText(SetTower.this, "test" + position, Toast.LENGTH_SHORT).show();
+	       /* for (int i=0;i<10;i++){
+	        	for (int j=0;j<10;j++){
+	        		mGameView.mMapUnitViewArray[i][j].setOnClickListener(new View.OnClickListener() {
+	    	        	public void onClick(View v) {
+	    	        		
+	    	        		Toast.makeText(SetTower.this, "test", Toast.LENGTH_SHORT).show();
+	    	        	}
+	    	        });
 	        	}
-	        });
+	        }*/
+	        
 
 
 		Button button = (Button)findViewById(R.id.start_round);

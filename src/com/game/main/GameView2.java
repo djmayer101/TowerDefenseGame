@@ -23,7 +23,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * drawables.
  * 
  */
-public class GameView2 extends GridView {
+public class GameView2 extends LinearLayout  {
 
     /**
      * Parameters controlling the size of the tiles and their range within view.
@@ -64,7 +64,7 @@ public class GameView2 extends GridView {
 	private Context mContext;
 
     public GameView2(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+        super(context, attrs);
         this.attrs = attrs;
         this.mContext = context;
         this.init();
@@ -88,6 +88,7 @@ public class GameView2 extends GridView {
             	int mapUnitViewYOffset = mYOffset + j*mTileSize;
             	MapUnitView myView = new MapUnitView(getContext(), mTileSize, mapUnitViewXOffset, mapUnitViewYOffset);
             	mMapUnitViewArray[i][j]=myView;
+            	mTileArray[i][j] = myView.bitmap;
             	mFullMapArray[i*mXTileCount + j] = myView;
             	//this.attachViewToParent(myView, i*mXTileCount + j,myView.getLayoutParams());
           
@@ -143,8 +144,11 @@ public class GameView2 extends GridView {
         super.onDraw(canvas);
         for (int x = 0; x < mXTileCount; x += 1) {
             for (int y = 0; y < mYTileCount; y += 1) {
-            	mMapUnitViewArray[x][y].draw(canvas);
-            	
+            	//mMapUnitViewArray[x][y].draw(canvas);
+            	canvas.drawBitmap(mTileArray[x][y], 
+                        mXOffset + x * mTileSize,
+                        mYOffset + y * mTileSize,
+                        mPaint);
             }
         }
 
