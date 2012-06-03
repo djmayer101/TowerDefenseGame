@@ -22,7 +22,7 @@ public class SetTower extends Activity {
 	int gameViewNumColumns = 10;
 	private int columnWidth;
 	private int gameViewHeight;
-	private int gameViewWidth = 300;
+	private int gameViewWidth = 390;
 	private int numSquares = 160;
     @Override
     public void onCreate(Bundle savedInstanceState) {
