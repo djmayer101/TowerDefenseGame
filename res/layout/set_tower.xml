@@ -21,9 +21,8 @@
             android:scrollingCache="false"
             android:horizontalSpacing="0dp"
             />
-
-     
     </LinearLayout>
+
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,9 +31,12 @@
         android:orientation="vertical"
         android:weightSum="1" >
 
-      <include
-      android:id="@+id/placing_tower"
-      layout="@layout/set_location"/>
+
+        <include
+		android:id="@+id/placing_tower"
+		layout="@layout/set_location" />
+        
+
     </LinearLayout>
 
 </LinearLayout>

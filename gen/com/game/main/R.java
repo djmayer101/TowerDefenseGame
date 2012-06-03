@@ -18,16 +18,20 @@ public final class R {
         public static final int yellowstar=0x7f020004;
     }
     public static final class id {
-        public static final int placing_tower=0x7f060003;
-        public static final int startbtn=0x7f060000;
-        public static final int submit_score=0x7f060001;
-        public static final int tv=0x7f060002;
+        public static final int basic_tower=0x7f060002;
+        public static final int good_tower=0x7f060003;
+        public static final int new_game=0x7f060000;
+        public static final int placing_tower=0x7f060006;
+        public static final int start_round=0x7f060004;
+        public static final int startbtn=0x7f060001;
+        public static final int tv=0x7f060005;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
-        public static final int main_menu=0x7f030001;
-        public static final int set_location=0x7f030002;
-        public static final int set_tower=0x7f030003;
+        public static final int done_set_tower=0x7f030000;
+        public static final int main=0x7f030001;
+        public static final int main_menu=0x7f030002;
+        public static final int set_location=0x7f030003;
+        public static final int set_tower=0x7f030004;
     }
     public static final class string {
         public static final int app_name=0x7f040001;

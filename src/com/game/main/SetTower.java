@@ -17,6 +17,7 @@ public class SetTower extends Activity {
 	/** Called when the activity is first created. */
 	Button myButton;
 
+
 	GridView mGameView;
 	int gameViewNumColumns = 10;
 	private int columnWidth;
@@ -44,12 +45,13 @@ public class SetTower extends Activity {
         	}
         });
        
-        
-        Button button = (Button)findViewById(R.id.submit_score);
+ 
+		Button button = (Button)findViewById(R.id.start_round);
+
 		button.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				// Get a reference to the score_name_entry object in score.xml
-				LinearLayout submitScoreLayout = (LinearLayout)findViewById(R.id.score_name_entry);
+				LinearLayout submitScoreLayout = (LinearLayout)findViewById(R.id.placing_tower);
 				submitScoreLayout.removeAllViews();
 
 				// Create new LayoutInflater - this has to be done this way, as you can't directly inflate an XML without creating an inflater object first

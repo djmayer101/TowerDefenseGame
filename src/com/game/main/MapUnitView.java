@@ -12,7 +12,7 @@ import android.view.View;
 public class MapUnitView extends View {
 	private int mTileSize;
 	private Resources r;
-	private Bitmap bitmap;
+	public Bitmap bitmap;
 	private int mXOffset;
 	private int mYOffset;
 	private final Paint mPaint = new Paint();
@@ -48,9 +48,14 @@ public class MapUnitView extends View {
 	
 
 	public int image_id() {
-		// TODO Auto-generated method stub
 		return image_id;
 	}
+	
+	public void setOnClickListener (View.OnClickListener l){
+		super.setOnClickListener(l);
+	}
+	
+	
 
 }
 
