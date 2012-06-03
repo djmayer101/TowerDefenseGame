@@ -20,9 +20,6 @@
 
      
     </FrameLayout>
-    
-    android:id="@+id/placing_tower"
-	layout="@layout/set_location" />
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,7 +29,7 @@
         android:weightSum="1" >
 
         <include
-		android:id="@+id/score_name_entry"
+		android:id="@+id/placing_tower"
 		layout="@layout/set_location" />
         
     </LinearLayout>
