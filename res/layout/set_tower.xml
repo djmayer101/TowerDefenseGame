@@ -21,8 +21,8 @@
      
     </FrameLayout>
     
-    android:id="@+id/score_name_entry"
-	layout="@layout/score_submit" />
+    android:id="@+id/placing_tower"
+	layout="@layout/set_location" />
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

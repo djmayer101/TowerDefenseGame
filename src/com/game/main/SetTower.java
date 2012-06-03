@@ -33,7 +33,7 @@ public class SetTower extends Activity {
 	        });
 
 
-		Button button = (Button)findViewById(R.id.submit_score);
+		Button button = (Button)findViewById(R.id.start_round);
 		button.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				// Get a reference to the score_name_entry object in score.xml
