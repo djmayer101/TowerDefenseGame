@@ -39,6 +39,7 @@ public class SetTower extends Activity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.set_tower);
+        /*
         mGameView = (GameView) findViewById(R.id.tv);
 
 
@@ -58,7 +59,7 @@ public class SetTower extends Activity {
                 Log.v("testing", "my location is: " + location[0] +" " + location[1]);
         		Toast.makeText(SetTower.this, "test " + location[0] +" " +  location[1], Toast.LENGTH_SHORT).show();
         	}
-        });
+        });*/
         
         TableLayout mGameTableLayout = (TableLayout) findViewById(R.id.gametablelayout);
 

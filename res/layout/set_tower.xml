@@ -7,20 +7,11 @@
     
      
 
-
-         <com.game.main.GameView
-    	android:id="@+id/tv"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:gravity="center"
-            android:scrollingCache="false"
-            android:horizontalSpacing="0dp"
-            android:scrollbars="none"
-            />
+            
       <TableLayout
     	android:id="@+id/gametablelayout"
             android:layout_width="fill_parent"
-            android:layout_height="200dp"
+            android:layout_height="400dp"
             android:gravity="center"
 
             
