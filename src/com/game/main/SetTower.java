@@ -2,19 +2,21 @@ package com.game.main;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
 
 public class SetTower extends Activity {
-    /** Called when the activity is first created. */
+	/** Called when the activity is first created. */
 	Button myButton;
+
 	GridView mGameView;
 	int gameViewNumColumns = 10;
 	private int columnWidth;
@@ -27,8 +29,7 @@ public class SetTower extends Activity {
         
         setContentView(R.layout.set_tower);
         mGameView = (GridView) findViewById(R.id.tv);
-        
-        ViewGroup layout = (ViewGroup) findViewById(R.layout.set_tower);
+
         gameViewHeight = mGameView.getHeight();
         //gameViewWidth = mGameView.getWidth();
         mGameView.setNumColumns(this.gameViewNumColumns);
@@ -44,21 +45,21 @@ public class SetTower extends Activity {
         });
        
         
-     
-        GridView menu_gridview = (GridView) findViewById(R.id.grid_menu);
-        menu_gridview.setAdapter(new ImageAdapter(this));
-        menu_gridview.setStretchMode(0);
+        Button button = (Button)findViewById(R.id.submit_score);
+		button.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				// Get a reference to the score_name_entry object in score.xml
+				LinearLayout submitScoreLayout = (LinearLayout)findViewById(R.id.score_name_entry);
+				submitScoreLayout.removeAllViews();
 
-        
-
-        
-        menu_gridview.setOnItemClickListener(new OnItemClickListener() {
-        	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        		Toast.makeText(SetTower.this, "test" + position, Toast.LENGTH_SHORT).show();
-        	}
-        });
+				// Create new LayoutInflater - this has to be done this way, as you can't directly inflate an XML without creating an inflater object first
+				LayoutInflater inflater = getLayoutInflater();
+				submitScoreLayout.addView(inflater.inflate(R.layout.done_set_tower, null));
+			}
+		});
         
 
     }
      
+
 }
