@@ -1,10 +1,12 @@
 package com.game.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -30,12 +32,16 @@ public class SetTower extends Activity {
 	private int gameViewHeight;
 	private int gameViewWidth = 400;
 	private int numSquares = 100;
+
+
+	private ImageView redStarView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.set_tower);
         mGameView = (GameView) findViewById(R.id.tv);
+
 
         gameViewHeight = mGameView.getHeight();
         mGameView.setNumColumns(this.gameViewNumColumns);
@@ -54,28 +60,30 @@ public class SetTower extends Activity {
         		Toast.makeText(SetTower.this, "test " + location[0] +" " +  location[1], Toast.LENGTH_SHORT).show();
         	}
         });
-        /**
-        GameTableLayout mGameTableLayout = (GameTableLayout) findViewById(R.id.gametablelayout);
+        
+        TableLayout mGameTableLayout = (TableLayout) findViewById(R.id.gametablelayout);
 
         TableRow tr = new TableRow(this);
+        ImageView imageView = new ImageView(mGameTableLayout.getContext());
+        //imageView.getLayoutParams().height = 50;
+        //imageView.setLayoutParams(new TableLayout.LayoutParams(400, 400));
+        imageView.setImageResource(R.drawable.clearyellow);
+		tr.addView(imageView);
+		imageView.setOnClickListener(new OnClickListener(){
 
-        tr.setLayoutParams(new LayoutParams(
-                       LayoutParams.WRAP_CONTENT,
-                       LayoutParams.MATCH_PARENT));
-        Button b = new Button(this);
-        b.setText("Dynamic Button");
-        b.setLayoutParams(new LayoutParams(
-                  LayoutParams.FILL_PARENT,
-                  LayoutParams.WRAP_CONTENT));
-
-        tr.addView(b);
+			public void onClick(View arg0) {
+				int id = arg0.getId();
+				Toast.makeText(SetTower.this,"pressd"+ id, Toast.LENGTH_SHORT).show();
+			}});
+		
+ 
+      
+       mGameTableLayout.addView(tr);
      
 
-   mGameTableLayout.addView(tr,new TableLayout.LayoutParams(
-             LayoutParams.FILL_PARENT,
-             LayoutParams.WRAP_CONTENT));
+ 
         
-      */
+      
  
 		ImageButton button = (ImageButton)findViewById(R.id.start_round);
 
@@ -96,6 +104,10 @@ public class SetTower extends Activity {
         
 
     }
+	private Context getContext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
      
 
 }

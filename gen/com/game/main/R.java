@@ -15,20 +15,22 @@ public final class R {
         public static final int awesome_castle_desc=0x7f020001;
         public static final int basic_castle=0x7f020002;
         public static final int basic_castle_desc=0x7f020003;
-        public static final int greenstar=0x7f020004;
-        public static final int gs=0x7f020005;
-        public static final int icon=0x7f020006;
-        public static final int redstar=0x7f020007;
-        public static final int start_image=0x7f020008;
-        public static final int yellowsquare=0x7f020009;
-        public static final int yellowstar=0x7f02000a;
+        public static final int clearyellow=0x7f020004;
+        public static final int greenstar=0x7f020005;
+        public static final int gs=0x7f020006;
+        public static final int icon=0x7f020007;
+        public static final int redstar=0x7f020008;
+        public static final int start_image=0x7f020009;
+        public static final int yellowsquare=0x7f02000a;
+        public static final int yellowstar=0x7f02000b;
     }
     public static final class id {
         public static final int basic_tower=0x7f060002;
+        public static final int gametablelayout=0x7f060007;
         public static final int good_tower=0x7f060003;
         public static final int lbl_game_info=0x7f060005;
         public static final int new_game=0x7f060000;
-        public static final int placing_tower=0x7f060007;
+        public static final int placing_tower=0x7f060008;
         public static final int start_round=0x7f060004;
         public static final int startbtn=0x7f060001;
         public static final int tv=0x7f060006;
