@@ -38,15 +38,15 @@
 		android:layout_weight=".20"
 		android:contentDescription="Start Next Round" />
 	<TextView
-	    android:gravity="top"
+	    android:gravity="right"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:textSize="15sp"
 		android:textColor="#FFFFFF"
 		android:layout_weight=".20"
-		android:text="Gold:\nFood:\nCost:" />
+		android:text="Gold:  \nFood:  \nCost:  " />
 	<TextView
-	    android:gravity="top"
+	    android:gravity="left"
 		android:id="@+id/lbl_game_info"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
