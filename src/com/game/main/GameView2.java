@@ -7,7 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 
 
@@ -40,7 +46,8 @@ public class GameView2 extends GridView {
      * drawable that will be used for that reference
      */
     private Bitmap[][] mTileArray;  
-    private MapUnitView[][] mMapUnitViewArray;
+    public MapUnitView[][] mMapUnitViewArray;
+    public MapUnitView[] mFullMapArray;
 
     /**
      * A two-dimensional array of integers in which the number represents the
@@ -54,14 +61,18 @@ public class GameView2 extends GridView {
 
 	private AttributeSet attrs;
 
+	private Context mContext;
+
     public GameView2(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.attrs = attrs;
+        this.mContext = context;
         this.init();
     }
 
     public GameView2(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
         this.attrs = attrs;
         this.init();
 
@@ -70,12 +81,16 @@ public class GameView2 extends GridView {
         r = this.getContext().getResources();
         mTileArray = new Bitmap[mXTileCount][mYTileCount];
         mMapUnitViewArray = new MapUnitView[mXTileCount][mYTileCount];
-        
+        mFullMapArray = new MapUnitView[mXTileCount*mYTileCount];
         for(int i=0; i < mXTileCount; i++){
 			for( int j=0;j< mYTileCount;j++){
             	int mapUnitViewXOffset = mXOffset + i*mTileSize;
             	int mapUnitViewYOffset = mYOffset + j*mTileSize;
-            	mMapUnitViewArray[i][j]=new MapUnitView(getContext(),attrs, mTileSize, mapUnitViewXOffset, mapUnitViewYOffset);
+            	MapUnitView myView = new MapUnitView(getContext(), mTileSize, mapUnitViewXOffset, mapUnitViewYOffset);
+            	mMapUnitViewArray[i][j]=myView;
+            	mFullMapArray[i*mXTileCount + j] = myView;
+            	//this.attachViewToParent(myView, i*mXTileCount + j,myView.getLayoutParams());
+          
         	}
         }
         
@@ -87,12 +102,12 @@ public class GameView2 extends GridView {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        mXTileCount = (int) Math.floor(w / mTileSize);
-        mYTileCount = (int) Math.floor(h / mTileSize);
+        //mXTileCount = (int) Math.floor(w / mTileSize);
+        //mYTileCount = (int) Math.floor(h / mTileSize);
     	
 
-        mXOffset = ((w - (mTileSize * mXTileCount)) / 2);
-        mYOffset = ((h - (mTileSize * mYTileCount)) / 2);
+        //mXOffset = ((w - (mTileSize * mXTileCount)) / 2);
+        //mYOffset = ((h - (mTileSize * mYTileCount)) / 2);
     }
 
 
