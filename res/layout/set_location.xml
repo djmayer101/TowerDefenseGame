@@ -10,26 +10,48 @@
 	android:paddingBottom="20dp"
 	android:gravity="center">
 
-    <Button
+    <ImageButton
+        android:src="@drawable/basic_castle_desc"
 		android:id="@+id/basic_tower"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="fill_parent"
 		android:paddingLeft="8dp"
 		android:paddingRight="8dp"
-		android:text="Basic Tower" />
-    <Button
+		android:layout_weight=".20"
+		android:contentDescription="@string/basic_tower_string" />
+    <ImageButton
+        android:src="@drawable/awesome_castle_desc"
 		android:id="@+id/good_tower"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="fill_parent"
 		android:paddingLeft="8dp"
 		android:paddingRight="8dp"
-		android:text="Awesome Tower" />
-	<Button
+		android:layout_weight=".20"
+		android:contentDescription="@string/awesome_tower_string" />
+	<ImageButton
+	    android:src="@drawable/start_image"
 		android:id="@+id/start_round"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="fill_parent"
 		android:paddingLeft="8dp"
 		android:paddingRight="8dp"
-		android:text="Start Next Round" />
+		android:layout_weight=".20"
+		android:contentDescription="@string/start_round_string" />
+	<TextView
+	    android:gravity="right"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:textColor="#FFFFFF"
+		android:layout_weight=".20"
+		android:text="@string/game_info_string" />
+	<TextView
+	    android:gravity="left"
+		android:id="@+id/lbl_game_info"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:textColor="#FFFFFF"
+		android:layout_weight=".20" />
 
 </LinearLayout>

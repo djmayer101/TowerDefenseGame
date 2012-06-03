@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -85,7 +86,7 @@ public class SetTower extends Activity {
         
       
  
-		Button button = (Button)findViewById(R.id.start_round);
+		ImageButton button = (ImageButton)findViewById(R.id.start_round);
 
 		button.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
@@ -96,6 +97,9 @@ public class SetTower extends Activity {
 				// Create new LayoutInflater - this has to be done this way, as you can't directly inflate an XML without creating an inflater object first
 				LayoutInflater inflater = getLayoutInflater();
 				submitScoreLayout.addView(inflater.inflate(R.layout.done_set_tower, null));
+				
+				//TODO Disable Gridview so user cannot click on grid
+				//start round logic
 			}
 		});
         
