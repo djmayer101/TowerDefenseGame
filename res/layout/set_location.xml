@@ -14,25 +14,44 @@
         android:src="@drawable/icon"
 		android:id="@+id/basic_tower"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="fill_parent"
 		android:paddingLeft="8dp"
 		android:paddingRight="8dp"
+		android:layout_weight=".20"
 		android:contentDescription="Basic Tower" />
     <ImageButton
         android:src="@drawable/icon"
 		android:id="@+id/good_tower"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="fill_parent"
 		android:paddingLeft="8dp"
 		android:paddingRight="8dp"
+		android:layout_weight=".20"
 		android:contentDescription="Awesome Tower" />
 	<ImageButton
 	    android:src="@drawable/icon"
 		android:id="@+id/start_round"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="fill_parent"
 		android:paddingLeft="8dp"
 		android:paddingRight="8dp"
+		android:layout_weight=".20"
 		android:contentDescription="Start Next Round" />
+	<TextView
+	    android:gravity="top"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:textColor="#FFFFFF"
+		android:layout_weight=".20"
+		android:text="Gold:\nFood:\nCost:" />
+	<TextView
+	    android:gravity="top"
+		android:id="@+id/lbl_game_info"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:textColor="#FFFFFF"
+		android:layout_weight=".20" />
 
 </LinearLayout>
