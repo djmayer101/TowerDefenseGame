@@ -15,7 +15,8 @@ public final class R {
         public static final int gs=0x7f020001;
         public static final int icon=0x7f020002;
         public static final int redstar=0x7f020003;
-        public static final int yellowstar=0x7f020004;
+        public static final int yellowsquare=0x7f020004;
+        public static final int yellowstar=0x7f020005;
     }
     public static final class id {
         public static final int basic_tower=0x7f060002;

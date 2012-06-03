@@ -20,6 +20,7 @@
             android:gravity="center"
             android:scrollingCache="false"
             android:horizontalSpacing="0dp"
+            android:scrollbars="none"
             />
     </LinearLayout>
 

@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -40,7 +41,8 @@ public class SetTower extends Activity {
         
         mGameView.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        		
+        		ImageView myImageView = (ImageView) v;
+        		myImageView.setImageResource(R.drawable.yellowsquare);
         		Toast.makeText(SetTower.this, "test" + position, Toast.LENGTH_SHORT).show();
         	}
         });
