@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 
@@ -18,28 +19,29 @@ public class WorldView extends View{
 	public static final int numRows = 13;
 	public static final int cellWidth = 50;
 	public static final int cellHeight = 50;
-	
+
 	private Bitmap[][] bitmaps = new Bitmap[numRows][numColumns];
 	private Bitmap[] mDrawableArray = new Bitmap[2];
 	World world;
-	
 
-    
+
+
 	public WorldView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		this.world = new World(225,400);
 		Resources r = this.getContext().getResources();
 		Drawable drawable = r.getDrawable(R.drawable.greensquare);
-        Bitmap bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, cellWidth, cellHeight);
-        mDrawableArray[0] = bitmap;
-        
+		Bitmap bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(bitmap);
+		drawable.setBounds(0, 0, cellWidth, cellHeight);
+		mDrawableArray[0] = bitmap;
+
 		drawable = r.getDrawable(R.drawable.towersquare);
-        bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
-        canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, cellWidth, cellHeight);
-        mDrawableArray[1] = bitmap;
-        
+		bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
+		canvas = new Canvas(bitmap);
+		drawable.setBounds(0, 0, cellWidth, cellHeight);
+		mDrawableArray[1] = bitmap;
+
 
 
 		/*for (int i = 0; i < numRows; i++){
@@ -52,34 +54,19 @@ public class WorldView extends View{
 				bitmaps[i][j] = bitmap;
 			}
 		}*/
-        
-        for (int i = 0; i < numRows; i++){
+
+		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
-				if (world != null){
-					bitmap = mDrawableArray[world.worldTileGrid[i][j]];
-				}
-				else {
-					bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
-				}
+				bitmap = mDrawableArray[world.worldTileGrid[i][j]];
 				canvas = new Canvas(bitmap);
 				Drawable tile =r.getDrawable(R.drawable.greensquare_blue_border);
 				tile.setBounds(0, 0, cellWidth, cellHeight);
 				tile.draw(canvas);
-			//	bitmaps[i][j] = bitmap;
+				//	bitmaps[i][j] = bitmap;
 			}
 		}
 
-
-		    
-
-
 	}
-	public void setWorld(World w){
-		this.world = w;
-	}
-	
-
-
 
 	@Override
 	public void onDraw(Canvas canvas) {
@@ -91,7 +78,7 @@ public class WorldView extends View{
 				//canvas.drawBitmap(bitmaps[i][j], j*cellWidth,i*cellHeight,new Paint());
 			}
 		}
-		
+
 	}
 
 }
