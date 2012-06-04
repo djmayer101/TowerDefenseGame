@@ -27,7 +27,7 @@ public class SetTower extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.set_tower);
-		World world = new World(225,400,9,13);
+		World world = new World(225,400);
 		WorldView worldView = (WorldView)findViewById(R.id.worldview);
 		worldView.setWorld(world);
 		
