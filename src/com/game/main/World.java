@@ -9,10 +9,10 @@ import android.graphics.drawable.Drawable;
 
 public class World {
 
-	public int width;
-	public int height;
-	public int numColumns;
-	public int numRows;
+	public static int width;
+	public static int height;
+	public static int numColumns;
+	public static int numRows;
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
 	
 	private static final int GreenSquare = 0;

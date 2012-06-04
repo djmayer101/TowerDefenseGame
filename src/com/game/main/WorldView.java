@@ -11,11 +11,14 @@ import android.util.AttributeSet;
 import android.view.View;
 
 
-public class WorldView extends View{//TableLayout{
+public class WorldView extends View{
 
+
+	public static final int numColumns = 9;
+	public static final int numRows = 13;
+	public static final int cellWidth = 50;
+	public static final int cellHeight = 50;
 	
-	int numColumns = 9;
-	int numRows = 13;
 	private Bitmap[][] bitmaps = new Bitmap[numRows][numColumns];
 	private Bitmap[] mDrawableArray = new Bitmap[2];
 	World world;
