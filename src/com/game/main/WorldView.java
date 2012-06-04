@@ -27,7 +27,6 @@ public class WorldView extends View{
     
 	public WorldView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		
 		Resources r = this.getContext().getResources();
 		Drawable drawable = r.getDrawable(R.drawable.greensquare);
         Bitmap bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
@@ -43,14 +42,30 @@ public class WorldView extends View{
         
 
 
-		for (int i = 0; i < numRows; i++){
+		/*for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
 				bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
 				canvas = new Canvas(bitmap);
-				Drawable tile =r.getDrawable(R.drawable.greensquare);
+				Drawable tile =r.getDrawable(R.drawable.greensquare_blue_border);
 				tile.setBounds(0, 0, cellWidth, cellHeight);
 				tile.draw(canvas);
 				bitmaps[i][j] = bitmap;
+			}
+		}*/
+        
+        for (int i = 0; i < numRows; i++){
+			for (int j = 0; j < numColumns; j++){
+				if (world != null){
+					bitmap = mDrawableArray[world.worldTileGrid[i][j]];
+				}
+				else {
+					bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
+				}
+				canvas = new Canvas(bitmap);
+				Drawable tile =r.getDrawable(R.drawable.greensquare_blue_border);
+				tile.setBounds(0, 0, cellWidth, cellHeight);
+				tile.draw(canvas);
+			//	bitmaps[i][j] = bitmap;
 			}
 		}
 
@@ -71,7 +86,9 @@ public class WorldView extends View{
 		super.onDraw(canvas);
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
-				canvas.drawBitmap(bitmaps[i][j], j*cellWidth,i*cellHeight,new Paint());
+				int bitmapKey = world.worldTileGrid[i][j];
+				canvas.drawBitmap(mDrawableArray[bitmapKey], j*cellWidth,i*cellHeight,new Paint());
+				//canvas.drawBitmap(bitmaps[i][j], j*cellWidth,i*cellHeight,new Paint());
 			}
 		}
 		

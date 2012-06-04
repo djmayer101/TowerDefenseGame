@@ -26,6 +26,7 @@ public class GameMain extends Activity {
     
     public void startGame(View view){
     	myButton.setText("button pushed");
+    	
     	Intent i = new Intent(GameMain.this, SetTower.class);
     	startActivity(i);
     }

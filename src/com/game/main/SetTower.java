@@ -15,7 +15,7 @@ public class SetTower extends Activity {
 	/** Called when the activity is first created. */
 	Button myButton;
 
-
+	public static WorldView worldView;
 	GameView mGameView;
 	int numColumns = 9;
 	int numRows = 13;
@@ -26,9 +26,10 @@ public class SetTower extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.set_tower);
+		
 		World world = new World(225,400);
-		WorldView worldView = (WorldView)findViewById(R.id.worldview);
+		setContentView(R.layout.set_tower);
+		worldView = (WorldView)findViewById(R.id.worldview);
 		worldView.setWorld(world);
 		
 		ImageButton button = (ImageButton)findViewById(R.id.start_round);
