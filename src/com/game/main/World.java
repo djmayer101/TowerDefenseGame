@@ -20,11 +20,11 @@ public class World {
 	
 	public int[][] world;
 	
-	public World(int width, int height, int numColumns, int numRows){
+	public World(int width, int height){
 		this.width = width;
 		this.height = height;
-		this.numColumns = numColumns;
-		this.numRows = numRows;
+		this.numColumns = WorldView.numColumns;
+		this.numRows = WorldView.numRows;
 		world = new int[numRows][numColumns];
 		
 		initializeWorld();
