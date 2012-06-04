@@ -15,11 +15,7 @@ public class SetTower extends Activity {
 	/** Called when the activity is first created. */
 	Button myButton;
 
-
 	GameView mGameView;
-	int numColumns = 9;
-	int numRows = 13;
-	
 
 
 	@Override
@@ -27,7 +23,7 @@ public class SetTower extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.set_tower);
-		World world = new World(225,400,9,13);
+		World world = new World();
 		WorldView worldView = (WorldView)findViewById(R.id.worldview);
 		worldView.setWorld(world);
 		
