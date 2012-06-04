@@ -16,20 +16,19 @@ public class SetTower extends Activity {
 	Button myButton;
 
 	public static WorldView worldView;
+
 	GameView mGameView;
-	int numColumns = 9;
-	int numRows = 13;
-	
 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		
 		World world = new World(225,400);
 		setContentView(R.layout.set_tower);
 		worldView = (WorldView)findViewById(R.id.worldview);
+
 		worldView.setWorld(world);
 		
 		ImageButton button = (ImageButton)findViewById(R.id.start_round);
