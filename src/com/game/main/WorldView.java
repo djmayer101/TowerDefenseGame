@@ -30,25 +30,25 @@ public class WorldView extends View{
 		
 		Resources r = this.getContext().getResources();
 		Drawable drawable = r.getDrawable(R.drawable.greensquare);
-        Bitmap bitmap = Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, 50, 50);
+        drawable.setBounds(0, 0, cellWidth, cellHeight);
         mDrawableArray[0] = bitmap;
         
 		drawable = r.getDrawable(R.drawable.towersquare);
-        bitmap = Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888);
+        bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, 50, 50);
+        drawable.setBounds(0, 0, cellWidth, cellHeight);
         mDrawableArray[1] = bitmap;
         
 
 
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
-				bitmap = Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888);
+				bitmap = Bitmap.createBitmap(cellWidth, cellHeight, Bitmap.Config.ARGB_8888);
 				canvas = new Canvas(bitmap);
 				Drawable tile =r.getDrawable(R.drawable.greensquare);
-				tile.setBounds(0, 0, 50, 50);
+				tile.setBounds(0, 0, cellWidth, cellHeight);
 				tile.draw(canvas);
 				bitmaps[i][j] = bitmap;
 			}
@@ -71,7 +71,7 @@ public class WorldView extends View{
 		super.onDraw(canvas);
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
-				canvas.drawBitmap(bitmaps[i][j], j*50,i*50,new Paint());
+				canvas.drawBitmap(bitmaps[i][j], j*cellWidth,i*cellHeight,new Paint());
 			}
 		}
 		
