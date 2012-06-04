@@ -9,10 +9,12 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 
 
@@ -66,36 +68,10 @@ public class GameTableLayout extends TableLayout {
     }
     public void init(){
         r = this.getContext().getResources();
-        mTileArray = new Bitmap[mXTileCount][mYTileCount];
-        
-        TableRow tr = new TableRow(this.getContext());
-        imageView = new ImageView(this.getContext());
-        //imageView.getLayoutParams().height = 50;
-        //imageView.setLayoutParams(new GameTableLayout.LayoutParams(300, 300));
-        imageView.setImageResource(R.drawable.gs);
-		tr.addView(imageView);
-		this.addView(tr,new TableLayout.LayoutParams(
-                    LayoutParams.WRAP_CONTENT,
-                    LayoutParams.WRAP_CONTENT));
+      
                     
-                    /*
-        for(int i=0; i < mXTileCount; i++){
-        	TableRow tr = new TableRow(this.getContext());
-			for( int j=0;j< mYTileCount;j++){
-            	//Bitmap bitmap = Bitmap.createBitmap(mTileSize, mTileSize, Bitmap.Config.ARGB_8888);
-            	//bitmap.setPixel(0, 0, Color.GREEN);
-				 ImageView imageView = new ImageView(this.getContext());
-		         imageView.setLayoutParams(new GridView.LayoutParams(30, 30));
-		         imageView.setImageResource(R.drawable.gs);
-				tr.addView(imageView);
-            	loadTile(i, j, RED_STAR, r.getDrawable(R.drawable.redstar));
-            	
-            	//mTileArray[i][j]=bitmap;
-              
-        	}
-        }*/
-        
-        
+
+           
     }
 
 

@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:clickable="false">
-    
-     
-
-            
-      <TableLayout
-    	android:id="@+id/gametablelayout"
-            android:layout_width="fill_parent"
-            android:layout_height="400dp"
-            android:gravity="center"
-
-            
-            >  
-      
-     
-      
-            </TableLayout>
+	android:id="@+id/gamelayout" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:orientation="vertical"
+	android:clickable="false">
 
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:weightSum="1" >
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/gamelayout" android:layout_width="fill_parent"
+		android:layout_height="400dp" android:orientation="vertical"
+		android:clickable="false">
 
 
-        <include
-		android:id="@+id/placing_tower"
-		layout="@layout/set_location" />
-        
+		<com.game.main.WorldView android:id="@+id/worldview"
+			android:layout_width="fill_parent" android:layout_height="400dp"
+			android:gravity="center">
 
-    </LinearLayout>
+		</com.game.main.WorldView>
+		<com.game.main.TouchableGrid android:id="@+id/worldgrid"
+			android:layout_width="fill_parent" android:layout_height="400dp"
+			android:gravity="center">
+		</com.game.main.TouchableGrid>
+	</RelativeLayout>
+
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:orientation="vertical" android:weightSum="1">
+
+
+		<include android:id="@+id/placing_tower" layout="@layout/set_location" />
+
+
+	</LinearLayout>
 
 </LinearLayout>
+
 
