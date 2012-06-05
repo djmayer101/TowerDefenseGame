@@ -37,7 +37,7 @@ public class World {
 	private void initializeWorld() {
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
-				Log.e("i j =", "i=" + i + "  j=" + j) ;
+				//Log.e("i j =", "i=" + i + "  j=" + j) ;
 				worldTerrainTileGrid[i][j] = GreenSquare;
 			}
 		}
