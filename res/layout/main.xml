@@ -3,6 +3,13 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="15px"
+    android:background="#FF000000"
+     >
 	
 
 <com.game.main.TowerDefenseGame xmlns:android="http://schemas.android.com/apk/res/android"
