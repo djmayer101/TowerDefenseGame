@@ -16,6 +16,8 @@ public abstract class ArcadeGame extends LinearLayout {
 	private Timer mUpdateTimer;
 	
 	private long mPeriod = 1000;
+	protected boolean ingame = false;
+	final int screendelay = 300;
 	
 	
 	
@@ -48,6 +50,7 @@ public abstract class ArcadeGame extends LinearLayout {
 	
 
 	protected void startUpdateTimer() {
+		this.ingame = true;
 		mUpdateTimer = new Timer();
 		mUpdateTimer.schedule(new UpdateTask(), 0, mPeriod);
 	

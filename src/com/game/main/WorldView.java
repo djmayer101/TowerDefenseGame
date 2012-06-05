@@ -94,7 +94,7 @@ public class WorldView extends View{
 	
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
-				int bitmapKey = world.worldTileGrid[i][j];
+				int bitmapKey = world.worldTerrainTileGrid[i][j];
 				Log.e("tile", "tile" + bitmapKey);
 				//canvas.drawBitmap(null, j*cellWidth,i*cellHeight,new Paint());
 				canvas.drawBitmap(mDrawableArray[bitmapKey], j*cellWidth,i*cellHeight,new Paint());
@@ -109,7 +109,7 @@ public class WorldView extends View{
 		Resources r = this.getContext().getResources();
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
-				Bitmap bitmap = mDrawableArray[world.worldTileGrid[i][j]];
+				Bitmap bitmap = mDrawableArray[world.worldTerrainTileGrid[i][j]];
 				Canvas canvas = new Canvas(bitmap);
 				Drawable tile =r.getDrawable(R.drawable.greensquare_blue_border);
 				tile.setBounds(0, 0, cellWidth, cellHeight);

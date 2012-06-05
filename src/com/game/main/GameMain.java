@@ -29,7 +29,7 @@ public class GameMain extends Activity {
 
 			private void startBookGame(View v) {
 				// TODO Auto-generated method stub
-				Intent i = new Intent(GameMain.this, TowerDefenseGame.class);
+				Intent i = new Intent(GameMain.this, TowerDefenseActivity.class);
 		    	startActivity(i);
 			}
         });
