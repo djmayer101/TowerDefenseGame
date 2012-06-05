@@ -21,6 +21,18 @@ public class GameMain extends Activity {
             	startGame(v);
             }
         });
+        myButton = (Button) findViewById(R.id.startbasedoffbook);
+        myButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	startBookGame(v);
+            }
+
+			private void startBookGame(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(GameMain.this, TowerDefenseActivity.class);
+		    	startActivity(i);
+			}
+        });
         
     }
     

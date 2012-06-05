@@ -25,11 +25,13 @@ public class SetTower extends Activity {
 		super.onCreate(savedInstanceState);
 
 		
-		World world = new World(225,400);
+		//World world = new World(225,400);
 		setContentView(R.layout.set_tower);
 		worldView = (WorldView)findViewById(R.id.worldview);
 
-		worldView.setWorld(world);
+
+		//worldView.setWorld(world);
+
 		ImageButton button = (ImageButton)findViewById(R.id.start_round);
 
 		button.setOnClickListener(new Button.OnClickListener() {
