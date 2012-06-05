@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@drawable/graybackground" >
 
 
 <com.game.main.TowerDefenseGame xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/ll_absolute"
     android:orientation="vertical"
     android:layout_width="450px"
-    android:layout_height="600px"
+    android:layout_height="550px"
 
-    android:background="#FF000000">
+     android:background="@drawable/greensquare">
    
         
     
