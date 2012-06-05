@@ -21,7 +21,7 @@ public class World {
 	private static final int GreenSquare = 0;
 	private static final int TowerSquare = 1;
 	
-	public int[][] worldTileGrid;
+	public int[][] worldTerrainTileGrid;
 	public static Hashtable<Integer, Point> worldTileID = new Hashtable<Integer, Point>();
 	
 	public World(int width, int height){
@@ -29,7 +29,7 @@ public class World {
 		this.height = height;
 		this.numColumns = WorldView.numColumns;
 		this.numRows = WorldView.numRows;
-		worldTileGrid = new int[numRows][numColumns];
+		worldTerrainTileGrid = new int[numRows][numColumns];
 		initializeWorld();
 		
 	}
@@ -38,7 +38,7 @@ public class World {
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
 				Log.e("i j =", "i=" + i + "  j=" + j) ;
-				worldTileGrid[i][j] = GreenSquare;
+				worldTerrainTileGrid[i][j] = GreenSquare;
 			}
 		}
 		
@@ -48,9 +48,12 @@ public class World {
 		Point indeces = worldTileID.get(id);
 		int i = indeces.x;
 		int j = indeces.y;
-		worldTileGrid[i][j] = TowerSquare;
+		worldTerrainTileGrid[i][j] = TowerSquare;
 		
 		
+	}
+	public int getTerrainTileAt(int x, int y){
+		return worldTerrainTileGrid[x][y];
 	}
 	
 	
