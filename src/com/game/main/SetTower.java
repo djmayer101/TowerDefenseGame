@@ -28,10 +28,8 @@ public class SetTower extends Activity {
 		//World world = new World(225,400);
 		setContentView(R.layout.set_tower);
 		worldView = (WorldView)findViewById(R.id.worldview);
-		//TouchableGrid myGrid = (TouchableGrid)findViewById(R.id.worldgrid);
-		
-		//worldView.setWorld(world);
-		
+
+
 		ImageButton button = (ImageButton)findViewById(R.id.start_round);
 
 		button.setOnClickListener(new Button.OnClickListener() {
