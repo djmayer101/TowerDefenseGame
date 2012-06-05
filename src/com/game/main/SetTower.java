@@ -30,8 +30,6 @@ public class SetTower extends Activity {
 		worldView = (WorldView)findViewById(R.id.worldview);
 
 
-		//worldView.setWorld(world);
-
 		ImageButton button = (ImageButton)findViewById(R.id.start_round);
 
 		button.setOnClickListener(new Button.OnClickListener() {

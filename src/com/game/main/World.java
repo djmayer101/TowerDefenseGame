@@ -48,7 +48,10 @@ public class World {
 		Point indeces = worldTileID.get(id);
 		int i = indeces.x;
 		int j = indeces.y;
+
 		worldTerrainTileGrid[i][j] = TowerSquare;
+
+		
 		
 		
 	}
