@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -20,6 +21,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	private Paint mBitmapPaint = new Paint();
 	private Bitmap towerImage;
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
+	private World myWorld;
 	
 	
 	public TowerDefenseGame(Context context) {
@@ -35,8 +37,9 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 
 	public void initialize() {
-		//int width = this.getWidth();
-		//int height = this.getHeight();
+		int width = this.getWidth();
+		int height = this.getHeight();
+		myWorld = new World(width, height);
 		
 		towerImage = getImage(R.drawable.awesome_castle);
 	}
@@ -62,8 +65,12 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 
 	public void drawPlayField(Canvas canvas) {
-		for (Tower tower : towers){
-			canvas.drawBitmap(towerImage, tower.x, tower.y, mBitmapPaint);
+		for (int i=0; i<myWorld.numRows; i++){
+			for (int j=0; j<myWorld.numColumns; j++){
+				if(myWorld.worldTowerGrid[i][j]!=null){
+					canvas.drawBitmap(towerImage, myWorld.worldTowerGrid[i][j].x, myWorld.worldTowerGrid[i][j].y, mBitmapPaint);
+				}
+			}
 		}
 	}
 
@@ -72,7 +79,14 @@ public class TowerDefenseGame extends ArcadeGame{
 	public boolean onTouchEvent(MotionEvent event){
 		int tx = (int) event.getX();
 		int ty = (int) event.getY();
-		towers.add(new Tower(tx,ty));
+		
+		Point nearestTowerLocation = myWorld.computeNearestTowerLocation(new Point(tx, ty));
+		
+		if (!myWorld.isTowerAt(new Point(nearestTowerLocation.x, nearestTowerLocation.y))){
+			myWorld.setTower(new Tower(nearestTowerLocation.x, nearestTowerLocation.y));
+		}
+		
+
 		if ( !ingame ) {
 			ingame = true;
 			GameStart();

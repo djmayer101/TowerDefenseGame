@@ -15,7 +15,7 @@ public class SetTower extends Activity {
 	/** Called when the activity is first created. */
 	Button myButton;
 
-	public static WorldView worldView;
+	//public static WorldView worldView;
 
 	GameView mGameView;
 
@@ -27,7 +27,7 @@ public class SetTower extends Activity {
 		
 		//World world = new World(225,400);
 		setContentView(R.layout.set_tower);
-		worldView = (WorldView)findViewById(R.id.worldview);
+		//worldView = (WorldView)findViewById(R.id.worldview);
 
 
 		ImageButton button = (ImageButton)findViewById(R.id.start_round);

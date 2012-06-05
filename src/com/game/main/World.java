@@ -16,48 +16,56 @@ public class World {
 	public static int height;
 	public static int numColumns;
 	public static int numRows;
-	private ArrayList<Tower> towers = new ArrayList<Tower>();
+	public int squareSize;
 	
-	private static final int GreenSquare = 0;
-	private static final int TowerSquare = 1;
-	
-	public int[][] worldTerrainTileGrid;
-	public static Hashtable<Integer, Point> worldTileID = new Hashtable<Integer, Point>();
+	public Tower[][] worldTowerGrid;
+	//public static Hashtable<Integer, Point> worldTileID = new Hashtable<Integer, Point>();
 	
 	public World(int width, int height){
 		this.width = width;
 		this.height = height;
-		this.numColumns = WorldView.numColumns;
-		this.numRows = WorldView.numRows;
-		worldTerrainTileGrid = new int[numRows][numColumns];
+		this.numColumns = 10;
+		this.numRows = 15;
+		this.squareSize = Math.max((width / numColumns), (height / numRows));
+		worldTowerGrid = new Tower[numRows][numColumns];
 		initializeWorld();
 		
 	}
 
 	private void initializeWorld() {
-		for (int i = 0; i < numRows; i++){
+		/*for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
-				//Log.e("i j =", "i=" + i + "  j=" + j) ;
-				worldTerrainTileGrid[i][j] = GreenSquare;
+				worldTowerGrid[i][j] = null;
 			}
-		}
+		}*/
 		
 	}
 	
-	public void setTower(int id){
-		Point indeces = worldTileID.get(id);
-		int i = indeces.x;
-		int j = indeces.y;
+	public void setTower(Tower tower) {
+		worldTowerGrid[(int) Math.floor(tower.x / squareSize)][(int) Math.floor(tower.y / squareSize)] = tower;
 
-		worldTerrainTileGrid[i][j] = TowerSquare;
+	}
+	
+	public Tower getTowerAt(Point p){
+		return worldTowerGrid[(int) Math.floor(p.x / squareSize)][(int) Math.floor(p.y / squareSize)];
+	}
+	
+	public Point computeNearestTowerLocation(Point p) {
 
+		int nearestTowerLocationX = squareSize*((int) Math.floor(p.x / squareSize));
+		int nearestTowerLocationY = squareSize*((int) Math.floor(p.y / squareSize));
 		
-		
-		
+		return new Point(nearestTowerLocationX, nearestTowerLocationY);
 	}
-	public int getTerrainTileAt(int x, int y){
-		return worldTerrainTileGrid[x][y];
+	
+	public boolean isTowerAt(Point p) {
+		
+		if (worldTowerGrid[(int) Math.floor(p.x / squareSize)][(int) Math.floor(p.y / squareSize)]==null)
+			return false;
+		else 
+			return true;
 	}
+	
 	
 	
 	
