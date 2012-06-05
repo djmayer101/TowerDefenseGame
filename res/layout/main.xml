@@ -18,17 +18,16 @@
 </com.game.main.TowerDefenseGame>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="fill_parent" 
+		android:layout_width="450px" 
 		android:layout_height="240dp"
 		android:orientation="vertical" 
 		android:layout_gravity="center_horizontal">
 
 
 		<include android:id="@+id/placing_tower" 
-		    android:layout_gravity="center_horizontal"
 		    layout="@layout/set_location" />
 
 
 	</LinearLayout>
 	
-	</LinearLayout>
+</LinearLayout>
