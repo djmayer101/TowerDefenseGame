@@ -42,6 +42,8 @@ public class TowerDefenseGame extends ArcadeGame{
 		myWorld = new World(width, height);
 		
 		towerImage = getImage(R.drawable.awesome_castle);
+		towerImage = towerImage.createScaledBitmap(towerImage, 50, 50, false);
+		
 	}
 	
 	@Override

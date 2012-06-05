@@ -10,7 +10,7 @@
 	android:id="@+id/ll_absolute"
     android:orientation="vertical"
     android:layout_width="300dp"
-    android:layout_height="fill_parent"
+    android:layout_height="400dp"
 
      android:layout_weight="0.6"
     android:background="#FF000000">

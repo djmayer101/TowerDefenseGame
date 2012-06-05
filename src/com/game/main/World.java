@@ -24,9 +24,9 @@ public class World {
 	public World(int width, int height){
 		this.width = width;
 		this.height = height;
-		this.numColumns = 10;
+		this.numColumns = 9;
 		this.numRows = 15;
-		this.squareSize = Math.max((width / numColumns), (height / numRows));
+		this.squareSize = 50;
 		worldTowerGrid = new Tower[numRows][numColumns];
 		initializeWorld();
 		
@@ -42,12 +42,12 @@ public class World {
 	}
 	
 	public void setTower(Tower tower) {
-		worldTowerGrid[(int) Math.floor(tower.x / squareSize)][(int) Math.floor(tower.y / squareSize)] = tower;
+		worldTowerGrid[(int) Math.floor(tower.y / squareSize)][(int) Math.floor(tower.x / squareSize)] = tower;
 
 	}
 	
 	public Tower getTowerAt(Point p){
-		return worldTowerGrid[(int) Math.floor(p.x / squareSize)][(int) Math.floor(p.y / squareSize)];
+		return worldTowerGrid[(int) Math.floor(p.y / squareSize)][(int) Math.floor(p.x / squareSize)];
 	}
 	
 	public Point computeNearestTowerLocation(Point p) {
@@ -59,8 +59,11 @@ public class World {
 	}
 	
 	public boolean isTowerAt(Point p) {
-		
-		if (worldTowerGrid[(int) Math.floor(p.x / squareSize)][(int) Math.floor(p.y / squareSize)]==null)
+		Log.e("pointcheck", "x=" + p.x + "  y=" + p.y);
+		if((p.x >= numColumns*squareSize) || (p.y >= numRows*squareSize)){
+			return true;
+		}
+		if (worldTowerGrid[(int) Math.floor(p.y / squareSize)][(int) Math.floor(p.x / squareSize)]==null)
 			return false;
 		else 
 			return true;
