@@ -17,10 +17,11 @@
 			android:gravity="center">
 
 		</com.game.main.WorldView>
+		<!-- 
 		<com.game.main.TouchableGrid android:id="@+id/worldgrid"
 			android:layout_width="fill_parent" android:layout_height="400dp"
 			android:gravity="center">
-		</com.game.main.TouchableGrid>
+		</com.game.main.TouchableGrid> -->
 	</RelativeLayout>
 
 

@@ -12,5 +12,13 @@
           android:onClick="startGame"
           android:layout_gravity="center_vertical|center_horizontal"
           />
+            <Button 
+          android:id="@+id/startbasedoffbook"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="bookgame"
+          android:onClick="bookgame"
+          android:layout_gravity="center_vertical|center_horizontal"
+          />
     
 </LinearLayout>
