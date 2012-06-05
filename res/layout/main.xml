@@ -3,15 +3,15 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-
+	
 
 <com.game.main.TowerDefenseGame xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/ll_absolute"
     android:orientation="vertical"
     android:layout_width="450px"
-    android:layout_height="600px"
-
-    android:background="#FF000000">
+    android:layout_height="550px"
+    android:background="#FF000000"
+    android:layout_gravity="center_horizontal">
    
         
     
@@ -20,10 +20,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="fill_parent" 
 		android:layout_height="240dp"
-		android:orientation="vertical" >
+		android:orientation="vertical" 
+		android:layout_gravity="center_horizontal">
 
 
-		<include android:id="@+id/placing_tower" layout="@layout/set_location" />
+		<include android:id="@+id/placing_tower" 
+		    android:layout_gravity="center_horizontal"
+		    layout="@layout/set_location" />
 
 
 	</LinearLayout>
