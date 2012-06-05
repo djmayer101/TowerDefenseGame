@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.widget.Toast;
 
 public class World {
 
@@ -24,8 +25,9 @@ public class World {
 	public World(int width, int height){
 		this.width = width;
 		this.height = height;
-		this.numColumns = 9;
-		this.numRows = 15;
+		Log.e("board dimensions", "height: " + height + " width " + width);
+		this.numColumns = 1;
+		this.numRows = 1;
 		this.squareSize = 50;
 		worldTowerGrid = new Tower[numRows][numColumns];
 		initializeWorld();
