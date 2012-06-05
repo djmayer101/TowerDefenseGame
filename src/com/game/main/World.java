@@ -27,7 +27,7 @@ public class World {
 		this.height = height;
 		Log.e("board dimensions", "height: " + height + " width " + width);
 		this.numColumns = 9;
-		this.numRows = 12;
+		this.numRows = 11;
 		this.squareSize = 50;
 		worldTowerGrid = new Tower[numRows][numColumns];
 		initializeWorld();
