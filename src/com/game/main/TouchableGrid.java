@@ -30,6 +30,9 @@ public class TouchableGrid extends TableLayout{
         					arg0.setBackgroundResource(R.drawable.clearyellow);
         					int id = arg0.getId();
         					SetTower.worldView.world.setTower(id);
+        					SetTower.worldView.update();
+        					
+        					
         				}});
         	}
         

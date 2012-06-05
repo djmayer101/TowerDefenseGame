@@ -48,7 +48,9 @@ public class World {
 		Point indeces = worldTileID.get(id);
 		int i = indeces.x;
 		int j = indeces.y;
+		Log.e("set_tower", "got here");
 		worldTileGrid[i][j] = TowerSquare;
+		
 		
 		
 	}
