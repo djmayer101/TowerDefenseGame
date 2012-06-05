@@ -18,6 +18,7 @@ public class World {
 	public static int numColumns;
 	public static int numRows;
 	public int squareSize;
+	public Point focus;
 	
 	public Tower[][] worldTowerGrid;
 	//public static Hashtable<Integer, Point> worldTileID = new Hashtable<Integer, Point>();
@@ -71,7 +72,9 @@ public class World {
 			return true;
 	}
 	
-	
+	public void setFocus(Point p) {
+		this.focus = p;
+	}
 	
 	
 }

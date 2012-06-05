@@ -22,6 +22,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	private Bitmap towerImage;
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
 	private World myWorld;
+
 	
 	
 	public TowerDefenseGame(Context context) {
@@ -85,7 +86,9 @@ public class TowerDefenseGame extends ArcadeGame{
 		Point nearestTowerLocation = myWorld.computeNearestTowerLocation(new Point(tx, ty));
 		
 		if (!myWorld.isTowerAt(new Point(nearestTowerLocation.x, nearestTowerLocation.y))){
-			myWorld.setTower(new Tower(nearestTowerLocation.x, nearestTowerLocation.y));
+			myWorld.setFocus(new Point(nearestTowerLocation.x, nearestTowerLocation.y));
+			
+			//myWorld.setTower(new Tower(nearestTowerLocation.x, nearestTowerLocation.y));
 		}
 		
 
