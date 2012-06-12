@@ -24,6 +24,7 @@ public class TowerDefenseActivity extends Activity{
 		// Set game layout
 		view = factory.inflate(R.layout.main, null);
 		setContentView(view);
+
 		myGame = (TowerDefenseGame) this.findViewById(R.id.ll_absolute);
 
 		// Enable view key events

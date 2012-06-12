@@ -21,7 +21,6 @@ public class World {
 	public Point focus;
 	
 	public Tower[][] worldTowerGrid;
-	//public static Hashtable<Integer, Point> worldTileID = new Hashtable<Integer, Point>();
 	
 	public World(int width, int height){
 		this.width = width;
@@ -31,18 +30,9 @@ public class World {
 		this.numRows = 11;
 		this.squareSize = 50;
 		worldTowerGrid = new Tower[numRows][numColumns];
-		initializeWorld();
-		
 	}
 
-	private void initializeWorld() {
-		/*for (int i = 0; i < numRows; i++){
-			for (int j = 0; j < numColumns; j++){
-				worldTowerGrid[i][j] = null;
-			}
-		}*/
-		
-	}
+
 	
 	public void setTower(Tower tower) {
 		worldTowerGrid[(int) Math.floor(tower.y / squareSize)][(int) Math.floor(tower.x / squareSize)] = tower;
