@@ -8,11 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class TowerDefenseGame extends ArcadeGame{
 
-	public static final String GAMENAME = "TowerDefence";
+	public static final String GAMENAME = "TowerDefense";
 	private static final long UPDATE_DELAY = 40;
 	private Context mContext;
 
@@ -21,11 +22,11 @@ public class TowerDefenseGame extends ArcadeGame{
 	private Bitmap towerImage;
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
 	private ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
-	private World myWorld;
 	private Point mCursor = new Point(0,0);
 	private Bitmap enemyImage;
 
 
+	public World myWorld;
 
 	public TowerDefenseGame(Context context) {
 		super(context);
@@ -44,7 +45,8 @@ public class TowerDefenseGame extends ArcadeGame{
 		int width = this.getWidth();
 		int height = this.getHeight();
 		myWorld = new World(width, height);
-
+		myWorld.focus = new Point(0,0);
+		
 		towerImage = getImage(R.drawable.awesome_castle);
 		towerImage = towerImage.createScaledBitmap(towerImage, 50, 50, false);
 		enemyImage = getImage(R.drawable.awesome_castle);
@@ -96,7 +98,9 @@ public class TowerDefenseGame extends ArcadeGame{
 		Point nearestTowerLocation = myWorld.computeNearestTowerLocation(new Point(tx, ty));
 		myWorld.setFocus(nearestTowerLocation);
 
-		if (!myWorld.isTowerAt(nearestTowerLocation)){
+		if (!myWorld.isTowerAt(new Point(nearestTowerLocation.x, nearestTowerLocation.y))){
+			myWorld.setFocus(new Point(nearestTowerLocation.x, nearestTowerLocation.y));
+
 			//myWorld.setTower(new Tower(nearestTowerLocation.x, nearestTowerLocation.y));
 			//show place tower buttons
 		}
