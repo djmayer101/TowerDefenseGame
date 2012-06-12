@@ -14,39 +14,46 @@ public class TowerDefenseGame extends ArcadeGame{
 
 	public static final String GAMENAME = "TowerDefence";
 	private static final long UPDATE_DELAY = 40;
-	
 	private Context mContext;
-	
+
 	private Paint mTextPaint = new Paint();
 	private Paint mBitmapPaint = new Paint();
 	private Bitmap towerImage;
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
+	private ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
 	private World myWorld;
+	private Point mCursor = new Point(0,0);
+	private Bitmap enemyImage;
 
-	
-	
+
+
 	public TowerDefenseGame(Context context) {
 		super(context);
 		mContext = context;
 		super.setUpdatePeriod(UPDATE_DELAY);
 	}
-	
+
 	public TowerDefenseGame(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		mContext = context;
 		super.setUpdatePeriod(UPDATE_DELAY);
+
 	}
 
 	public void initialize() {
 		int width = this.getWidth();
 		int height = this.getHeight();
 		myWorld = new World(width, height);
-		
+
 		towerImage = getImage(R.drawable.awesome_castle);
 		towerImage = towerImage.createScaledBitmap(towerImage, 50, 50, false);
-		
+		enemyImage = getImage(R.drawable.awesome_castle);
+		enemyImage = enemyImage.createScaledBitmap(enemyImage, 50, 50, false);
+		BasicEnemy enemy = new BasicEnemy(0,0);
+		basicEnemies.add(enemy);
+
 	}
-	
+
 	@Override
 	protected void onDraw(Canvas canvas) 
 	{
@@ -62,7 +69,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 	public void GameStart() {
 	}
-	
+
 	public void GameOver() {
 		ingame = false;
 	}
@@ -75,6 +82,9 @@ public class TowerDefenseGame extends ArcadeGame{
 				}
 			}
 		}
+		for (BasicEnemy enemy:basicEnemies){
+			canvas.drawBitmap(enemyImage, enemy.x,enemy.y, mBitmapPaint);
+		}
 	}
 
 
@@ -82,15 +92,20 @@ public class TowerDefenseGame extends ArcadeGame{
 	public boolean onTouchEvent(MotionEvent event){
 		int tx = (int) event.getX();
 		int ty = (int) event.getY();
-		
+
 		Point nearestTowerLocation = myWorld.computeNearestTowerLocation(new Point(tx, ty));
-		
-		if (!myWorld.isTowerAt(new Point(nearestTowerLocation.x, nearestTowerLocation.y))){
-			myWorld.setFocus(new Point(nearestTowerLocation.x, nearestTowerLocation.y));
-			
+		myWorld.setFocus(nearestTowerLocation);
+
+		if (!myWorld.isTowerAt(nearestTowerLocation)){
 			//myWorld.setTower(new Tower(nearestTowerLocation.x, nearestTowerLocation.y));
+			//show place tower buttons
 		}
-		
+		else{
+			Tower tower = myWorld.getTowerAt(nearestTowerLocation);
+			//show tower upgrade buttom and tower stats
+		}
+
+
 
 		if ( !ingame ) {
 			ingame = true;
@@ -103,8 +118,10 @@ public class TowerDefenseGame extends ArcadeGame{
 
 	@Override
 	protected void updatePhysics() {
-		// TODO Auto-generated method stub
-		
+		for (BasicEnemy enemy: basicEnemies){
+			enemy.update();
+		}
+
 	}
 
 	@Override

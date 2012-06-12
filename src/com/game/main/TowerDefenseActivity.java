@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 public class TowerDefenseActivity extends Activity{
 	private View view;
@@ -17,7 +18,6 @@ public class TowerDefenseActivity extends Activity{
 		// Set game layout
 		view = factory.inflate(R.layout.main, null);
 		setContentView(view);
-
 
 		// Enable view key events
 		view.setFocusable(true);
