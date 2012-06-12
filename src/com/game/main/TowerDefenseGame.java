@@ -20,8 +20,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	private Paint mTextPaint = new Paint();
 	private Paint mBitmapPaint = new Paint();
 	private Bitmap towerImage;
-	private ArrayList<Tower> towers = new ArrayList<Tower>();
-	private ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
+
 	private Point mCursor = new Point(0,0);
 	private Bitmap enemyImage;
 
@@ -51,8 +50,7 @@ public class TowerDefenseGame extends ArcadeGame{
 		towerImage = towerImage.createScaledBitmap(towerImage, 50, 50, false);
 		enemyImage = getImage(R.drawable.awesome_castle);
 		enemyImage = enemyImage.createScaledBitmap(enemyImage, 50, 50, false);
-		BasicEnemy enemy = new BasicEnemy(0,0);
-		basicEnemies.add(enemy);
+
 
 	}
 
@@ -84,7 +82,7 @@ public class TowerDefenseGame extends ArcadeGame{
 				}
 			}
 		}
-		for (BasicEnemy enemy:basicEnemies){
+		for (BasicEnemy enemy:myWorld.basicEnemies){
 			canvas.drawBitmap(enemyImage, enemy.x,enemy.y, mBitmapPaint);
 		}
 	}
@@ -122,10 +120,7 @@ public class TowerDefenseGame extends ArcadeGame{
 
 	@Override
 	protected void updatePhysics() {
-		for (BasicEnemy enemy: basicEnemies){
-			enemy.update();
-		}
-
+		myWorld.updatePhysics();
 	}
 
 	@Override
