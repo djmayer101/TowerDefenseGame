@@ -13,11 +13,11 @@ import android.widget.Toast;
 
 public class World {
 
-	public static int width;
-	public static int height;
-	public static int numColumns;
-	public static int numRows;
-	public int squareSize;
+	public int width;
+	public int height;
+	public int numColumns;
+	public int numRows;
+	private int squareSize;
 	private Point focus;
 	
 	public Tower[][] worldTowerGrid;
