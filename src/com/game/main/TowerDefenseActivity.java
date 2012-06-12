@@ -30,9 +30,18 @@ public class TowerDefenseActivity extends Activity{
 		view.setFocusable(true);
 		view.setFocusableInTouchMode(true);
 		
-		ImageButton button = (ImageButton)findViewById(R.id.good_tower);
+		ImageButton towerButton = (ImageButton)findViewById(R.id.good_tower);
 
-		button.setOnClickListener(new Button.OnClickListener() {
+		towerButton.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				Point newTower = myGame.myWorld.focus;
+				myGame.myWorld.setTower(new Tower(newTower.x, newTower.y));
+			}
+		});
+		
+		ImageButton startRoundButton = (ImageButton)findViewById(R.id.start_round);
+
+		startRoundButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				// Get a reference to the score_name_entry object in score.xml
 				//LinearLayout submitScoreLayout = (LinearLayout)findViewById(R.id.placing_tower);
@@ -46,9 +55,9 @@ public class TowerDefenseActivity extends Activity{
 				//start round logic
 				
 				
-				Point newTower = myGame.myWorld.focus;
+				//Point newTower = myGame.myWorld.focus;
 				
-				myGame.myWorld.setTower(new Tower(newTower.x, newTower.y));
+				//myGame.myWorld.setTower(new Tower(newTower.x, newTower.y));
 				
 			}
 		});
