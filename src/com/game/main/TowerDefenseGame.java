@@ -42,6 +42,7 @@ public class TowerDefenseGame extends ArcadeGame{
 		int width = this.getWidth();
 		int height = this.getHeight();
 		myWorld = new World(width, height);
+		myWorld.focus = new Point(0,0);
 		
 		towerImage = getImage(R.drawable.awesome_castle);
 		towerImage = towerImage.createScaledBitmap(towerImage, 50, 50, false);

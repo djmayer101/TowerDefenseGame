@@ -30,7 +30,7 @@ public class TowerDefenseActivity extends Activity{
 		view.setFocusable(true);
 		view.setFocusableInTouchMode(true);
 		
-		ImageButton button = (ImageButton)findViewById(R.id.start_round);
+		ImageButton button = (ImageButton)findViewById(R.id.good_tower);
 
 		button.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
