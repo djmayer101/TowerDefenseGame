@@ -18,7 +18,7 @@ public class World {
 	public static int numColumns;
 	public static int numRows;
 	public int squareSize;
-	public Point focus;
+	private Point focus;
 	
 	public Tower[][] worldTowerGrid;
 	
@@ -64,6 +64,10 @@ public class World {
 	
 	public void setFocus(Point p) {
 		this.focus = p;
+	}
+	
+	public Point getFocus() {
+		return this.focus;
 	}
 	
 	
