@@ -8,11 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class TowerDefenseGame extends ArcadeGame{
 
-	public static final String GAMENAME = "TowerDefence";
+	public static final String GAMENAME = "TowerDefense";
 	private static final long UPDATE_DELAY = 40;
 	
 	private Context mContext;
@@ -21,7 +22,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	private Paint mBitmapPaint = new Paint();
 	private Bitmap towerImage;
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
-	private World myWorld;
+	public World myWorld;
 
 	
 	
@@ -84,7 +85,6 @@ public class TowerDefenseGame extends ArcadeGame{
 		int ty = (int) event.getY();
 		
 		Point nearestTowerLocation = myWorld.computeNearestTowerLocation(new Point(tx, ty));
-		
 		if (!myWorld.isTowerAt(new Point(nearestTowerLocation.x, nearestTowerLocation.y))){
 			myWorld.setFocus(new Point(nearestTowerLocation.x, nearestTowerLocation.y));
 			
