@@ -20,7 +20,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	private Paint mTextPaint = new Paint();
 	private Paint mBitmapPaint = new Paint();
 	private Bitmap towerImage;
-
+	private ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
 	private Point mCursor = new Point(0,0);
 	private Bitmap enemyImage;
 
@@ -44,7 +44,7 @@ public class TowerDefenseGame extends ArcadeGame{
 		int width = this.getWidth();
 		int height = this.getHeight();
 		myWorld = new World(width, height);
-		myWorld.focus = new Point(0,0);
+		myWorld.setFocus(new Point(0,0));
 		
 		towerImage = getImage(R.drawable.awesome_castle);
 		towerImage = towerImage.createScaledBitmap(towerImage, 50, 50, false);

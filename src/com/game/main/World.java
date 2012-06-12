@@ -13,12 +13,13 @@ import android.widget.Toast;
 
 public class World {
 
-	public static int width;
-	public static int height;
-	public static int numColumns;
-	public static int numRows;
-	public int squareSize;
-	public Point focus;
+
+	public int width;
+	public int height;
+	public int numColumns;
+	public int numRows;
+	private int squareSize;
+	private Point focus;
 
 	public Tower[][] worldTowerGrid;
 	public ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
@@ -70,6 +71,7 @@ public class World {
 
 
 
+
 	public void updatePhysics() {
 		for (BasicEnemy enemy: basicEnemies){
 			enemy.update();
@@ -90,5 +92,10 @@ public class World {
 		return false;
 	}
 
+
+	
+	public Point getFocus() {
+		return this.focus;
+	}
 
 }
