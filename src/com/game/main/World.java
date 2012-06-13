@@ -1,15 +1,6 @@
 package com.game.main;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
-
-import java.util.PriorityQueue;
-import java.util.Set;
-
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-
 import android.graphics.Point;
 import android.util.Log;
 

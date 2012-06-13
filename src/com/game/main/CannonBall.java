@@ -14,6 +14,7 @@ public class CannonBall {
 	private double theta;
 	private double Vx;
 	private double Vy;
+	private double previousDistanceToTarget;
 
 	public CannonBall(Point towerLocation, Point nearestEnemyLocation) {
 		this.startLocation = towerLocation;
@@ -23,6 +24,7 @@ public class CannonBall {
 		this.theta = calculateTheta(startLocation, endLocation);
 		this.Vx = cannonSpeed * Math.cos(theta);
 		this.Vy = cannonSpeed * Math.sin(theta);
+		this.previousDistanceToTarget = Double.MAX_VALUE;
 	}
 
 	public void update(){
@@ -32,7 +34,7 @@ public class CannonBall {
 		}
 		else{
 			double distanceSquaredToTarget = calculateDistanceSquared(location,endLocation);
-			if (distanceSquaredToTarget < Math.pow(cannonSpeed,2)){
+			if (distanceSquaredToTarget > this.previousDistanceToTarget){
 				this.state = State.EXPLODE;
 			}
 			else{
@@ -40,6 +42,7 @@ public class CannonBall {
 				this.location.y = (int) (this.location.y + Vy);
 				this.state = State.TRAVEL;
 			}
+			this.previousDistanceToTarget = distanceSquaredToTarget;
 		}
 	}
 

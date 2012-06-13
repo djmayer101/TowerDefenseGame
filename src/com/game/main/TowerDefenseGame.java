@@ -10,7 +10,10 @@ import android.view.MotionEvent;
 
 public class TowerDefenseGame extends ArcadeGame{
 
-	public static final String GAMENAME = "TowerDefense";
+	public static final String GAME_NAME = "TowerDefense";
+	public static final int OBJECT_CELL_SIDE_LENGTH = 44;
+	public static final int CURSOR_CELL_SIDE_LENGTH = 50;
+	public static final int IMAGE_OFFSET = 3;
 	private static final long UPDATE_DELAY = 40;
 
 
@@ -41,16 +44,16 @@ public class TowerDefenseGame extends ArcadeGame{
 		myWorld.setFocus(new Point(0,0));
 		
 		towerImage = getImage(R.drawable.awesome_castle);
-		towerImage = towerImage.createScaledBitmap(towerImage, 50, 50, false);
+		towerImage = towerImage.createScaledBitmap(towerImage, OBJECT_CELL_SIDE_LENGTH,OBJECT_CELL_SIDE_LENGTH, false);
 		enemyImage = getImage(R.drawable.awesome_castle);
-		enemyImage = enemyImage.createScaledBitmap(enemyImage, 50, 50, false);
+		enemyImage = enemyImage.createScaledBitmap(enemyImage, OBJECT_CELL_SIDE_LENGTH,OBJECT_CELL_SIDE_LENGTH, false);
 		cannonBallImage = getImage(R.drawable.cannonball);
-		cannonBallImage = cannonBallImage.createScaledBitmap(cannonBallImage, 50, 50, false);
+		cannonBallImage = cannonBallImage.createScaledBitmap(cannonBallImage, OBJECT_CELL_SIDE_LENGTH,OBJECT_CELL_SIDE_LENGTH, false);
 		cannonBallExplosionImage = getImage(R.drawable.cannonball_explosion);
-		cannonBallExplosionImage = cannonBallExplosionImage.createScaledBitmap(cannonBallExplosionImage, 60, 60, false);
+		cannonBallExplosionImage = cannonBallExplosionImage.createScaledBitmap(cannonBallExplosionImage, OBJECT_CELL_SIDE_LENGTH,OBJECT_CELL_SIDE_LENGTH, false);
 		
 		cursorImage = getImage(R.drawable.clearyellow);
-		cursorImage = cursorImage.createScaledBitmap(cursorImage, 50, 50, false);
+		cursorImage = cursorImage.createScaledBitmap(cursorImage, CURSOR_CELL_SIDE_LENGTH, CURSOR_CELL_SIDE_LENGTH, false);
 
 
 	}
@@ -80,19 +83,19 @@ public class TowerDefenseGame extends ArcadeGame{
 		for (int i=0; i<myWorld.numRows; i++){
 			for (int j=0; j<myWorld.numColumns; j++){
 				if(myWorld.worldTowerGrid[i][j]!=null){
-					canvas.drawBitmap(towerImage, myWorld.worldTowerGrid[i][j].x, myWorld.worldTowerGrid[i][j].y, mBitmapPaint);
+					canvas.drawBitmap(towerImage, myWorld.worldTowerGrid[i][j].x+IMAGE_OFFSET, myWorld.worldTowerGrid[i][j].y+IMAGE_OFFSET, mBitmapPaint);
 				}
 			}
 		}
 		for (BasicEnemy enemy:myWorld.basicEnemies){
-			canvas.drawBitmap(enemyImage, enemy.x,enemy.y, mBitmapPaint);
+			canvas.drawBitmap(enemyImage, enemy.x +IMAGE_OFFSET,enemy.y+IMAGE_OFFSET, mBitmapPaint);
 		}
 		for (CannonBall cannonBall: myWorld.cannonBalls){
-			canvas.drawBitmap(cannonBallImage, cannonBall.location.x,cannonBall.location.y, mBitmapPaint);
+			canvas.drawBitmap(cannonBallImage, cannonBall.location.x+IMAGE_OFFSET,cannonBall.location.y+IMAGE_OFFSET, mBitmapPaint);
 		}
 		
 		for (CannonBall cannonBall: myWorld.finishedCannonBalls){
-			canvas.drawBitmap(cannonBallExplosionImage, cannonBall.location.x,cannonBall.location.y, mBitmapPaint);
+			canvas.drawBitmap(cannonBallExplosionImage, cannonBall.location.x+IMAGE_OFFSET,cannonBall.location.y+IMAGE_OFFSET, mBitmapPaint);
 		}
 	}
 
