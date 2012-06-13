@@ -53,9 +53,10 @@ public class TowerDefenseActivity extends Activity{
 
 				//TODO Disable Gridview so user cannot click on grid
 				//start round logic		
-				ArrayList<Point> path = myGame.myWorld.getPath(new Point(0,0), new Point(3,7));
+			//	ArrayList<Point> path = myGame.myWorld.getPath(new Point(0,0), new Point(3,7));
 			}
 		});
+	
 
 	}
 
