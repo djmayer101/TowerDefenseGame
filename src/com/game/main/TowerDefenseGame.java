@@ -76,7 +76,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 
 	public void drawPlayField(Canvas canvas) {
-		canvas.drawBitmap(cursorImage,myWorld.focus.x,myWorld.focus.y, mBitmapPaint);
+		canvas.drawBitmap(cursorImage,myWorld.getFocus().x,myWorld.getFocus().y, mBitmapPaint);
 		for (int i=0; i<myWorld.numRows; i++){
 			for (int j=0; j<myWorld.numColumns; j++){
 				if(myWorld.worldTowerGrid[i][j]!=null){
