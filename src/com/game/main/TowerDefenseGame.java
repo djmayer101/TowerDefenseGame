@@ -1,41 +1,35 @@
 package com.game.main;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 public class TowerDefenseGame extends ArcadeGame{
 
 	public static final String GAMENAME = "TowerDefense";
 	private static final long UPDATE_DELAY = 40;
-	private Context mContext;
 
-	private Paint mTextPaint = new Paint();
+
 	private Paint mBitmapPaint = new Paint();
 	private Bitmap towerImage;
-	private ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
-	private Point mCursor = new Point(0,0);
 	private Bitmap enemyImage;
-
-
+	private Bitmap cannonBallImage;
+	private Bitmap cannonBallExplosionImage;
+	
 	public World myWorld;
+	private Bitmap cursorImage;
 
 	public TowerDefenseGame(Context context) {
 		super(context);
-		mContext = context;
 		super.setUpdatePeriod(UPDATE_DELAY);
 	}
 
 	public TowerDefenseGame(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		mContext = context;
 		super.setUpdatePeriod(UPDATE_DELAY);
 
 	}
@@ -50,6 +44,13 @@ public class TowerDefenseGame extends ArcadeGame{
 		towerImage = towerImage.createScaledBitmap(towerImage, 50, 50, false);
 		enemyImage = getImage(R.drawable.awesome_castle);
 		enemyImage = enemyImage.createScaledBitmap(enemyImage, 50, 50, false);
+		cannonBallImage = getImage(R.drawable.cannonball);
+		cannonBallImage = cannonBallImage.createScaledBitmap(cannonBallImage, 50, 50, false);
+		cannonBallExplosionImage = getImage(R.drawable.cannonball_explosion);
+		cannonBallExplosionImage = cannonBallExplosionImage.createScaledBitmap(cannonBallExplosionImage, 60, 60, false);
+		
+		cursorImage = getImage(R.drawable.clearyellow);
+		cursorImage = cursorImage.createScaledBitmap(cursorImage, 50, 50, false);
 
 
 	}
@@ -75,6 +76,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 
 	public void drawPlayField(Canvas canvas) {
+		canvas.drawBitmap(cursorImage,myWorld.getFocus().x,myWorld.getFocus().y, mBitmapPaint);
 		for (int i=0; i<myWorld.numRows; i++){
 			for (int j=0; j<myWorld.numColumns; j++){
 				if(myWorld.worldTowerGrid[i][j]!=null){
@@ -84,6 +86,13 @@ public class TowerDefenseGame extends ArcadeGame{
 		}
 		for (BasicEnemy enemy:myWorld.basicEnemies){
 			canvas.drawBitmap(enemyImage, enemy.x,enemy.y, mBitmapPaint);
+		}
+		for (CannonBall cannonBall: myWorld.cannonBalls){
+			canvas.drawBitmap(cannonBallImage, cannonBall.location.x,cannonBall.location.y, mBitmapPaint);
+		}
+		
+		for (CannonBall cannonBall: myWorld.finishedCannonBalls){
+			canvas.drawBitmap(cannonBallExplosionImage, cannonBall.location.x,cannonBall.location.y, mBitmapPaint);
 		}
 	}
 

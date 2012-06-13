@@ -14,9 +14,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.widget.Toast;
+
 
 public class World {
 
@@ -31,6 +30,9 @@ public class World {
 
 	public Tower[][] worldTowerGrid;
 	public ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
+	public ArrayList<Tower> towers = new ArrayList<Tower>();
+	public ArrayList<CannonBall> cannonBalls = new ArrayList<CannonBall>();
+	ArrayList<CannonBall> finishedCannonBalls = new ArrayList<CannonBall>();;
 
 
 	public World(int width, int height){
@@ -52,6 +54,7 @@ public class World {
 
 	public void setTower(Tower tower) {
 		worldTowerGrid[(int) Math.floor(tower.y / squareSize)][(int) Math.floor(tower.x / squareSize)] = tower;
+		towers.add(tower);
 
 	}
 
@@ -84,19 +87,40 @@ public class World {
 
 
 	public void updatePhysics() {
+		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
 		for (BasicEnemy enemy: basicEnemies){
 			enemy.update();
-			if (enemyOutOfBounds(enemy)){
-				basicEnemies.remove(enemy);
+			if (ObjectOutOfBounds(enemy)){
+				finishedEnemies.add(enemy);
+			}
+		}
+		for (Tower tower: towers){
+			CannonBall cannonBall = tower.update(basicEnemies);
+			if(cannonBall != null){
+				cannonBalls.add(cannonBall);
+			}
+		}
+		finishedCannonBalls = new ArrayList<CannonBall>();
+		for (CannonBall cannonBall : cannonBalls){
+			cannonBall.update();
+			if (cannonBall.state == CannonBall.State.DONE){
+				finishedCannonBalls.add(cannonBall);
 			}
 		}
 
+		for (BasicEnemy enemy: finishedEnemies){
+			basicEnemies.remove(enemy);
+		}
+
+		for (CannonBall cannonBall : finishedCannonBalls){
+			cannonBalls.remove(cannonBall);
+		}
 
 	}
 
 
 
-	private boolean enemyOutOfBounds(BasicEnemy enemy) {
+	private boolean ObjectOutOfBounds(BasicEnemy enemy) {
 		if (enemy.x < 0 || enemy.x > this.width || enemy.y < 0 || enemy.y > this.height){
 			return true;
 		}
