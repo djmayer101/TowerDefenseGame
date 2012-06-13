@@ -30,7 +30,7 @@ public class World {
 		this.numRows = 11;
 		this.squareSize = 50;
 		worldTowerGrid = new Tower[numRows][numColumns];
-		BasicEnemy enemy = new BasicEnemy(0,0);
+		BasicEnemy enemy = new BasicEnemy(0,300);
 		basicEnemies.add(enemy);
 	}
 

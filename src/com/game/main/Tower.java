@@ -1,8 +1,6 @@
 package com.game.main;
 
 import java.util.ArrayList;
-
-import android.graphics.Bitmap;
 import android.graphics.Point;
 
 

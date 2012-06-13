@@ -11,12 +11,18 @@ public class CannonBall {
 	public Point location;
 	public State state;
 	private int cannonSpeed = 10;
+	private double theta;
+	private double Vx;
+	private double Vy;
 
 	public CannonBall(Point towerLocation, Point nearestEnemyLocation) {
 		this.startLocation = towerLocation;
 		this.location = new Point(towerLocation.x,towerLocation.y);
 		this.endLocation = nearestEnemyLocation;
 		this.state = State.LAUNCH;
+		this.theta = calculateTheta(startLocation, endLocation);
+		this.Vx = cannonSpeed * Math.cos(theta);
+		this.Vy = cannonSpeed * Math.sin(theta);
 	}
 
 	public void update(){
@@ -30,19 +36,8 @@ public class CannonBall {
 				this.state = State.EXPLODE;
 			}
 			else{
-				if (endLocation.x > location.x){
-					location.x += cannonSpeed;
-				}
-				else{
-					location.x -= cannonSpeed;
-				}
-
-				if(endLocation.y > location.y){
-					location.y += cannonSpeed;
-				}
-				else{
-					location.y -= cannonSpeed;
-				}
+				this.location.x = (int) (this.location.x + Vx);
+				this.location.y = (int) (this.location.y + Vy);
 				this.state = State.TRAVEL;
 			}
 		}
@@ -50,6 +45,18 @@ public class CannonBall {
 
 	private double calculateDistanceSquared(Point startLocation,Point endLocation) {
 		return Math.pow(startLocation.x-endLocation.x, 2) + Math.pow(startLocation.y-endLocation.y,2);
+	}
+	
+	private double calculateTheta(Point startLocation, Point endLocation){
+		int x0 = startLocation.x;
+		int y0 = startLocation.y;
+		int x1 = endLocation.x;
+		int y1 = endLocation.y;
+		double theta = Math.atan2(y1-y0, x1-x0);
+		if (theta == Double.NaN){
+			return 0;
+		}
+		return theta;
 	}
 
 
