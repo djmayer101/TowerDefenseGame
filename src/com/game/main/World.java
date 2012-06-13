@@ -2,17 +2,6 @@ package com.game.main;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.PriorityQueue;
-import java.util.Set;
-
-import org.jgrapht.EdgeFactory;
-import org.jgrapht.graph.AbstractGraph;
-import org.jgrapht.graph.ClassBasedEdgeFactory;
-import org.jgrapht.graph.DefaultDirectedGraph;
-
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.Log;
 
@@ -259,7 +248,7 @@ public class World {
 			startPoint.distanceToGoal = 0;
 		}
 
-		private class GridNode implements Comparable {
+		private class GridNode{
 
 			private Point me;
 			private GridNode parent;
@@ -287,18 +276,7 @@ public class World {
 				distanceToGoal = newDistance;
 			}
 
-			@Override
-			public int compareTo(Object arg0) {
-				if (this.distanceToGoal == ((GridNode) arg0).distanceToGoal) {
-					return 0;
-				}
-				else if (this.distanceToGoal > ((GridNode) arg0).distanceToGoal) {
-					return 1;			
-				}
-				else {
-					return -1;
-				}
-			}
+			
 
 			@Override
 			public int hashCode() {

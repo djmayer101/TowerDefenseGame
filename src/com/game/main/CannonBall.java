@@ -31,8 +31,8 @@ public class CannonBall {
 			this.state = State.DONE;
 		}
 		else{
-			double distanceToTarget = calculateDistanceSquared(location,endLocation);
-			if (distanceToTarget < 1000){
+			double distanceSquaredToTarget = calculateDistanceSquared(location,endLocation);
+			if (distanceSquaredToTarget < Math.pow(cannonSpeed,2)){
 				this.state = State.EXPLODE;
 			}
 			else{
