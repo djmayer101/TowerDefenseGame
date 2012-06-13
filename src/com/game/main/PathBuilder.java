@@ -27,22 +27,22 @@ public class PathBuilder {
 
 		while (!vertexes.isEmpty()) {
 			GridNode v = getLowestDistance();
+			vertexes.remove(v);
 			if(v.distanceToGoal == Integer.MAX_VALUE) {
 				break; 
 			}
 			ArrayList<GridNode> myNeighbors = getNeighbors(v);
 			if(!myNeighbors.isEmpty()) {
 				for(GridNode neighbor: myNeighbors) {
-					int alt = neighbor.distanceToGoal + 1;
-					if(alt < v.distanceToGoal){
-						v.setDistance(alt);
-						v.setParent(neighbor);					
+					int alt = v.distanceToGoal + 1;
+					if(alt < neighbor.distanceToGoal){
+						neighbor.setDistance(alt);
+						neighbor.setParent(v);
 					}
 				}
 			}
 		}
 		if(endPoint.getDistance() < Integer.MAX_VALUE) {
-			path = new ArrayList<Point>();
 			path.add(endPoint.me);
 			GridNode pointer = endPoint;
 			while(pointer != startPoint) {
@@ -75,16 +75,16 @@ public class PathBuilder {
 		Point n3 = new Point(v.me.x, v.me.y-1);
 		Point n4 = new Point(v.me.x-1, v.me.y);
 
-		if(mapping.get(n1)) {
+		if(mapping.get(n1)!=null) {
 			neighbors.add(pointToGridNode.get(n1));
 		}
-		if(mapping.get(n2)) {
+		if(mapping.get(n2)!=null) {
 			neighbors.add(pointToGridNode.get(n2));
 		}
-		if(mapping.get(n3)) {
+		if(mapping.get(n3)!=null) {
 			neighbors.add(pointToGridNode.get(n3));
 		}
-		if(mapping.get(n4)) {
+		if(mapping.get(n4)!=null) {
 			neighbors.add(pointToGridNode.get(n4));
 		}
 		return neighbors;

@@ -1,5 +1,7 @@
 package com.game.main;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -50,7 +52,8 @@ public class TowerDefenseActivity extends Activity{
 				//submitScoreLayout.addView(inflater.inflate(R.layout.done_set_tower, null));
 
 				//TODO Disable Gridview so user cannot click on grid
-				//start round logic				
+				//start round logic		
+				ArrayList<Point> path = myGame.myWorld.getPath(new Point(0,0), new Point(3,7));
 			}
 		});
 

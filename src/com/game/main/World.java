@@ -1,6 +1,7 @@
 package com.game.main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -134,6 +135,7 @@ public class World {
 			//no possible route
 		}
 
+		Collections.reverse(path);
 		return path;
 	}
 
