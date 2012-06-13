@@ -75,16 +75,16 @@ public class PathBuilder {
 		Point n3 = new Point(v.me.x, v.me.y-1);
 		Point n4 = new Point(v.me.x-1, v.me.y);
 
-		if(mapping.get(n1)!=null) {
+		if(mapping.get(n1)!=null && mapping.get(n1)) {
 			neighbors.add(pointToGridNode.get(n1));
 		}
-		if(mapping.get(n2)!=null) {
+		if(mapping.get(n2)!=null && mapping.get(n2)) {
 			neighbors.add(pointToGridNode.get(n2));
 		}
-		if(mapping.get(n3)!=null) {
+		if(mapping.get(n3)!=null && mapping.get(n3)) {
 			neighbors.add(pointToGridNode.get(n3));
 		}
-		if(mapping.get(n4)!=null) {
+		if(mapping.get(n4)!=null && mapping.get(n4)) {
 			neighbors.add(pointToGridNode.get(n4));
 		}
 		return neighbors;
