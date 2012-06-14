@@ -32,7 +32,7 @@ public class World {
 		this.numRows = 11;
 		this.squareSize = 50;
 		worldTowerGrid = new Tower[numRows][numColumns];
-		BasicEnemy enemy = new BasicEnemy(0,300);
+		BasicEnemy enemy = new BasicEnemy(new Point(0,300));
 		basicEnemies.add(enemy);
 		
 		
@@ -78,7 +78,7 @@ public class World {
 	public void updatePhysics() {
 		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
 		for (BasicEnemy enemy: basicEnemies){
-			enemy.update();
+			enemy.updateLocation();
 			if (ObjectOutOfBounds(enemy)){
 				finishedEnemies.add(enemy);
 			}
@@ -111,7 +111,7 @@ public class World {
 
 
 	private boolean ObjectOutOfBounds(BasicEnemy enemy) {
-		if (enemy.x < 0 || enemy.x > this.width || enemy.y < 0 || enemy.y > this.height){
+		if (enemy.getLocation().x < 0 || enemy.getLocation().x > this.width || enemy.getLocation().y < 0 || enemy.getLocation().y > this.height){
 			return true;
 		}
 		return false;

@@ -26,8 +26,7 @@ public class Tower {
 		double currentClosestDistance = Double.MAX_VALUE;
 		BasicEnemy closestEnemy = null;
 		for(BasicEnemy enemy : enemies){
-			Point enemyLocation = new Point(enemy.x,enemy.y);
-			double distanceSquared = calculateDistanceSquared(towerLocation,enemyLocation);
+			double distanceSquared = calculateDistanceSquared(towerLocation,enemy.getLocation());
 			if (distanceSquared < currentClosestDistance){
 				currentClosestDistance = distanceSquared;
 				closestEnemy = enemy;

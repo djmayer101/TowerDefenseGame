@@ -88,7 +88,7 @@ public class TowerDefenseGame extends ArcadeGame{
 			}
 		}
 		for (BasicEnemy enemy:myWorld.basicEnemies){
-			canvas.drawBitmap(enemyImage, enemy.x +IMAGE_OFFSET,enemy.y+IMAGE_OFFSET, mBitmapPaint);
+			canvas.drawBitmap(enemyImage, enemy.getLocation().x +IMAGE_OFFSET,enemy.getLocation().y+IMAGE_OFFSET, mBitmapPaint);
 		}
 		for (CannonBall cannonBall: myWorld.cannonBalls){
 			canvas.drawBitmap(cannonBallImage, cannonBall.location.x+IMAGE_OFFSET,cannonBall.location.y+IMAGE_OFFSET, mBitmapPaint);
