@@ -34,8 +34,8 @@ public class TowerDefenseActivity extends Activity{
 
 		towerButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-				Point newTower = myGame.myWorld.getFocus();
-				myGame.myWorld.setTower(new Tower(newTower.x, newTower.y));
+				Point newTowerLocation = myGame.myWorld.getFocus();
+				myGame.myWorld.setTower(new Tower(newTowerLocation));
 			}
 		});
 		

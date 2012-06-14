@@ -83,7 +83,7 @@ public class TowerDefenseGame extends ArcadeGame{
 		for (int i=0; i<myWorld.numRows; i++){
 			for (int j=0; j<myWorld.numColumns; j++){
 				if(myWorld.worldTowerGrid[i][j]!=null){
-					canvas.drawBitmap(towerImage, myWorld.worldTowerGrid[i][j].x+IMAGE_OFFSET, myWorld.worldTowerGrid[i][j].y+IMAGE_OFFSET, mBitmapPaint);
+					canvas.drawBitmap(towerImage, myWorld.worldTowerGrid[i][j].getLocation().x+IMAGE_OFFSET, myWorld.worldTowerGrid[i][j].getLocation().y+IMAGE_OFFSET, mBitmapPaint);
 				}
 			}
 		}

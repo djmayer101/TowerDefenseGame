@@ -9,7 +9,7 @@ public class CannonBall extends BasicGameObject{
 	private double previousDistanceToTarget;
 
 	public CannonBall(Point location, Point endLocation) {
-		super(location, GameConstants.cannonSpeed);
+		super(location, GameConstants.BASIC_CANNON_SPEED);
 
 		this.endLocation = endLocation;
 		this.state = State.LAUNCH;

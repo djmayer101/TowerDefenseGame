@@ -7,7 +7,7 @@ public class BasicEnemy extends BasicGameObject {
 	protected int health;
 
 	public BasicEnemy(Point location){
-		super(location, GameConstants.BasicEnemySpeed);
+		super(location, GameConstants.BASIC_ENEMY_SPEED);
 		this.theta = GameConstants.EAST;
 		this.health = 100;
 		

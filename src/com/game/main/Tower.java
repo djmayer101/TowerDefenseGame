@@ -4,21 +4,16 @@ import java.util.ArrayList;
 import android.graphics.Point;
 
 
-public class Tower {
+public class Tower extends BasicGameObject {
 
-	int x;
-	int y;
-	Point towerLocation;
 	int range;
 	int coolDown;
 	int coolDownCounter;
 
-	public Tower(int x, int y){
-		this.x = x;
-		this.y = y;
-		this.range = 100;
-		this.towerLocation = new Point(x,y);
-		this.coolDown = 40;
+	public Tower(Point location){
+		super(location,GameConstants.BASIC_TOWER_SPEED);
+		this.range = GameConstants.BASIC_TOWER_RANGE;
+		this.coolDown = GameConstants.BASIC_TOWER_COOLDOWN;
 		this.coolDownCounter = 0;
 	}
 	
@@ -26,18 +21,13 @@ public class Tower {
 		double currentClosestDistance = Double.MAX_VALUE;
 		BasicEnemy closestEnemy = null;
 		for(BasicEnemy enemy : enemies){
-			double distanceSquared = calculateDistanceSquared(towerLocation,enemy.getLocation());
+			double distanceSquared = calculateDistanceSquared(location,enemy.getLocation());
 			if (distanceSquared < currentClosestDistance){
 				currentClosestDistance = distanceSquared;
 				closestEnemy = enemy;
 			}
-			
 		}
 		return closestEnemy;
-	}
-
-	private double calculateDistanceSquared(Point startLocation,Point endLocation) {
-		return Math.pow(startLocation.x-endLocation.x, 2) + Math.pow(startLocation.y-endLocation.y,2);
 	}
 
 	public CannonBall update(ArrayList<BasicEnemy> basicEnemies) {
@@ -45,7 +35,7 @@ public class Tower {
 			BasicEnemy nearestEnemy = findNearestEnemy(basicEnemies);
 			this.coolDownCounter =0;
 			if (nearestEnemy != null){
-				return new CannonBall(towerLocation,nearestEnemy.getLocation());
+				return new CannonBall(location,nearestEnemy.getLocation());
 			}
 			return null;
 			
@@ -56,4 +46,7 @@ public class Tower {
 
 		
 	}
+
+	@Override
+	void updateState() {}
 }

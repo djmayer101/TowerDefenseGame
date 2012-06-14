@@ -42,7 +42,7 @@ public class World {
 
 
 	public void setTower(Tower tower) {
-		worldTowerGrid[(int) Math.floor(tower.y / squareSize)][(int) Math.floor(tower.x / squareSize)] = tower;
+		worldTowerGrid[(int) Math.floor(tower.getLocation().y / squareSize)][(int) Math.floor(tower.getLocation().x / squareSize)] = tower;
 		towers.add(tower);
 
 	}
