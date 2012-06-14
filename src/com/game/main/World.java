@@ -91,8 +91,9 @@ public class World {
 		}
 		finishedCannonBalls = new ArrayList<CannonBall>();
 		for (CannonBall cannonBall : cannonBalls){
-			cannonBall.update();
-			if (cannonBall.state == CannonBall.State.DONE){
+			cannonBall.updateLocation();
+			cannonBall.updateState();
+			if (cannonBall.getState() == GameConstants.State.DONE){
 				finishedCannonBalls.add(cannonBall);
 			}
 		}
