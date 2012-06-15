@@ -1,5 +1,7 @@
 package com.game.main;
 
+import com.game.main.Constants.State;
+
 import android.graphics.Point;
 
 public class BasicEnemy extends BasicGameObject {
@@ -14,6 +16,14 @@ public class BasicEnemy extends BasicGameObject {
 	}
 	
 	@Override
-	void updateState() {}
+	void updateState() {
+		if (health <= 0){
+			this.state = State.DONE;
+		}
+	}
+
+	public void reduceHeath(int cannonBallDamage) {
+		health -= cannonBallDamage;
+	}
 }
 

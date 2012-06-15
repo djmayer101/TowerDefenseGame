@@ -22,6 +22,9 @@ public class Constants {
 	public static final int IMAGE_OFFSET = 3;
 	public static final long UPDATE_DELAY = 40;
 	
+	public static final int CANNONBALL_EXPLOSION_RADIUS_SQUARED = 1625;
+	public static final int CANNONBALL_DAMAGE = 20;
+	
 	public static enum State{LAUNCH,TRAVEL,EXPLODE,DONE, INITIAL};
 	
 	public static enum DrawObject{CURSOR,TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY};

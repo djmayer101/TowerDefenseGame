@@ -3,9 +3,11 @@ package com.game.main;
 import java.util.ArrayList;
 
 import com.game.main.Constants.DrawObject;
+import com.game.main.Constants.State;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.util.Log;
 
 public class GameEngine {
 
@@ -67,7 +69,8 @@ public class GameEngine {
 		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
 		for (BasicEnemy enemy: basicEnemies){
 			enemy.updateLocation();
-			if (terrainMap.LocationOutOfBounds(enemy.getLocation())){
+			enemy.updateState();
+			if (enemy.getState() == Constants.State.DONE ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
 				finishedEnemies.add(enemy);
 			}
 		}
@@ -83,6 +86,7 @@ public class GameEngine {
 			cannonBall.updateState();
 			if (cannonBall.getState() == Constants.State.DONE){
 				finishedCannonBalls.add(cannonBall);
+				explodeCannonBall(cannonBall);
 			}
 		}
 
@@ -92,8 +96,19 @@ public class GameEngine {
 
 		for (CannonBall cannonBall : finishedCannonBalls){
 			cannonBalls.remove(cannonBall);
+			
 		}
 
+	}
+	
+	private void explodeCannonBall(CannonBall cannonBall){
+		for (BasicEnemy enemy: basicEnemies){
+			double distanceSquared = BasicEnemy.calculateDistanceSquared(enemy.getLocation(), cannonBall.getLocation());
+			if (distanceSquared < Constants.CANNONBALL_EXPLOSION_RADIUS_SQUARED){
+				enemy.reduceHeath(Constants.CANNONBALL_DAMAGE);
+			}
+			Log.e("enemy health","health: " + enemy.health);
+		}
 	}
 
 }
