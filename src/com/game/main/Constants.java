@@ -24,4 +24,6 @@ public class Constants {
 	
 	public static enum State{LAUNCH,TRAVEL,EXPLODE,DONE, INITIAL};
 	
+	public static enum DrawObject{CURSOR,TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY};
+	
 }

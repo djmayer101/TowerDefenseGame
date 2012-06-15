@@ -2,6 +2,8 @@ package com.game.main;
 
 import java.util.ArrayList;
 
+import com.game.main.Constants.DrawObject;
+
 import android.graphics.Canvas;
 import android.graphics.Point;
 
@@ -31,32 +33,32 @@ public class GameEngine {
 	}
 	
 	public void drawAll(Canvas canvas) {
-		spriteDrawer.drawCursor(canvas,terrainMap.getFocus());
+		spriteDrawer.drawGameObject(canvas,terrainMap.getFocus(), DrawObject.CURSOR);
 		for (int i=0; i<terrainMap.numRows; i++){
 			for (int j=0; j<terrainMap.numColumns; j++){
 				if(terrainMap.worldTowerGrid[i][j]!=null){
 					Point location = new Point(terrainMap.worldTowerGrid[i][j].getLocation().x+Constants.IMAGE_OFFSET, terrainMap.worldTowerGrid[i][j].getLocation().y+Constants.IMAGE_OFFSET);
-					spriteDrawer.drawTower(canvas,location);
+					spriteDrawer.drawGameObject(canvas,location, DrawObject.TOWER);
 				}
 			}
 		}
 		for (BasicEnemy enemy:basicEnemies){
 			Point location = new Point(enemy.getLocation());
 			location.offset(Constants.IMAGE_OFFSET, Constants.IMAGE_OFFSET);
-			spriteDrawer.drawEnemy(canvas,location);
+			spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_ENEMY);
 			
 		}
 		for (CannonBall cannonBall: cannonBalls){
 			Point location = new Point(cannonBall.getLocation());
 			location.offset(Constants.IMAGE_OFFSET, Constants.IMAGE_OFFSET);
-			spriteDrawer.drawCannonBall(canvas,location);
+			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL);
 			
 		}
 		
 		for (CannonBall cannonBall: finishedCannonBalls){
 			Point location = new Point(cannonBall.getLocation());
 			location.offset(Constants.IMAGE_OFFSET, Constants.IMAGE_OFFSET);
-			spriteDrawer.drawCannonBallExplosion(canvas,location);
+			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL_EXPLOSION);
 			
 		}
 	}
