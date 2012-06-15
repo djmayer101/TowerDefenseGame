@@ -21,6 +21,7 @@ public class PathBuilder {
 	public ArrayList<Point> run(Point start, Point end) {
 		startPoint = new GridNode(start);
 		startPoint.setDistance(0);
+		startPoint.f_score = (int) BasicEnemy.calculateDistanceSquared(start, end);
 		endPoint = new GridNode(end);
 		ArrayList<Point> path = new ArrayList<Point>();
 		initialize();
@@ -28,16 +29,17 @@ public class PathBuilder {
 		while (!vertexes.isEmpty()) {
 			GridNode v = getLowestDistance();
 			vertexes.remove(v);
-			if(v.distanceToGoal == Integer.MAX_VALUE) {
+			if(v.distanceFromStart == Integer.MAX_VALUE) {
 				break; 
 			}
 			ArrayList<GridNode> myNeighbors = getNeighbors(v);
 			if(!myNeighbors.isEmpty()) {
 				for(GridNode neighbor: myNeighbors) {
-					int alt = v.distanceToGoal + 1;
-					if(alt < neighbor.distanceToGoal){
+					int alt = v.distanceFromStart +1;
+					if(alt < neighbor.distanceFromStart){
 						neighbor.setDistance(alt);
 						neighbor.setParent(v);
+						neighbor.setF_score((int) (alt + BasicEnemy.calculateDistanceSquared(neighbor.me, end)));
 					}
 				}
 			}
@@ -59,7 +61,7 @@ public class PathBuilder {
 		}
 		GridNode lowest = vertexes.get(0);
 		for (int i=1; i<vertexes.size(); i++) {
-			if(lowest.getDistance() > vertexes.get(i).getDistance()){
+			if(lowest.f_score > vertexes.get(i).f_score){
 				lowest = vertexes.get(i);
 			}
 		}
@@ -118,7 +120,7 @@ public class PathBuilder {
 				}
 			}
 		}
-		startPoint.distanceToGoal = 0;
+		startPoint.distanceFromStart = 0;
 	}
 
 }

@@ -6,12 +6,14 @@ public class GridNode {
 
 		Point me;
 		private GridNode parent;
-		int distanceToGoal;
+		public int distanceFromStart;
+		public int f_score = Integer.MAX_VALUE;
 
 		GridNode(Point me) {
 			this.me = me;
 			parent = null;
-			distanceToGoal = Integer.MAX_VALUE;
+			distanceFromStart = Integer.MAX_VALUE;
+			
 		}
 
 		public GridNode getParent () {
@@ -23,11 +25,16 @@ public class GridNode {
 		}
 
 		public int getDistance () {
-			return distanceToGoal;
+			return distanceFromStart;
 		}
 
 		public void setDistance (int newDistance) {
-			distanceToGoal = newDistance;
+			distanceFromStart = newDistance;
+		}
+
+
+		public void setF_score(int d) {
+			this.f_score = d;
 		}
 
 }

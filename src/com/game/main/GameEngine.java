@@ -3,8 +3,6 @@ package com.game.main;
 import java.util.ArrayList;
 
 import com.game.main.Constants.DrawObject;
-import com.game.main.Constants.State;
-
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.Log;
@@ -13,19 +11,24 @@ public class GameEngine {
 
 	private TerrainMap terrainMap;
 	
+	Point enemyStartPoint = new Point(0,0);
+	Point enemyEndPoint = new Point(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
+	
 	public ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
 	public ArrayList<Tower> towers = new ArrayList<Tower>();
 	public ArrayList<CannonBall> cannonBalls = new ArrayList<CannonBall>();
 	ArrayList<CannonBall> finishedCannonBalls = new ArrayList<CannonBall>();
+	
+	private ArrayList<Point> path;
 
 	private SpriteDrawer spriteDrawer;;
 
 	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer){
 		this.terrainMap = terrainMap;
 		this.spriteDrawer = mySpriteDrawer;
-		BasicEnemy enemy = new BasicEnemy(new Point(0,300));
+		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
 		basicEnemies.add(enemy);
-		
+		path = terrainMap.getPath(enemy.getLocation(), new Point(100,100));
 	}
 	
 	public void setTower(Tower tower) {
@@ -68,6 +71,9 @@ public class GameEngine {
 	public void updatePhysics() {
 		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
 		for (BasicEnemy enemy: basicEnemies){
+			
+			enemy.updatePath(path);
+			enemy.updateLocalGoal();
 			enemy.updateLocation();
 			enemy.updateState();
 			if (enemy.getState() == Constants.State.DONE ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
@@ -109,6 +115,11 @@ public class GameEngine {
 			}
 			Log.e("enemy health","health: " + enemy.health);
 		}
+	}
+	
+	private void addEnemy(){
+		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
+		basicEnemies.add(enemy);
 	}
 
 }
