@@ -6,14 +6,12 @@ import android.graphics.Point;
 
 public class Tower extends BasicGameObject {
 
-	int range;
-	int coolDown;
+	int range= Constants.BASIC_TOWER_RANGE;
+	int coolDown = Constants.BASIC_TOWER_COOLDOWN;
 	int coolDownCounter;
 
 	public Tower(Point location){
-		super(location,GameConstants.BASIC_TOWER_SPEED);
-		this.range = GameConstants.BASIC_TOWER_RANGE;
-		this.coolDown = GameConstants.BASIC_TOWER_COOLDOWN;
+		super(location,Constants.BASIC_TOWER_SPEED);
 		this.coolDownCounter = 0;
 	}
 	
@@ -31,16 +29,16 @@ public class Tower extends BasicGameObject {
 	}
 
 	public CannonBall update(ArrayList<BasicEnemy> basicEnemies) {
-		if (this.coolDownCounter == this.coolDown){
+		if (coolDownCounter == coolDown){
 			BasicEnemy nearestEnemy = findNearestEnemy(basicEnemies);
-			this.coolDownCounter =0;
+			coolDownCounter =0;
 			if (nearestEnemy != null){
 				return new CannonBall(location,nearestEnemy.getLocation());
 			}
 			return null;
 			
 		}else{
-			this.coolDownCounter +=1;
+			coolDownCounter +=1;
 			return null;
 		}
 

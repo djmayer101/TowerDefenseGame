@@ -65,9 +65,7 @@ public abstract class ArcadeGame extends LinearLayout {
 		return mContex;
 	}
 	
-	protected Bitmap getImage(int id) {
-		return BitmapFactory.decodeResource(mContex.getResources(), id);
-	}
+
 	
 	abstract protected void updatePhysics();
 	

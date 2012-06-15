@@ -6,7 +6,7 @@ public abstract class BasicGameObject {
 
 	Point location;
 	double theta = 0;
-	GameConstants.State state = GameConstants.State.INITIAL;
+	Constants.State state = Constants.State.INITIAL;
 	double speed;
 
 	public BasicGameObject(Point location,double  speed){
@@ -39,7 +39,7 @@ public abstract class BasicGameObject {
 		return Math.pow(startLocation.x-endLocation.x, 2) + Math.pow(startLocation.y-endLocation.y,2);
 	}
 
-	public GameConstants.State getState(){
+	public Constants.State getState(){
 		return state;
 	}
 

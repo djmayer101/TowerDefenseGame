@@ -10,50 +10,43 @@ import android.view.MotionEvent;
 
 public class TowerDefenseGame extends ArcadeGame{
 
-	public static final String GAME_NAME = "TowerDefense";
-	public static final int OBJECT_CELL_SIDE_LENGTH = 44;
-	public static final int CURSOR_CELL_SIDE_LENGTH = 50;
-	public static final int IMAGE_OFFSET = 3;
-	private static final long UPDATE_DELAY = 40;
 
-
-	private Paint mBitmapPaint = new Paint();
 	private Bitmap towerImage;
 	private Bitmap enemyImage;
 	private Bitmap cannonBallImage;
 	private Bitmap cannonBallExplosionImage;
 	
-	public World myWorld;
+	public TerrainMap myTerrainMap;
 	private Bitmap cursorImage;
+	public GameEngine myGameEngine;
+	private Context context;
+	private SpriteDrawer mySpriteDrawer;
 
+	/*
 	public TowerDefenseGame(Context context) {
 		super(context);
-		super.setUpdatePeriod(UPDATE_DELAY);
-	}
+		super.setUpdatePeriod(Constants.UPDATE_DELAY);
+		this.context = context;
+		initialize();
+	}*/
 
 	public TowerDefenseGame(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		super.setUpdatePeriod(UPDATE_DELAY);
+		super.setUpdatePeriod(Constants.UPDATE_DELAY);
+		this.context = context;
+		initialize();
 
 	}
 
 	public void initialize() {
 		int width = this.getWidth();
 		int height = this.getHeight();
-		myWorld = new World(width, height);
-		myWorld.setFocus(new Point(0,0));
+		myTerrainMap = new TerrainMap(width, height);
+		myTerrainMap.setFocus(new Point(0,0));
+		mySpriteDrawer = new SpriteDrawer(context);
+		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer);
 		
-		towerImage = getImage(R.drawable.awesome_castle);
-		towerImage = towerImage.createScaledBitmap(towerImage, OBJECT_CELL_SIDE_LENGTH,OBJECT_CELL_SIDE_LENGTH, false);
-		enemyImage = getImage(R.drawable.awesome_castle);
-		enemyImage = enemyImage.createScaledBitmap(enemyImage, OBJECT_CELL_SIDE_LENGTH,OBJECT_CELL_SIDE_LENGTH, false);
-		cannonBallImage = getImage(R.drawable.cannonball);
-		cannonBallImage = cannonBallImage.createScaledBitmap(cannonBallImage, OBJECT_CELL_SIDE_LENGTH,OBJECT_CELL_SIDE_LENGTH, false);
-		cannonBallExplosionImage = getImage(R.drawable.cannonball_explosion);
-		cannonBallExplosionImage = cannonBallExplosionImage.createScaledBitmap(cannonBallExplosionImage, OBJECT_CELL_SIDE_LENGTH,OBJECT_CELL_SIDE_LENGTH, false);
-		
-		cursorImage = getImage(R.drawable.clearyellow);
-		cursorImage = cursorImage.createScaledBitmap(cursorImage, CURSOR_CELL_SIDE_LENGTH, CURSOR_CELL_SIDE_LENGTH, false);
+	
 
 
 	}
@@ -61,16 +54,20 @@ public class TowerDefenseGame extends ArcadeGame{
 	@Override
 	protected void onDraw(Canvas canvas) 
 	{
+
 		super.dispatchDraw(canvas);
-		paint(canvas);
+		myGameEngine.drawAll(canvas);
+		//paint(canvas);
 	}
+	/*
 	public void paint(Canvas g) {
 		if (ingame)
 			playGame(g);
 	}
 	private void playGame(Canvas c) {
-		drawPlayField(c);
+		myGameEngine.drawPlayField(c);
 	}
+	*/
 	public void GameStart() {
 	}
 
@@ -78,44 +75,22 @@ public class TowerDefenseGame extends ArcadeGame{
 		ingame = false;
 	}
 
-	public void drawPlayField(Canvas canvas) {
-		canvas.drawBitmap(cursorImage,myWorld.getFocus().x,myWorld.getFocus().y, mBitmapPaint);
-		for (int i=0; i<myWorld.numRows; i++){
-			for (int j=0; j<myWorld.numColumns; j++){
-				if(myWorld.worldTowerGrid[i][j]!=null){
-					canvas.drawBitmap(towerImage, myWorld.worldTowerGrid[i][j].getLocation().x+IMAGE_OFFSET, myWorld.worldTowerGrid[i][j].getLocation().y+IMAGE_OFFSET, mBitmapPaint);
-				}
-			}
-		}
-		for (BasicEnemy enemy:myWorld.basicEnemies){
-			canvas.drawBitmap(enemyImage, enemy.getLocation().x +IMAGE_OFFSET,enemy.getLocation().y+IMAGE_OFFSET, mBitmapPaint);
-		}
-		for (CannonBall cannonBall: myWorld.cannonBalls){
-			canvas.drawBitmap(cannonBallImage, cannonBall.location.x+IMAGE_OFFSET,cannonBall.location.y+IMAGE_OFFSET, mBitmapPaint);
-		}
-		
-		for (CannonBall cannonBall: myWorld.finishedCannonBalls){
-			canvas.drawBitmap(cannonBallExplosionImage, cannonBall.location.x+IMAGE_OFFSET,cannonBall.location.y+IMAGE_OFFSET, mBitmapPaint);
-		}
-	}
-
-
 
 	public boolean onTouchEvent(MotionEvent event){
 		int tx = (int) event.getX();
 		int ty = (int) event.getY();
 
-		Point nearestTowerLocation = myWorld.computeNearestTowerLocation(new Point(tx, ty));
-		myWorld.setFocus(nearestTowerLocation);
+		Point nearestTowerLocation = myTerrainMap.computeNearestTowerLocation(new Point(tx, ty));
+		myTerrainMap.setFocus(nearestTowerLocation);
 
-		if (!myWorld.isTowerAt(new Point(nearestTowerLocation.x, nearestTowerLocation.y))){
-			myWorld.setFocus(new Point(nearestTowerLocation.x, nearestTowerLocation.y));
+		if (!myTerrainMap.isTowerAt(new Point(nearestTowerLocation.x, nearestTowerLocation.y))){
+			myTerrainMap.setFocus(new Point(nearestTowerLocation.x, nearestTowerLocation.y));
 
 			//myWorld.setTower(new Tower(nearestTowerLocation.x, nearestTowerLocation.y));
 			//show place tower buttons
 		}
 		else{
-			Tower tower = myWorld.getTowerAt(nearestTowerLocation);
+			Tower tower = myTerrainMap.getTowerAt(nearestTowerLocation);
 			//show tower upgrade buttom and tower stats
 		}
 
@@ -132,7 +107,7 @@ public class TowerDefenseGame extends ArcadeGame{
 
 	@Override
 	protected void updatePhysics() {
-		myWorld.updatePhysics();
+		myGameEngine.updatePhysics();
 	}
 
 	@Override

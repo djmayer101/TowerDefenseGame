@@ -1,7 +1,7 @@
 package com.game.main;
 
 import android.graphics.Point;
-import com.game.main.GameConstants.State;
+import com.game.main.Constants.State;
 
 public class CannonBall extends BasicGameObject{
 
@@ -9,7 +9,7 @@ public class CannonBall extends BasicGameObject{
 	private double previousDistanceToTarget;
 
 	public CannonBall(Point location, Point endLocation) {
-		super(location, GameConstants.BASIC_CANNON_SPEED);
+		super(location, Constants.BASIC_CANNON_SPEED);
 
 		this.endLocation = endLocation;
 		this.state = State.LAUNCH;

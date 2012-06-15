@@ -34,8 +34,8 @@ public class TowerDefenseActivity extends Activity{
 
 		towerButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-				Point newTowerLocation = myGame.myWorld.getFocus();
-				myGame.myWorld.setTower(new Tower(newTowerLocation));
+				Point newTowerLocation = myGame.myTerrainMap.getFocus();
+				myGame.myGameEngine.setTower(new Tower(newTowerLocation));
 			}
 		});
 		
@@ -53,7 +53,7 @@ public class TowerDefenseActivity extends Activity{
 
 				//TODO Disable Gridview so user cannot click on grid
 				//start round logic		
-				ArrayList<Point> path = myGame.myWorld.getPath(new Point(0,0), new Point(3,7));
+				ArrayList<Point> path = myGame.myTerrainMap.getPath(new Point(0,0), new Point(3,7));
 			}
 		});
 	

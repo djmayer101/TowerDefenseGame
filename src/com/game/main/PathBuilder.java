@@ -6,7 +6,7 @@ import java.util.Hashtable;
 import android.graphics.Point;
 
 public class PathBuilder {
-	private World myWorld;
+	private TerrainMap myTerrainMap;
 	private ArrayList<GridNode> vertexes;
 	private Hashtable<Point, Boolean> mapping;
 	private Hashtable<Point, GridNode> pointToGridNode;
@@ -14,8 +14,8 @@ public class PathBuilder {
 	private GridNode endPoint;
 
 
-	PathBuilder (World world) {
-		myWorld = world;
+	PathBuilder (TerrainMap terrainMap) {
+		myTerrainMap = terrainMap;
 	}
 
 	public ArrayList<Point> run(Point start, Point end) {
@@ -94,8 +94,8 @@ public class PathBuilder {
 		mapping = new Hashtable<Point, Boolean>();
 		pointToGridNode = new Hashtable<Point, GridNode>();
 		vertexes = new ArrayList<GridNode>();
-		for(int i=0; i<myWorld.worldTowerGrid.length; i++) {
-			for(int j=0; j<myWorld.worldTowerGrid[0].length; j++) {
+		for(int i=0; i<myTerrainMap.worldTowerGrid.length; i++) {
+			for(int j=0; j<myTerrainMap.worldTowerGrid[0].length; j++) {
 				if(startPoint.me.equals(new Point(j,i))){
 					mapping.put(startPoint.me, true);
 					pointToGridNode.put(startPoint.me, startPoint);
@@ -106,7 +106,7 @@ public class PathBuilder {
 					pointToGridNode.put(endPoint.me, endPoint);
 					vertexes.add(endPoint);
 				}
-				else if(myWorld.worldTowerGrid[i][j]==null) {
+				else if(myTerrainMap.worldTowerGrid[i][j]==null) {
 					GridNode newNode = new GridNode(new Point(j, i));
 					mapping.put(newNode.me, true);
 					pointToGridNode.put(newNode.me, newNode);

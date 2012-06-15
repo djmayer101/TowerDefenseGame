@@ -1,6 +1,6 @@
 package com.game.main;
 
-public class GameConstants {
+public class Constants {
 
 	public static final double SOUTH = 270;
 	public static final double NORTH = 90;
@@ -13,6 +13,14 @@ public class GameConstants {
 	
 	public static final int BASIC_TOWER_RANGE = 100;
 	public static final int BASIC_TOWER_COOLDOWN = 30;
+	public static final int WORLD_WIDTH = 0;
+	public static final int WORLD_HEIGHT = 0;
+	
+	public static final String GAME_NAME = "TowerDefense";
+	public static final int OBJECT_CELL_SIDE_LENGTH = 44;
+	public static final int CURSOR_CELL_SIDE_LENGTH = 50;
+	public static final int IMAGE_OFFSET = 3;
+	public static final long UPDATE_DELAY = 40;
 	
 	public static enum State{LAUNCH,TRAVEL,EXPLODE,DONE, INITIAL};
 	
