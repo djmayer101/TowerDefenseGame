@@ -1,6 +1,7 @@
 package com.game.main;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.game.main.Constants.DrawObject;
 import android.graphics.Canvas;
@@ -13,14 +14,14 @@ public class GameEngine {
 	private SpriteDrawer spriteDrawer;
 	private PathBuilder pathBuilder;
 	
-	Point enemyStartPoint = new Point(0,0);
-	Point enemyEndPoint = new Point(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
-	
-	public ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
-	public ArrayList<Tower> towers = new ArrayList<Tower>();
-	public ArrayList<CannonBall> cannonBalls = new ArrayList<CannonBall>();
-	ArrayList<CannonBall> finishedCannonBalls = new ArrayList<CannonBall>();
-	
+	Point enemyStartPoint = Constants.SPAWN_POINT;
+	Point enemyEndPoint = Constants.END_POINT;
+
+	public CopyOnWriteArrayList<BasicEnemy> basicEnemies = new CopyOnWriteArrayList<BasicEnemy>();
+	public CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<Tower>();
+	public CopyOnWriteArrayList <CannonBall> cannonBalls = new CopyOnWriteArrayList <CannonBall>();
+	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
+
 	private ArrayList<Point> path;
 
 
@@ -39,13 +40,19 @@ public class GameEngine {
 		path.add(new Point(1,2));
 		path.add(new Point(2,2));
 	}
-	
+
 	public void setTower(Tower tower) {
+		/*
 		//terrainMap.worldTowerGrid[(int) Math.floor(tower.getLocation().y / terrainMap.squareSize)][(int) Math.floor(tower.getLocation().x / terrainMap.squareSize)] = tower;
+		int y = (int) Math.floor(tower.getLocation().y / terrainMap.squareSize);
+		int x = (int) Math.floor(tower.getLocation().x / terrainMap.squareSize);
+		Log.e("setTower", "x=" + x + " y=" + y);
+		terrainMap.worldTowerGrid[(int) Math.floor(tower.getLocation().y / terrainMap.squareSize)][(int) Math.floor(tower.getLocation().x / terrainMap.squareSize)] = tower;
 		towers.add(tower);
+		*/
 
 	}
-	
+
 	public void drawAll(Canvas canvas) {
 		
 		for (int i=0; i<Constants.NUM_COLUMNS; i++){
@@ -62,29 +69,41 @@ public class GameEngine {
 			Point location = new Point(enemy.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_ENEMY);
-			
+
 		}
 		for (CannonBall cannonBall: cannonBalls){
 			Point location = new Point(cannonBall.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL);
-			
+
 		}
-		
+
 		for (CannonBall cannonBall: finishedCannonBalls){
 			Point location = new Point(cannonBall.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL_EXPLOSION);
-			
+
 		}
 		Point cursor_location = new Point(terrainMap.getFocus().x+ TowerDefenseGame.X_offset,terrainMap.getFocus().y+ TowerDefenseGame.Y_offset);
 		spriteDrawer.drawGameObject(canvas,cursor_location, DrawObject.CURSOR);
 	}
-	
+
+	private int counter = 0;
+
 	public void updatePhysics() {
+		if(counter == 300){
+			addEnemy();
+			counter = 0;
+			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
+		}
+		else if(counter!=295){
+			
+			counter++;
+		
+
 		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
 		for (BasicEnemy enemy: basicEnemies){
-			
+			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
 			enemy.updatePath(path);
 			enemy.updateLocalGoal();
 			enemy.updateLocation();
@@ -99,27 +118,32 @@ public class GameEngine {
 				cannonBalls.add(cannonBall);
 			}
 		}
-		finishedCannonBalls = new ArrayList<CannonBall>();
-		for (CannonBall cannonBall : cannonBalls){
+		finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
+		for (CannonBall cannonBall: cannonBalls){
 			cannonBall.updateLocation();
 			cannonBall.updateState();
 			if (cannonBall.getState() == Constants.State.DONE){
-				finishedCannonBalls.add(cannonBall);
 				explodeCannonBall(cannonBall);
+				finishedCannonBalls.add(cannonBall);
 			}
 		}
+		
 
 		for (BasicEnemy enemy: finishedEnemies){
 			basicEnemies.remove(enemy);
 		}
-
 		for (CannonBall cannonBall : finishedCannonBalls){
 			cannonBalls.remove(cannonBall);
-			
+
+		}
+		}
+		else{
+			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
+			counter++;
 		}
 
 	}
-	
+
 	private void explodeCannonBall(CannonBall cannonBall){
 		for (BasicEnemy enemy: basicEnemies){
 			double distanceSquared = BasicEnemy.calculateDistanceSquared(enemy.getLocation(), cannonBall.getLocation());
@@ -129,7 +153,7 @@ public class GameEngine {
 			Log.e("enemy health","health: " + enemy.health);
 		}
 	}
-	
+
 	private void addEnemy(){
 		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
 		basicEnemies.add(enemy);
@@ -147,8 +171,27 @@ public class GameEngine {
 		towers.add(tower);
 		BasicEnemy enemy = new BasicEnemy(new Point(0,0),new Point(2,2));
 		basicEnemies.add(enemy);
-		
-		
+	}
+	
+
+	public Tower getTowerAt(Point p){
+		/*
+		int y = (int) Math.floor(p.y / squareSize);
+		int x = (int) Math.floor(p.x / squareSize);
+		Log.e("getTowerAt", "x=" + x + " y=" + y);
+		return worldTowerGrid[(int) Math.floor(p.y / squareSize)][(int) Math.floor(p.x / squareSize)];
+		*/
+		return null;
+	}
+
+
+	public boolean isTowerAt(Point p) {
+		/*
+		Log.e("pointcheck", "x=" + p.x + "  y=" + p.y);
+		if((p.x >= numColumns*squareSize) || (p.y >= numRows*squareSize)){
+			return true;
+		}*/
+		return false;
 	}
 
 }

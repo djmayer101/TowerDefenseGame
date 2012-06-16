@@ -88,6 +88,7 @@ public class TowerDefenseGame extends ArcadeGame{
 			myGameEngine.tileClicked(new Point((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
 		}
 
+
 		if ( !ingame ) {
 			ingame = true;
 			GameStart();

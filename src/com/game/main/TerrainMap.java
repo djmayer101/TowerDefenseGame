@@ -8,11 +8,11 @@ public class TerrainMap {
 
 	private int world_width;
 	private int world_height;
-	
+
 	private int numColumns;
 	private int numRows;
 	int squareSize;
-	
+
 	private Point focus;
 
 	public Constants.DrawObject[][] worldTerrainGrid;
@@ -36,7 +36,7 @@ public class TerrainMap {
 				if (i == 0 || j == 0 || i ==Constants.NUM_COLUMNS-1 || j == Constants.NUM_ROWS-1){
 					worldTerrainGrid[i][j] = Constants.DrawObject.BORDERTILE;
 				}
-				
+
 			}
 		}
 	}

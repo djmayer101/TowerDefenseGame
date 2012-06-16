@@ -4,8 +4,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -15,7 +13,7 @@ public abstract class ArcadeGame extends LinearLayout {
 	
 	private Timer mUpdateTimer;
 	
-	private long mPeriod = 1000;
+	private long mPeriod = 10000;
 	protected boolean ingame = false;
 	final int screendelay = 300;
 	

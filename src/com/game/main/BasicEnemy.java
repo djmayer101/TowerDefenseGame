@@ -40,7 +40,11 @@ public class BasicEnemy extends BasicGameObject {
 	
 	@Override
 	public void updateLocation(){
-		if (calculateDistanceSquared(location, localGoal) < this.speed * this.speed){
+		if((this.location.x == scaleGridPointToPixel(endLocation).x) &&
+				(this.location.y == scaleGridPointToPixel(endLocation).y)){
+			this.speed = 0;
+		}
+		else if (calculateDistanceSquared(location, localGoal) < this.speed * this.speed){
 			this.location = new Point(localGoal);
 		}
 		else{
@@ -52,10 +56,15 @@ public class BasicEnemy extends BasicGameObject {
 	}
 	
 	public void updateLocalGoal(){
-		if (this.path.contains(this.location)){
-			int newLocalGoalIndex = this.path.indexOf(this.location) + 1;
-			this.localGoal = this.path.get(newLocalGoalIndex);
-			this.updateTheta(localGoal);
+		if (this.path.contains(scalePixelToGridPoint(this.location))){
+			int newLocalGoalIndex = this.path.indexOf(scalePixelToGridPoint(this.location)) + 1;
+			if(path.size() > newLocalGoalIndex){
+				this.localGoal = scaleGridPointToPixel(this.path.get(newLocalGoalIndex));
+				this.updateTheta(localGoal);
+			}
+			else{
+				this.localGoal = scaleGridPointToPixel(this.endLocation);
+			}
 		}
 	}
 

@@ -2,6 +2,7 @@ package com.game.main;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -30,6 +31,9 @@ public class TowerDefenseActivity extends Activity{
 		towerButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Point newTowerLocation = myGame.myTerrainMap.getFocus();
+				int y = newTowerLocation.y;
+				int x = newTowerLocation.x;
+				Log.e("button", "x=" + x + " y=" + y);
 				myGame.myGameEngine.setTower(new Tower(newTowerLocation));
 			}
 		});*/
@@ -59,7 +63,7 @@ public class TowerDefenseActivity extends Activity{
 	@Override
 	protected void onStop() {
 		super.onStop();
-		((ArcadeGame)view).halt();
+	//	((ArcadeGame)view).halt();
 	}
 
 	@Override
@@ -71,7 +75,7 @@ public class TowerDefenseActivity extends Activity{
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		((ArcadeGame)view).resume();
+		//((ArcadeGame)view).resume();
 	}
 
 }
