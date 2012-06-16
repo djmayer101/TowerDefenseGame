@@ -46,8 +46,17 @@ public class TerrainMap {
 	}
 
 	public Point computeNearestTowerLocation(Point p) {
-		int nearestTowerLocationX = squareSize*((int) Math.floor(p.x / squareSize));
-		int nearestTowerLocationY = squareSize*((int) Math.floor(p.y / squareSize));
+		int GridX = ((int) Math.floor(p.x / squareSize));
+		int GridY = ((int) Math.floor(p.y / squareSize));
+		if(GridX>=numColumns){
+			GridX = numColumns-1;
+		}
+		if(GridY>=numRows){
+			GridY = numRows-1;
+		}
+		int nearestTowerLocationX = squareSize*GridX;
+		int nearestTowerLocationY = squareSize*GridY;
+		
 		return new Point(nearestTowerLocationX, nearestTowerLocationY);
 	}
 

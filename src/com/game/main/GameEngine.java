@@ -19,7 +19,7 @@ public class GameEngine {
 	public CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<Tower>();
 	public CopyOnWriteArrayList <CannonBall> cannonBalls = new CopyOnWriteArrayList <CannonBall>();
 	//public ArrayList<CannonBall> drawingCannonBalls = new ArrayList<CannonBall>();
-	ArrayList<CannonBall> finishedCannonBalls = new ArrayList<CannonBall>();
+	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
 	private ArrayList<Point> path;
 
@@ -102,7 +102,7 @@ public class GameEngine {
 				cannonBalls.add(cannonBall);
 			}
 		}
-		finishedCannonBalls = new ArrayList<CannonBall>();
+		finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 		for (CannonBall cannonBall: cannonBalls){
 			cannonBall.updateLocation();
 			cannonBall.updateState();
