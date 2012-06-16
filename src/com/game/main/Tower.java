@@ -1,6 +1,7 @@
 package com.game.main;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import android.graphics.Point;
 
 
@@ -15,10 +16,10 @@ public class Tower extends BasicGameObject {
 		this.coolDownCounter = 0;
 	}
 	
-	public BasicEnemy findNearestEnemy(ArrayList<BasicEnemy> enemies){
+	public BasicEnemy findNearestEnemy(CopyOnWriteArrayList<BasicEnemy> basicEnemies){
 		double currentClosestDistance = Double.MAX_VALUE;
 		BasicEnemy closestEnemy = null;
-		for(BasicEnemy enemy : enemies){
+		for(BasicEnemy enemy : basicEnemies){
 			double distanceSquared = calculateDistanceSquared(location,enemy.getLocation());
 			if (distanceSquared < currentClosestDistance){
 				currentClosestDistance = distanceSquared;
@@ -28,7 +29,7 @@ public class Tower extends BasicGameObject {
 		return closestEnemy;
 	}
 
-	public CannonBall update(ArrayList<BasicEnemy> basicEnemies) {
+	public CannonBall update(CopyOnWriteArrayList<BasicEnemy> basicEnemies) {
 		if (coolDownCounter == coolDown){
 			BasicEnemy nearestEnemy = findNearestEnemy(basicEnemies);
 			coolDownCounter =0;

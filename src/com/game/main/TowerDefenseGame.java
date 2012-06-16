@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class TowerDefenseGame extends ArcadeGame{
@@ -79,6 +80,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	public boolean onTouchEvent(MotionEvent event){
 		int tx = (int) event.getX();
 		int ty = (int) event.getY();
+		Log.e("touch event point", "x=" + tx+"  y="+ty);
 
 		Point nearestTowerLocation = myTerrainMap.computeNearestTowerLocation(new Point(tx, ty));
 		myTerrainMap.setFocus(nearestTowerLocation);
@@ -90,7 +92,7 @@ public class TowerDefenseGame extends ArcadeGame{
 			//show place tower buttons
 		}
 		else{
-			Tower tower = myTerrainMap.getTowerAt(nearestTowerLocation);
+			//Tower tower = myTerrainMap.getTowerAt(nearestTowerLocation);
 			//show tower upgrade buttom and tower stats
 		}
 

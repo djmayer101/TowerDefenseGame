@@ -39,6 +39,9 @@ public class TerrainMap {
 
 
 	public Tower getTowerAt(Point p){
+		int y = (int) Math.floor(p.y / squareSize);
+		int x = (int) Math.floor(p.x / squareSize);
+		Log.e("getTowerAt", "x=" + x + " y=" + y);
 		return worldTowerGrid[(int) Math.floor(p.y / squareSize)][(int) Math.floor(p.x / squareSize)];
 	}
 
