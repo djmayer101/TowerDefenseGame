@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.game.main.Constants.State;
 
 import android.graphics.Point;
+import android.util.Log;
 
 public class BasicEnemy extends BasicGameObject {
 	
@@ -40,7 +41,11 @@ public class BasicEnemy extends BasicGameObject {
 	
 	@Override
 	public void updateLocation(){
-		if (calculateDistanceSquared(location, localGoal) < this.speed * this.speed){
+		if((this.location.x == scaleGridPointToPixel(endLocation).x) &&
+				(this.location.y == scaleGridPointToPixel(endLocation).y)){
+			this.speed = 0;
+		}
+		else if (calculateDistanceSquared(location, localGoal) < this.speed * this.speed){
 			this.location = new Point(localGoal);
 		}
 		else{
@@ -56,6 +61,7 @@ public class BasicEnemy extends BasicGameObject {
 			int newLocalGoalIndex = this.path.indexOf(scalePixelToGridPoint(this.location)) + 1;
 			if(path.size() > newLocalGoalIndex){
 				this.localGoal = scaleGridPointToPixel(this.path.get(newLocalGoalIndex));
+				Log.e("localGoal", "localGoal is: " + localGoal.x + " " + localGoal.y);
 				this.updateTheta(localGoal);
 			}
 			else{
