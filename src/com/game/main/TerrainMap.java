@@ -27,7 +27,7 @@ public class TerrainMap {
 		Log.e("board dimensions", "height: " + height + " width " + width);
 		this.numColumns = 9;
 		this.numRows = 11;
-		this.squareSize = 50;
+		this.squareSize = Constants.GRID_SQUARE_SIZE;
 		worldTowerGrid = new Tower[numRows][numColumns];
 
 		
@@ -93,6 +93,7 @@ public class TerrainMap {
 		return path;
 	}
 
+	
 
 
 }

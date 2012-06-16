@@ -8,7 +8,7 @@ public class Constants {
 	public static final double WEST = 180;
 	
 	public static final double BASIC_CANNON_SPEED = 10;
-	public static final double BASIC_ENEMY_SPEED = 1;
+	public static final double BASIC_ENEMY_SPEED = 5;
 	public static final double BASIC_TOWER_SPEED = 0;
 	
 	public static final int BASIC_TOWER_RANGE = 100;
@@ -24,6 +24,7 @@ public class Constants {
 	
 	public static final int CANNONBALL_EXPLOSION_RADIUS_SQUARED = 1625;
 	public static final int CANNONBALL_DAMAGE = 20;
+	public static final int GRID_SQUARE_SIZE = 50;
 	
 	public static enum State{LAUNCH,TRAVEL,EXPLODE,DONE, INITIAL};
 	

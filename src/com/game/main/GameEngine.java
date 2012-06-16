@@ -12,7 +12,7 @@ public class GameEngine {
 	private TerrainMap terrainMap;
 	
 	Point enemyStartPoint = new Point(0,0);
-	Point enemyEndPoint = new Point(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
+	Point enemyEndPoint = new Point(7,8);
 	
 	public ArrayList<BasicEnemy> basicEnemies = new ArrayList<BasicEnemy>();
 	public ArrayList<Tower> towers = new ArrayList<Tower>();
@@ -28,7 +28,7 @@ public class GameEngine {
 		this.spriteDrawer = mySpriteDrawer;
 		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
 		basicEnemies.add(enemy);
-		path = terrainMap.getPath(enemy.getLocation(), new Point(100,100));
+		path = terrainMap.getPath(enemy.getLocation(), new Point(7,8));
 	}
 	
 	public void setTower(Tower tower) {

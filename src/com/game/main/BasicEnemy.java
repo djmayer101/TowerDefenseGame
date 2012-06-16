@@ -52,10 +52,15 @@ public class BasicEnemy extends BasicGameObject {
 	}
 	
 	public void updateLocalGoal(){
-		if (this.path.contains(this.location)){
-			int newLocalGoalIndex = this.path.indexOf(this.location) + 1;
-			this.localGoal = this.path.get(newLocalGoalIndex);
-			this.updateTheta(localGoal);
+		if (this.path.contains(scalePixelToGridPoint(this.location))){
+			int newLocalGoalIndex = this.path.indexOf(scalePixelToGridPoint(this.location)) + 1;
+			if(path.size() > newLocalGoalIndex){
+				this.localGoal = scaleGridPointToPixel(this.path.get(newLocalGoalIndex));
+				this.updateTheta(localGoal);
+			}
+			else{
+				this.localGoal = scaleGridPointToPixel(this.endLocation);
+			}
 		}
 	}
 
