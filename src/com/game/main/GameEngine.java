@@ -34,29 +34,10 @@ public class GameEngine {
 		this.spriteDrawer = mySpriteDrawer;
 		this.pathBuilder = myPathBuilder;
 		this.towerManager = myTowerManager;
-		//BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
-		//basicEnemies.add(enemy);
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
-		/*
-		path = new ArrayList<Point>();
-		path.add(new Point(0,0));
-		path.add(new Point(0,1));
-		path.add(new Point(0,2));
-		path.add(new Point(0,3));
-		path.add(new Point(0,4));*/
-	}
-
-	public void setTower(Tower tower) {
-		/*
-		//terrainMap.worldTowerGrid[(int) Math.floor(tower.getLocation().y / terrainMap.squareSize)][(int) Math.floor(tower.getLocation().x / terrainMap.squareSize)] = tower;
-		int y = (int) Math.floor(tower.getLocation().y / terrainMap.squareSize);
-		int x = (int) Math.floor(tower.getLocation().x / terrainMap.squareSize);
-		Log.e("setTower", "x=" + x + " y=" + y);
-		terrainMap.worldTowerGrid[(int) Math.floor(tower.getLocation().y / terrainMap.squareSize)][(int) Math.floor(tower.getLocation().x / terrainMap.squareSize)] = tower;
-		towers.add(tower);
-		*/
 
 	}
+
 
 	public void drawAll(Canvas canvas) {
 		
@@ -143,7 +124,7 @@ public class GameEngine {
 		}
 		}
 		else{
-			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
+			path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
 			counter++;
 		}
 
@@ -172,6 +153,9 @@ public class GameEngine {
 
 	public void tileClicked(Point location) {
 		terrainMap.setFocus(computeNearestTowerLocation(location));
+	}
+	
+	public void buildTowerClicked(){
 		if (towerManager.isTowerAt(terrainMap.getFocus()) == false){
 			Tower tower = new Tower(terrainMap.getFocus());
 			towerManager.addTower(tower);

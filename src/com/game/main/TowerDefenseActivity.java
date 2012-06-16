@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 public class TowerDefenseActivity extends Activity{
 	private View view;
@@ -26,6 +29,7 @@ public class TowerDefenseActivity extends Activity{
 		view.setFocusable(true);
 		view.setFocusableInTouchMode(true);
 		
+		 
 		/*ImageButton towerButton = (ImageButton)findViewById(R.id.good_tower);
 
 		towerButton.setOnClickListener(new Button.OnClickListener() {

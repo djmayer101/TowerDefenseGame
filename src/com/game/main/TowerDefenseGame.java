@@ -2,12 +2,16 @@ package com.game.main;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class TowerDefenseGame extends ArcadeGame{
@@ -20,15 +24,34 @@ public class TowerDefenseGame extends ArcadeGame{
 	private int screen_width;
 	private int screen_height;
 	private TowerManager myTowerManager;
-	
+
 	static public int X_offset= 0;
 	static public int Y_offset = 0;
+	ImageButton buildTowerButton;
 
 	public TowerDefenseGame(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		super.setUpdatePeriod(Constants.UPDATE_DELAY);
 		this.context = context;
 		initialize();
+
+		ImageButton buildTowerButton= new ImageButton(context);
+		Bitmap buttonImage = getImage(R.drawable.build_tower_button);
+		buttonImage = Bitmap.createScaledBitmap( buttonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		buildTowerButton.setImageBitmap(buttonImage);
+		buildTowerButton.setBackgroundResource(0);
+		buildTowerButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0));
+
+		buildTowerButton.setOnClickListener(new View.OnClickListener() {            
+			public void onClick(View v) {
+
+				myGameEngine.buildTowerClicked();
+
+			}
+		});
+
+		this.addView(buildTowerButton);
+
 	}
 
 	public void initialize() {
@@ -41,8 +64,12 @@ public class TowerDefenseGame extends ArcadeGame{
 		myPathBuilder = new PathBuilder(myTerrainMap,myTowerManager);
 		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myTowerManager);
 
-	}
 
+
+	}
+	protected Bitmap getImage(int id) {
+		return BitmapFactory.decodeResource(context.getResources(), id);
+	}
 	@Override
 	protected void onDraw(Canvas canvas) 
 	{
@@ -56,6 +83,9 @@ public class TowerDefenseGame extends ArcadeGame{
 	public void GameOver() {
 		ingame = false;
 	}
+
+
+
 
 	public boolean onTouchEvent(MotionEvent event){
 
