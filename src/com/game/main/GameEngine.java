@@ -24,7 +24,7 @@ public class GameEngine {
 	public CopyOnWriteArrayList <CannonBall> cannonBalls = new CopyOnWriteArrayList <CannonBall>();
 	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
-	private ArrayList<Point> path;
+	private CopyOnWriteArrayList<Point> path;
 	private TowerManager towerManager;
 
 
@@ -37,6 +37,8 @@ public class GameEngine {
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
 
 	}
+
+
 
 
 	public void drawAll(Canvas canvas) {
@@ -132,7 +134,7 @@ public class GameEngine {
 
 	private void explodeCannonBall(CannonBall cannonBall){
 		for (BasicEnemy enemy: basicEnemies){
-			double distanceSquared = BasicEnemy.calculateDistanceSquared(enemy.getLocation(), cannonBall.getLocation());
+			double distanceSquared = TerrainMap.calculateDistanceSquared(enemy.getLocation(), cannonBall.getLocation());
 			if (distanceSquared < Constants.CANNONBALL_EXPLOSION_RADIUS_SQUARED){
 				enemy.reduceHeath(Constants.CANNONBALL_DAMAGE);
 			}
@@ -161,8 +163,8 @@ public class GameEngine {
 			towerManager.addTower(tower);
 		}
 		
-		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
-		basicEnemies.add(enemy);
+		//BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
+		//basicEnemies.add(enemy);
 	}
 	
 

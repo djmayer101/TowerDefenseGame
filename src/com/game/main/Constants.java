@@ -39,5 +39,5 @@ public class Constants {
 
 	
 	public static final Point SPAWN_POINT = new Point(0,0);
-	public static final Point END_POINT = new Point(8,10);
+	public static final Point END_POINT = new Point(10,6);
 }

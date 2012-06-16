@@ -1,14 +1,14 @@
 package com.game.main;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.graphics.Point;
 
 public class PathBuilder {
 	private TerrainMap terrainMap;
-	private ArrayList<GridNode> vertexes;
+	private CopyOnWriteArrayList<GridNode> vertexes;
 	private Hashtable<Point, Boolean> mapping;
 	private Hashtable<Point, GridNode> pointToGridNode;
 	private GridNode startPoint;
@@ -21,21 +21,21 @@ public class PathBuilder {
 		this.towerManager = towerManager;
 	}
 	
-	public ArrayList<Point> getPath(Point start, Point end){
-		ArrayList<Point> path = run(start, end);
+	public CopyOnWriteArrayList<Point> getPath(Point start, Point end){
+		CopyOnWriteArrayList<Point> path = run(start, end);
 		if (path.size()==0){
 			//no possible route
 		}
-		Collections.reverse(path);
+		//Collections.reverse(path);
 		return path;
 	}
 
-	public ArrayList<Point> run(Point start, Point end) {
+	public CopyOnWriteArrayList<Point> run(Point start, Point end) {
 		startPoint = new GridNode(start);
 		startPoint.setDistance(0);
-		startPoint.f_score = (int) BasicEnemy.calculateDistanceSquared(start, end);
+		startPoint.f_score = (int) TerrainMap.calculateDistanceSquared(start, end);
 		endPoint = new GridNode(end);
-		ArrayList<Point> path = new ArrayList<Point>();
+		CopyOnWriteArrayList<Point> path = new CopyOnWriteArrayList<Point>();
 		initialize();
 
 		while (!vertexes.isEmpty()) {
@@ -44,14 +44,14 @@ public class PathBuilder {
 			if(v.distanceFromStart == Integer.MAX_VALUE) {
 				break; 
 			}
-			ArrayList<GridNode> myNeighbors = getNeighbors(v);
+			CopyOnWriteArrayList<GridNode> myNeighbors = getNeighbors(v);
 			if(!myNeighbors.isEmpty()) {
 				for(GridNode neighbor: myNeighbors) {
 					int alt = v.distanceFromStart +1;
 					if(alt < neighbor.distanceFromStart){
 						neighbor.setDistance(alt);
 						neighbor.setParent(v);
-						neighbor.setF_score((int) (alt + BasicEnemy.calculateDistanceSquared(neighbor.me, end)));
+						neighbor.setF_score((int) (alt + TerrainMap.calculateDistanceSquared(neighbor.me, end)));
 					}
 				}
 			}
@@ -81,8 +81,8 @@ public class PathBuilder {
 	}
 
 
-	private ArrayList<GridNode> getNeighbors(GridNode v) {
-		ArrayList<GridNode> neighbors = new ArrayList<GridNode>();
+	private CopyOnWriteArrayList<GridNode> getNeighbors(GridNode v) {
+		CopyOnWriteArrayList<GridNode> neighbors = new CopyOnWriteArrayList<GridNode>();
 
 		Point n1 = new Point(v.me.x, v.me.y+1);
 		Point n2 = new Point(v.me.x+1, v.me.y);
@@ -107,9 +107,9 @@ public class PathBuilder {
 	private void initialize() {
 		mapping = new Hashtable<Point, Boolean>();
 		pointToGridNode = new Hashtable<Point, GridNode>();
-		vertexes = new ArrayList<GridNode>();
-		for(int i=0; i<terrainMap.worldTerrainGrid[0].length; i++) {
-			for(int j=0; j<terrainMap.worldTerrainGrid.length; j++) {
+		vertexes = new CopyOnWriteArrayList<GridNode>();
+		for(int i=0; i<terrainMap.worldTerrainGrid.length; i++) {
+			for(int j=0; j<terrainMap.worldTerrainGrid[0].length; j++) {
 				if(startPoint.me.equals(new Point(i,j))){
 					mapping.put(startPoint.me, true);
 					pointToGridNode.put(startPoint.me, startPoint);
@@ -120,8 +120,8 @@ public class PathBuilder {
 					pointToGridNode.put(endPoint.me, endPoint);
 					vertexes.add(endPoint);
 				}
-				else if(towerManager.isTowerAt(new Point(i,j)) == false){
-					GridNode newNode = new GridNode(new Point(j, i));
+				else if(towerManager.isTowerAt(TerrainMap.scaleGridPointToPixel(new Point(i,j))) == false){
+					GridNode newNode = new GridNode(new Point(i, j));
 					mapping.put(newNode.me, true);
 					pointToGridNode.put(newNode.me, newNode);
 					vertexes.add(newNode);

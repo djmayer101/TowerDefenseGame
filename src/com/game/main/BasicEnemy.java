@@ -1,6 +1,7 @@
 package com.game.main;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.game.main.Constants.State;
 
@@ -11,7 +12,7 @@ public class BasicEnemy extends BasicGameObject {
 	protected int health;
 	private Point endLocation;
 	private Point localGoal;
-	private ArrayList<Point> path;
+	private CopyOnWriteArrayList<Point> path;
 
 	public BasicEnemy(Point startLocation, Point endLocation){
 		super(startLocation, Constants.BASIC_ENEMY_SPEED);
@@ -40,11 +41,11 @@ public class BasicEnemy extends BasicGameObject {
 	
 	@Override
 	public void updateLocation(){
-		if((this.location.x == scaleGridPointToPixel(endLocation).x) &&
-				(this.location.y == scaleGridPointToPixel(endLocation).y)){
+		if((this.location.x == TerrainMap.scaleGridPointToPixel(endLocation).x) &&
+				(this.location.y == TerrainMap.scaleGridPointToPixel(endLocation).y)){
 			this.speed = 0;
 		}
-		else if (calculateDistanceSquared(location, localGoal) < this.speed * this.speed){
+		else if (TerrainMap.calculateDistanceSquared(location, localGoal) < this.speed * this.speed){
 			this.location = new Point(localGoal);
 		}
 		else{
@@ -56,19 +57,20 @@ public class BasicEnemy extends BasicGameObject {
 	}
 	
 	public void updateLocalGoal(){
-		if (this.path.contains(scalePixelToGridPoint(this.location))){
-			int newLocalGoalIndex = this.path.indexOf(scalePixelToGridPoint(this.location)) + 1;
-			if(path.size() > newLocalGoalIndex){
-				this.localGoal = scaleGridPointToPixel(this.path.get(newLocalGoalIndex));
+		Point gridPoint = TerrainMap.scalePixelToGridPoint(this.location);
+		if (this.path.contains(gridPoint)){
+			int newLocalGoalIndex = this.path.indexOf(TerrainMap.scalePixelToGridPoint(this.location)) - 1;
+			if(0 <= newLocalGoalIndex){
+				this.localGoal = TerrainMap.scaleGridPointToPixel(this.path.get(newLocalGoalIndex));
 				this.updateTheta(localGoal);
 			}
 			else{
-				this.localGoal = scaleGridPointToPixel(this.endLocation);
+				this.localGoal = TerrainMap.scaleGridPointToPixel(this.endLocation);
 			}
 		}
 	}
 
-	public void updatePath(ArrayList<Point> path) {
+	public void updatePath(CopyOnWriteArrayList<Point> path) {
 		this.path = path;
 	}
 	

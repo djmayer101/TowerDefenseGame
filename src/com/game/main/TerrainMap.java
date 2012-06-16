@@ -56,5 +56,17 @@ public class TerrainMap {
 	public Point getFocus() {
 		return this.focus;
 	}
+	
+	protected static double calculateDistanceSquared(Point startLocation,Point endLocation) {
+		return Math.pow(startLocation.x-endLocation.x, 2) + Math.pow(startLocation.y-endLocation.y,2);
+	}
+	
+	public static Point scaleGridPointToPixel(Point point){
+		return new Point(point.x*Constants.GRID_SQUARE_SIZE, point.y*Constants.GRID_SQUARE_SIZE);
+	}
+	
+	public static Point scalePixelToGridPoint(Point point){
+		return new Point((int) Math.floor(point.x/Constants.GRID_SQUARE_SIZE), (int) Math.floor(point.y/Constants.GRID_SQUARE_SIZE));
+	}
 
 }
