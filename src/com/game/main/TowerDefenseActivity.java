@@ -1,14 +1,9 @@
 package com.game.main;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 public class TowerDefenseActivity extends Activity{
 	private View view;
@@ -30,16 +25,16 @@ public class TowerDefenseActivity extends Activity{
 		view.setFocusable(true);
 		view.setFocusableInTouchMode(true);
 		
-		ImageButton towerButton = (ImageButton)findViewById(R.id.good_tower);
+		/*ImageButton towerButton = (ImageButton)findViewById(R.id.good_tower);
 
 		towerButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Point newTowerLocation = myGame.myTerrainMap.getFocus();
 				myGame.myGameEngine.setTower(new Tower(newTowerLocation));
 			}
-		});
+		});*/
 		
-		ImageButton startRoundButton = (ImageButton)findViewById(R.id.start_round);
+		/*ImageButton startRoundButton = (ImageButton)findViewById(R.id.start_round);
 
 		startRoundButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
@@ -55,7 +50,7 @@ public class TowerDefenseActivity extends Activity{
 				//start round logic		
 
 			}
-		});
+		});*/
 	
 
 	}

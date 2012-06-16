@@ -8,7 +8,7 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".GameMain"
                   android:label="@string/app_name"
-                  android:screenOrientation="portrait" 
+                  android:screenOrientation="landscape" 
                   android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,14 +18,14 @@
         </activity>
          <activity android:name=".SetTower"
                   android:label="@string/app_name"
-                  android:screenOrientation="portrait" 
+                  android:screenOrientation="landscape" 
                   android:configChanges="orientation|keyboardHidden">
 
         </activity>
          <activity android:name=".TowerDefenseActivity"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar"
-                  android:screenOrientation="portrait" 
+                  android:screenOrientation="landscape" 
                   android:configChanges="orientation|keyboardHidden">
 
         </activity>

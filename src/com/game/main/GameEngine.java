@@ -10,6 +10,8 @@ import android.util.Log;
 public class GameEngine {
 
 	private TerrainMap terrainMap;
+	private SpriteDrawer spriteDrawer;
+	private PathBuilder pathBuilder;
 	
 	Point enemyStartPoint = new Point(0,0);
 	Point enemyEndPoint = new Point(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
@@ -21,51 +23,62 @@ public class GameEngine {
 	
 	private ArrayList<Point> path;
 
-	private SpriteDrawer spriteDrawer;;
 
-	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer){
+
+	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder){
 		this.terrainMap = terrainMap;
 		this.spriteDrawer = mySpriteDrawer;
-		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
-		basicEnemies.add(enemy);
-		path = terrainMap.getPath(enemy.getLocation(), new Point(100,100));
+		this.pathBuilder = myPathBuilder;
+		//BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
+		//basicEnemies.add(enemy);
+		//path = pathBuilder.run(new Point(0,0), new Point(5,5));
+		path = new ArrayList<Point>();
+		path.add(new Point(0,0));
+		path.add(new Point(0,1));
+		path.add(new Point(1,1));
+		path.add(new Point(1,2));
+		path.add(new Point(2,2));
 	}
 	
 	public void setTower(Tower tower) {
-		terrainMap.worldTowerGrid[(int) Math.floor(tower.getLocation().y / terrainMap.squareSize)][(int) Math.floor(tower.getLocation().x / terrainMap.squareSize)] = tower;
+		//terrainMap.worldTowerGrid[(int) Math.floor(tower.getLocation().y / terrainMap.squareSize)][(int) Math.floor(tower.getLocation().x / terrainMap.squareSize)] = tower;
 		towers.add(tower);
 
 	}
 	
 	public void drawAll(Canvas canvas) {
-		spriteDrawer.drawGameObject(canvas,terrainMap.getFocus(), DrawObject.CURSOR);
-		for (int i=0; i<terrainMap.numRows; i++){
-			for (int j=0; j<terrainMap.numColumns; j++){
-				if(terrainMap.worldTowerGrid[i][j]!=null){
-					Point location = new Point(terrainMap.worldTowerGrid[i][j].getLocation().x+Constants.IMAGE_OFFSET, terrainMap.worldTowerGrid[i][j].getLocation().y+Constants.IMAGE_OFFSET);
-					spriteDrawer.drawGameObject(canvas,location, DrawObject.TOWER);
-				}
+		
+		for (int i=0; i<Constants.NUM_COLUMNS; i++){
+			for (int j=0; j<Constants.NUM_ROWS; j++){
+				spriteDrawer.drawGameObject(canvas, new Point(i*Constants.GRID_SQUARE_SIZE + TowerDefenseGame.X_offset, j *Constants.GRID_SQUARE_SIZE + TowerDefenseGame.Y_offset), terrainMap.worldTerrainGrid[i][j]);
 			}
+		}
+		for (Tower tower:towers){
+			Point location = new Point(tower.getLocation());
+			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
+			spriteDrawer.drawGameObject(canvas,location, DrawObject.TOWER);
 		}
 		for (BasicEnemy enemy:basicEnemies){
 			Point location = new Point(enemy.getLocation());
-			location.offset(Constants.IMAGE_OFFSET, Constants.IMAGE_OFFSET);
+			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_ENEMY);
 			
 		}
 		for (CannonBall cannonBall: cannonBalls){
 			Point location = new Point(cannonBall.getLocation());
-			location.offset(Constants.IMAGE_OFFSET, Constants.IMAGE_OFFSET);
+			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL);
 			
 		}
 		
 		for (CannonBall cannonBall: finishedCannonBalls){
 			Point location = new Point(cannonBall.getLocation());
-			location.offset(Constants.IMAGE_OFFSET, Constants.IMAGE_OFFSET);
+			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL_EXPLOSION);
 			
 		}
+		Point cursor_location = new Point(terrainMap.getFocus().x+ TowerDefenseGame.X_offset,terrainMap.getFocus().y+ TowerDefenseGame.Y_offset);
+		spriteDrawer.drawGameObject(canvas,cursor_location, DrawObject.CURSOR);
 	}
 	
 	public void updatePhysics() {
@@ -120,6 +133,22 @@ public class GameEngine {
 	private void addEnemy(){
 		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
 		basicEnemies.add(enemy);
+	}
+	
+	public Point computeNearestTowerLocation(Point p) {
+		int nearestTowerLocationX = Constants.GRID_SQUARE_SIZE*((int) Math.floor(p.x / Constants.GRID_SQUARE_SIZE));
+		int nearestTowerLocationY = Constants.GRID_SQUARE_SIZE*((int) Math.floor(p.y / Constants.GRID_SQUARE_SIZE));
+		return new Point(nearestTowerLocationX, nearestTowerLocationY);
+	}
+
+	public void tileClicked(Point location) {
+		terrainMap.setFocus(computeNearestTowerLocation(location));
+		Tower tower = new Tower(terrainMap.getFocus());
+		towers.add(tower);
+		BasicEnemy enemy = new BasicEnemy(new Point(0,0),new Point(2,2));
+		basicEnemies.add(enemy);
+		
+		
 	}
 
 }

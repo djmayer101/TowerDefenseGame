@@ -1,48 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/graybackground"
-     >
-     
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="15px"/>
+	android:orientation="vertical" 
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 
-
-
-	
-
-
-<com.game.main.TowerDefenseGame xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/ll_absolute"
-    android:orientation="vertical"
-    android:layout_width="450px"
-    android:layout_height="550px"
-
-
-     android:background="@drawable/greensquare"
-
-    android:layout_gravity="center_horizontal">
-
-   
-        
-    
-</com.game.main.TowerDefenseGame>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="450px" 
-		android:layout_height="240dp"
+	<com.game.main.TowerDefenseGame
+		xmlns:android="http://schemas.android.com/apk/res/android" 
+		android:id="@+id/ll_absolute"
 		android:orientation="vertical" 
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent" 
+		android:background="@drawable/greensquare"
 		android:layout_gravity="center_horizontal">
-
-
-		<include android:id="@+id/placing_tower" 
-		    layout="@layout/set_location" />
-
-
-	</LinearLayout>
-	
+	</com.game.main.TowerDefenseGame>
 </LinearLayout>

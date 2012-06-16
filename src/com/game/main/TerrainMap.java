@@ -1,62 +1,44 @@
 package com.game.main;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import android.graphics.Point;
 import android.util.Log;
 
 
 public class TerrainMap {
 
-
-	public int width;
-	public int height;
-	public int numColumns;
-	public int numRows;
+	private int world_width;
+	private int world_height;
+	
+	private int numColumns;
+	private int numRows;
 	int squareSize;
+	
 	private Point focus;
-	private PathBuilder myPath;
 
-	public Tower[][] worldTowerGrid;
-
-
+	public Constants.DrawObject[][] worldTerrainGrid;
 
 	public TerrainMap(int width, int height){
-		this.width = width;
-		this.height =  height;
+		this.world_width = Constants.WORLD_WIDTH;;
+		this.world_height =  Constants.WORLD_HEIGHT;
 		Log.e("board dimensions", "height: " + height + " width " + width);
-		this.numColumns = 9;
-		this.numRows = 11;
-		this.squareSize = 50;
-		worldTowerGrid = new Tower[numRows][numColumns];
+		this.numColumns = Constants.NUM_COLUMNS;
+		this.numRows = Constants.NUM_ROWS;
+		this.squareSize = Constants.GRID_SQUARE_SIZE;
+		worldTerrainGrid = new Constants.DrawObject[numColumns][numRows];
 
-		
-		myPath = new PathBuilder(this);
-	}
-
-
-
-
-
-	public Tower getTowerAt(Point p){
-		return worldTowerGrid[(int) Math.floor(p.y / squareSize)][(int) Math.floor(p.x / squareSize)];
-	}
-
-	public Point computeNearestTowerLocation(Point p) {
-		int nearestTowerLocationX = squareSize*((int) Math.floor(p.x / squareSize));
-		int nearestTowerLocationY = squareSize*((int) Math.floor(p.y / squareSize));
-		return new Point(nearestTowerLocationX, nearestTowerLocationY);
-	}
-
-	public boolean isTowerAt(Point p) {
-		Log.e("pointcheck", "x=" + p.x + "  y=" + p.y);
-		if((p.x >= numColumns*squareSize) || (p.y >= numRows*squareSize)){
-			return true;
+		for (int i=0; i<Constants.NUM_COLUMNS; i++){
+			for (int j=0; j<Constants.NUM_ROWS; j++){
+				if (i %2 == 0 && j %2 == 0){
+					worldTerrainGrid[i][j] = Constants.DrawObject.GRASSTILE_1;
+				}else{
+					worldTerrainGrid[i][j] = Constants.DrawObject.GRASSTILE_2;
+				}
+				if (i == 0 || j == 0 || i ==Constants.NUM_COLUMNS-1 || j == Constants.NUM_ROWS-1){
+					worldTerrainGrid[i][j] = Constants.DrawObject.BORDERTILE;
+				}
+				
+			}
 		}
-		if (worldTowerGrid[(int) Math.floor(p.y / squareSize)][(int) Math.floor(p.x / squareSize)]==null)
-			return false;
-		else 
-			return true;
 	}
 
 	public void setFocus(Point p) {
@@ -64,35 +46,15 @@ public class TerrainMap {
 	}
 
 
-
-
-	
-
-
-
 	public boolean LocationOutOfBounds(Point location) {
-		if (location.x < 0 || location.x > this.width || location.y < 0 || location.y > this.height){
+		if (location.x < 0 || location.x > this.world_width || location.y < 0 || location.y > this.world_height){
 			return true;
 		}
 		return false;
 	}
 
-
-
 	public Point getFocus() {
 		return this.focus;
 	}
-
-	public ArrayList<Point> getPath(Point start, Point end){
-		ArrayList<Point> path = myPath.run(start, end);
-		if (path.size()==0){
-			//no possible route
-		}
-
-		Collections.reverse(path);
-		return path;
-	}
-
-
 
 }

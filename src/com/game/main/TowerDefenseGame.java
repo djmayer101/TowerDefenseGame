@@ -6,36 +6,26 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 public class TowerDefenseGame extends ArcadeGame{
 
-
-	private Bitmap towerImage;
-	private Bitmap enemyImage;
-	private Bitmap cannonBallImage;
-	private Bitmap cannonBallExplosionImage;
-	
 	public TerrainMap myTerrainMap;
-	private Bitmap cursorImage;
 	public GameEngine myGameEngine;
 	private Context context;
 	private SpriteDrawer mySpriteDrawer;
-
-	/*
-	public TowerDefenseGame(Context context) {
-		super(context);
-		super.setUpdatePeriod(Constants.UPDATE_DELAY);
-		this.context = context;
-		initialize();
-	}*/
+	private PathBuilder myPathBuilder;
+	
+	static public int X_offset= 0;
+	static public int Y_offset = 0;
 
 	public TowerDefenseGame(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		super.setUpdatePeriod(Constants.UPDATE_DELAY);
 		this.context = context;
 		initialize();
-
 	}
 
 	public void initialize() {
@@ -44,30 +34,18 @@ public class TowerDefenseGame extends ArcadeGame{
 		myTerrainMap = new TerrainMap(width, height);
 		myTerrainMap.setFocus(new Point(0,0));
 		mySpriteDrawer = new SpriteDrawer(context);
-		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer);
-		
-	
-
+		myPathBuilder = new PathBuilder(myTerrainMap);
+		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder);
 
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) 
 	{
-
 		super.dispatchDraw(canvas);
 		myGameEngine.drawAll(canvas);
-		//paint(canvas);
 	}
-	/*
-	public void paint(Canvas g) {
-		if (ingame)
-			playGame(g);
-	}
-	private void playGame(Canvas c) {
-		myGameEngine.drawPlayField(c);
-	}
-	*/
+
 	public void GameStart() {
 	}
 
@@ -75,34 +53,46 @@ public class TowerDefenseGame extends ArcadeGame{
 		ingame = false;
 	}
 
-
 	public boolean onTouchEvent(MotionEvent event){
-		int tx = (int) event.getX();
-		int ty = (int) event.getY();
 
-		Point nearestTowerLocation = myTerrainMap.computeNearestTowerLocation(new Point(tx, ty));
-		myTerrainMap.setFocus(nearestTowerLocation);
+		int size;
+		switch(event.getAction()){
+		case MotionEvent.ACTION_MOVE:
+			float initialTouchX = event.getX();
+			float initialTouchY = event.getY();
+			size = event.getHistorySize()-1;
+			if (size == -1){
+				size = 0;
+			}
+			float endTouchX = event.getHistoricalX(size);
+			float endTouchY = event.getHistoricalY(size);
 
-		if (!myTerrainMap.isTowerAt(new Point(nearestTowerLocation.x, nearestTowerLocation.y))){
-			myTerrainMap.setFocus(new Point(nearestTowerLocation.x, nearestTowerLocation.y));
+			X_offset -= endTouchX - initialTouchX;
+			Y_offset -= endTouchY- initialTouchY;
+			if(X_offset > 0){
+				X_offset = 0;
+			}
+			if(Y_offset > 0){
+				Y_offset = 0;
+			}
 
-			//myWorld.setTower(new Tower(nearestTowerLocation.x, nearestTowerLocation.y));
-			//show place tower buttons
+			if(X_offset < 800-Constants.WORLD_WIDTH){
+				X_offset = 800-Constants.WORLD_WIDTH;
+			}
+			if(Y_offset < 480-Constants.WORLD_HEIGHT){
+				Y_offset = 480-Constants.WORLD_HEIGHT;
+			}
+			break;
+		default:
+			Log.e("offsets", "x: " + X_offset + " y:_" + Y_offset );
+			myGameEngine.tileClicked(new Point((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
 		}
-		else{
-			Tower tower = myTerrainMap.getTowerAt(nearestTowerLocation);
-			//show tower upgrade buttom and tower stats
-		}
-
-
 
 		if ( !ingame ) {
 			ingame = true;
 			GameStart();
 		}
-
 		return true;
-
 	}
 
 	@Override
@@ -112,13 +102,11 @@ public class TowerDefenseGame extends ArcadeGame{
 
 	@Override
 	protected boolean gameOver() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected long getScore() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
