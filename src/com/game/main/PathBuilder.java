@@ -7,16 +7,27 @@ import java.util.Hashtable;
 import android.graphics.Point;
 
 public class PathBuilder {
-	private TerrainMap myTerrainMap;
+	private TerrainMap terrainMap;
 	private ArrayList<GridNode> vertexes;
 	private Hashtable<Point, Boolean> mapping;
 	private Hashtable<Point, GridNode> pointToGridNode;
 	private GridNode startPoint;
 	private GridNode endPoint;
+	private TowerManager towerManager;
 
 
-	PathBuilder (TerrainMap terrainMap) {
-		myTerrainMap = terrainMap;
+	PathBuilder (TerrainMap terrainMap, TowerManager towerManager) {
+		this.terrainMap = terrainMap;
+		this.towerManager = towerManager;
+	}
+	
+	public ArrayList<Point> getPath(Point start, Point end){
+		ArrayList<Point> path = run(start, end);
+		if (path.size()==0){
+			//no possible route
+		}
+		Collections.reverse(path);
+		return path;
 	}
 
 	public ArrayList<Point> run(Point start, Point end) {
@@ -97,26 +108,26 @@ public class PathBuilder {
 		mapping = new Hashtable<Point, Boolean>();
 		pointToGridNode = new Hashtable<Point, GridNode>();
 		vertexes = new ArrayList<GridNode>();
-		for(int i=0; i<myTerrainMap.worldTerrainGrid.length; i++) {
-			for(int j=0; j<myTerrainMap.worldTerrainGrid[0].length; j++) {
-				if(startPoint.me.equals(new Point(j,i))){
+		for(int i=0; i<terrainMap.worldTerrainGrid[0].length; i++) {
+			for(int j=0; j<terrainMap.worldTerrainGrid.length; j++) {
+				if(startPoint.me.equals(new Point(i,j))){
 					mapping.put(startPoint.me, true);
 					pointToGridNode.put(startPoint.me, startPoint);
 					vertexes.add(startPoint);
 				}
-				else if(endPoint.me.equals(new Point(j,i))) {
+				else if(endPoint.me.equals(new Point(i,j))) {
 					mapping.put(endPoint.me, true);
 					pointToGridNode.put(endPoint.me, endPoint);
 					vertexes.add(endPoint);
 				}
-				else if(myTerrainMap.worldTerrainGrid[i][j]==null) {
+				else if(towerManager.isTowerAt(new Point(i,j)) == false){
 					GridNode newNode = new GridNode(new Point(j, i));
 					mapping.put(newNode.me, true);
 					pointToGridNode.put(newNode.me, newNode);
 					vertexes.add(newNode);
 				}
 				else {
-					GridNode newNode = new GridNode(new Point(j, i));
+					GridNode newNode = new GridNode(new Point(i, j));
 					mapping.put(newNode.me, false);
 				}
 			}
@@ -124,15 +135,7 @@ public class PathBuilder {
 		startPoint.distanceFromStart = 0;
 	}
 	
-	public ArrayList<Point> getPath(Point start, Point end){
-		ArrayList<Point> path = run(start, end);
-		if (path.size()==0){
-			//no possible route
-		}
 
-		Collections.reverse(path);
-		return path;
-	}
 
 
 }

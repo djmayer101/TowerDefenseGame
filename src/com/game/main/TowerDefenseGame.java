@@ -19,6 +19,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	private PathBuilder myPathBuilder;
 	private int screen_width;
 	private int screen_height;
+	private TowerManager myTowerManager;
 	
 	static public int X_offset= 0;
 	static public int Y_offset = 0;
@@ -36,8 +37,9 @@ public class TowerDefenseGame extends ArcadeGame{
 		myTerrainMap = new TerrainMap(screen_width, screen_height);
 		myTerrainMap.setFocus(new Point(0,0));
 		mySpriteDrawer = new SpriteDrawer(context);
-		myPathBuilder = new PathBuilder(myTerrainMap);
-		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder);
+		myTowerManager = new TowerManager();
+		myPathBuilder = new PathBuilder(myTerrainMap,myTowerManager);
+		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myTowerManager);
 
 	}
 
