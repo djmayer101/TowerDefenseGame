@@ -1,6 +1,7 @@
 package com.game.main;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.game.main.Constants.State;
 
@@ -11,7 +12,7 @@ public class BasicEnemy extends BasicGameObject {
 	protected int health;
 	private Point endLocation;
 	private Point localGoal;
-	private ArrayList<Point> path;
+	private CopyOnWriteArrayList<Point> path;
 
 	public BasicEnemy(Point startLocation, Point endLocation){
 		super(startLocation, Constants.BASIC_ENEMY_SPEED);
@@ -58,8 +59,8 @@ public class BasicEnemy extends BasicGameObject {
 	public void updateLocalGoal(){
 		Point gridPoint = TerrainMap.scalePixelToGridPoint(this.location);
 		if (this.path.contains(gridPoint)){
-			int newLocalGoalIndex = this.path.indexOf(TerrainMap.scalePixelToGridPoint(this.location)) + 1;
-			if(path.size() > newLocalGoalIndex){
+			int newLocalGoalIndex = this.path.indexOf(TerrainMap.scalePixelToGridPoint(this.location)) - 1;
+			if(0 <= newLocalGoalIndex){
 				this.localGoal = TerrainMap.scaleGridPointToPixel(this.path.get(newLocalGoalIndex));
 				this.updateTheta(localGoal);
 			}
@@ -69,7 +70,7 @@ public class BasicEnemy extends BasicGameObject {
 		}
 	}
 
-	public void updatePath(ArrayList<Point> path) {
+	public void updatePath(CopyOnWriteArrayList<Point> path) {
 		this.path = path;
 	}
 	

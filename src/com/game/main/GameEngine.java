@@ -24,7 +24,7 @@ public class GameEngine {
 	public CopyOnWriteArrayList <CannonBall> cannonBalls = new CopyOnWriteArrayList <CannonBall>();
 	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
-	private ArrayList<Point> path;
+	private CopyOnWriteArrayList<Point> path;
 	private TowerManager towerManager;
 
 
