@@ -1,6 +1,7 @@
 package com.game.main;
 
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.game.main.Constants.DrawObject;
@@ -17,6 +18,7 @@ public class GameEngine {
 	Point enemyStartPoint = Constants.SPAWN_POINT;
 	Point enemyEndPoint = Constants.END_POINT;
 
+	public ConcurrentHashMap<Point,Tower> towersHash = new ConcurrentHashMap<Point,Tower>();
 	public CopyOnWriteArrayList<BasicEnemy> basicEnemies = new CopyOnWriteArrayList<BasicEnemy>();
 	public CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<Tower>();
 	public CopyOnWriteArrayList <CannonBall> cannonBalls = new CopyOnWriteArrayList <CannonBall>();
@@ -167,31 +169,25 @@ public class GameEngine {
 
 	public void tileClicked(Point location) {
 		terrainMap.setFocus(computeNearestTowerLocation(location));
-		Tower tower = new Tower(terrainMap.getFocus());
-		towers.add(tower);
+		if (isTowerAt(terrainMap.getFocus()) == false){
+			Tower tower = new Tower(terrainMap.getFocus());
+			addTower(tower);
+		}
+		
 		BasicEnemy enemy = new BasicEnemy(new Point(0,0),new Point(2,2));
 		basicEnemies.add(enemy);
 	}
 	
-
-	public Tower getTowerAt(Point p){
-		/*
-		int y = (int) Math.floor(p.y / squareSize);
-		int x = (int) Math.floor(p.x / squareSize);
-		Log.e("getTowerAt", "x=" + x + " y=" + y);
-		return worldTowerGrid[(int) Math.floor(p.y / squareSize)][(int) Math.floor(p.x / squareSize)];
-		*/
-		return null;
+	public void addTower(Tower tower){
+		towers.add(tower);
+		towersHash.put(tower.location, tower);
 	}
-
-
+	
 	public boolean isTowerAt(Point p) {
-		/*
-		Log.e("pointcheck", "x=" + p.x + "  y=" + p.y);
-		if((p.x >= numColumns*squareSize) || (p.y >= numRows*squareSize)){
-			return true;
-		}*/
-		return false;
+		if (towersHash.get(p) == null){
+			return false;
+		}
+		return true;
 	}
 
 }
