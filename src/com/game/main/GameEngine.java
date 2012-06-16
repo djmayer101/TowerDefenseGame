@@ -34,16 +34,7 @@ public class GameEngine {
 		this.spriteDrawer = mySpriteDrawer;
 		this.pathBuilder = myPathBuilder;
 		this.towerManager = myTowerManager;
-		//BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
-		//basicEnemies.add(enemy);
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
-		/*
-		path = new ArrayList<Point>();
-		path.add(new Point(0,0));
-		path.add(new Point(0,1));
-		path.add(new Point(0,2));
-		path.add(new Point(0,3));
-		path.add(new Point(0,4));*/
 	}
 
 	public void setTower(Tower tower) {
@@ -143,7 +134,7 @@ public class GameEngine {
 		}
 		}
 		else{
-			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
+			path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
 			counter++;
 		}
 
@@ -151,7 +142,7 @@ public class GameEngine {
 
 	private void explodeCannonBall(CannonBall cannonBall){
 		for (BasicEnemy enemy: basicEnemies){
-			double distanceSquared = BasicEnemy.calculateDistanceSquared(enemy.getLocation(), cannonBall.getLocation());
+			double distanceSquared = TerrainMap.calculateDistanceSquared(enemy.getLocation(), cannonBall.getLocation());
 			if (distanceSquared < Constants.CANNONBALL_EXPLOSION_RADIUS_SQUARED){
 				enemy.reduceHeath(Constants.CANNONBALL_DAMAGE);
 			}
@@ -177,8 +168,8 @@ public class GameEngine {
 			towerManager.addTower(tower);
 		}
 		
-		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
-		basicEnemies.add(enemy);
+		//BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
+		//basicEnemies.add(enemy);
 	}
 	
 

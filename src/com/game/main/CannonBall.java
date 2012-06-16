@@ -21,7 +21,7 @@ public class CannonBall extends BasicGameObject{
 
 	@Override
 	void updateState() {
-		double distanceSquaredToTarget = calculateDistanceSquared(location,endLocation);
+		double distanceSquaredToTarget = TerrainMap.calculateDistanceSquared(location,endLocation);
 		if (this.state == State.EXPLODE || this.state == State.DONE){
 			this.state = State.DONE;
 		}

@@ -20,7 +20,7 @@ public class Tower extends BasicGameObject {
 		double currentClosestDistance = Double.MAX_VALUE;
 		BasicEnemy closestEnemy = null;
 		for(BasicEnemy enemy : basicEnemies){
-			double distanceSquared = calculateDistanceSquared(location,enemy.getLocation());
+			double distanceSquared = TerrainMap.calculateDistanceSquared(location,enemy.getLocation());
 			if (distanceSquared < currentClosestDistance){
 				currentClosestDistance = distanceSquared;
 				closestEnemy = enemy;

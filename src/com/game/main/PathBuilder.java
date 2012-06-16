@@ -33,7 +33,7 @@ public class PathBuilder {
 	public ArrayList<Point> run(Point start, Point end) {
 		startPoint = new GridNode(start);
 		startPoint.setDistance(0);
-		startPoint.f_score = (int) BasicEnemy.calculateDistanceSquared(start, end);
+		startPoint.f_score = (int) TerrainMap.calculateDistanceSquared(start, end);
 		endPoint = new GridNode(end);
 		ArrayList<Point> path = new ArrayList<Point>();
 		initialize();
@@ -51,7 +51,7 @@ public class PathBuilder {
 					if(alt < neighbor.distanceFromStart){
 						neighbor.setDistance(alt);
 						neighbor.setParent(v);
-						neighbor.setF_score((int) (alt + BasicEnemy.calculateDistanceSquared(neighbor.me, end)));
+						neighbor.setF_score((int) (alt + TerrainMap.calculateDistanceSquared(neighbor.me, end)));
 					}
 				}
 			}
@@ -108,8 +108,8 @@ public class PathBuilder {
 		mapping = new Hashtable<Point, Boolean>();
 		pointToGridNode = new Hashtable<Point, GridNode>();
 		vertexes = new ArrayList<GridNode>();
-		for(int i=0; i<terrainMap.worldTerrainGrid[0].length; i++) {
-			for(int j=0; j<terrainMap.worldTerrainGrid.length; j++) {
+		for(int i=0; i<terrainMap.worldTerrainGrid.length; i++) {
+			for(int j=0; j<terrainMap.worldTerrainGrid[0].length; j++) {
 				if(startPoint.me.equals(new Point(i,j))){
 					mapping.put(startPoint.me, true);
 					pointToGridNode.put(startPoint.me, startPoint);
@@ -120,8 +120,8 @@ public class PathBuilder {
 					pointToGridNode.put(endPoint.me, endPoint);
 					vertexes.add(endPoint);
 				}
-				else if(towerManager.isTowerAt(new Point(i,j)) == false){
-					GridNode newNode = new GridNode(new Point(j, i));
+				else if(towerManager.isTowerAt(TerrainMap.scaleGridPointToPixel(new Point(i,j))) == false){
+					GridNode newNode = new GridNode(new Point(i, j));
 					mapping.put(newNode.me, true);
 					pointToGridNode.put(newNode.me, newNode);
 					vertexes.add(newNode);
