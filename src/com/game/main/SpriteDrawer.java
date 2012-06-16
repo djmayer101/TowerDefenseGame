@@ -37,7 +37,7 @@ public class SpriteDrawer {
 		cannonBallExplosionImage = Bitmap.createScaledBitmap(cannonBallExplosionImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
 		cursorImage = getImage(R.drawable.clearyellow);
-		cursorImage = Bitmap.createScaledBitmap(cursorImage, Constants.CURSOR_CELL_SIDE_LENGTH, Constants.CURSOR_CELL_SIDE_LENGTH, false);
+		cursorImage = Bitmap.createScaledBitmap(cursorImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 		
 		GRASS_1TerrainTile = getImage(R.drawable.grass_square_1);
 		GRASS_1TerrainTile = Bitmap.createScaledBitmap( GRASS_1TerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);

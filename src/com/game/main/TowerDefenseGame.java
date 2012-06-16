@@ -17,6 +17,8 @@ public class TowerDefenseGame extends ArcadeGame{
 	private Context context;
 	private SpriteDrawer mySpriteDrawer;
 	private PathBuilder myPathBuilder;
+	private int screen_width;
+	private int screen_height;
 	
 	static public int X_offset= 0;
 	static public int Y_offset = 0;
@@ -29,9 +31,9 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 
 	public void initialize() {
-		int width = this.getWidth();
-		int height = this.getHeight();
-		myTerrainMap = new TerrainMap(width, height);
+		screen_width = this.getWidth();
+		screen_height = this.getHeight();
+		myTerrainMap = new TerrainMap(screen_width, screen_height);
 		myTerrainMap.setFocus(new Point(0,0));
 		mySpriteDrawer = new SpriteDrawer(context);
 		myPathBuilder = new PathBuilder(myTerrainMap);
@@ -76,11 +78,11 @@ public class TowerDefenseGame extends ArcadeGame{
 				Y_offset = 0;
 			}
 
-			if(X_offset < 800-Constants.WORLD_WIDTH){
-				X_offset = 800-Constants.WORLD_WIDTH;
+			if(X_offset < this.screen_width-Constants.WORLD_WIDTH){
+				X_offset = this.screen_width-Constants.WORLD_WIDTH;
 			}
-			if(Y_offset < 480-Constants.WORLD_HEIGHT){
-				Y_offset = 480-Constants.WORLD_HEIGHT;
+			if(Y_offset < this.screen_height-Constants.WORLD_HEIGHT){
+				Y_offset = this.screen_height-Constants.WORLD_HEIGHT;
 			}
 			break;
 		default:

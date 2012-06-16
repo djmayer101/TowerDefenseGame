@@ -26,7 +26,6 @@ public class Constants {
 	
 	public static final String GAME_NAME = "TowerDefense";
 	public static final int OBJECT_CELL_SIDE_LENGTH = (int) (GRID_SQUARE_SIZE*.9);
-	public static final int CURSOR_CELL_SIDE_LENGTH =  GRID_SQUARE_SIZE;
 	public static final int IMAGE_OFFSET = 3;
 	public static final long UPDATE_DELAY = 40;
 	
