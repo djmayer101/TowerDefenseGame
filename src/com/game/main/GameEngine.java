@@ -13,7 +13,7 @@ public class GameEngine {
 	private TerrainMap terrainMap;
 	private SpriteDrawer spriteDrawer;
 	private PathBuilder pathBuilder;
-	
+
 	Point enemyStartPoint = Constants.SPAWN_POINT;
 	Point enemyEndPoint = Constants.END_POINT;
 
@@ -41,7 +41,7 @@ public class GameEngine {
 
 
 	public void drawAll(Canvas canvas) {
-		
+
 		for (int i=0; i<Constants.NUM_COLUMNS; i++){
 			for (int j=0; j<Constants.NUM_ROWS; j++){
 				spriteDrawer.drawGameObject(canvas, new Point(i*Constants.GRID_SQUARE_SIZE + TowerDefenseGame.X_offset, j *Constants.GRID_SQUARE_SIZE + TowerDefenseGame.Y_offset), terrainMap.worldTerrainGrid[i][j]);
@@ -83,50 +83,51 @@ public class GameEngine {
 			counter = 0;
 			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
 		}
-		else if(counter!=295){
-			
-			counter++;
-		
-
-		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
-		for (BasicEnemy enemy: basicEnemies){
-			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
-			enemy.updatePath(path);
-			enemy.updateLocalGoal();
-			enemy.updateLocation();
-			enemy.updateState();
-			if (enemy.getState() == Constants.State.DONE ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
-				finishedEnemies.add(enemy);
-			}
-		}
-		for (Tower tower: towerManager.towers){
-			CannonBall cannonBall = tower.update(basicEnemies);
-			if(cannonBall != null){
-				cannonBalls.add(cannonBall);
-			}
-		}
-		finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
-		for (CannonBall cannonBall: cannonBalls){
-			cannonBall.updateLocation();
-			cannonBall.updateState();
-			if (cannonBall.getState() == Constants.State.DONE){
-				explodeCannonBall(cannonBall);
-				finishedCannonBalls.add(cannonBall);
-			}
-		}
-		
-
-		for (BasicEnemy enemy: finishedEnemies){
-			basicEnemies.remove(enemy);
-		}
-		for (CannonBall cannonBall : finishedCannonBalls){
-			cannonBalls.remove(cannonBall);
-
-		}
-		}
-		else{
+		else if(counter==295){
 			path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
 			counter++;
+		}
+		else{
+			counter++;
+
+
+			ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
+			for (BasicEnemy enemy: basicEnemies){
+				//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
+				enemy.updatePath(path);
+				enemy.updateLocalGoal();
+				enemy.updateLocation();
+				enemy.updateState();
+				if (enemy.getState() == Constants.State.DONE ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
+					finishedEnemies.add(enemy);
+				}
+			}
+			for (Tower tower: towerManager.towers){
+				CannonBall cannonBall = tower.update(basicEnemies);
+				if(cannonBall != null){
+					cannonBalls.add(cannonBall);
+				}
+			}
+			finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
+			for (CannonBall cannonBall: cannonBalls){
+				cannonBall.updateLocation();
+				cannonBall.updateState();
+				if (cannonBall.getState() == Constants.State.DONE){
+					explodeCannonBall(cannonBall);
+					finishedCannonBalls.add(cannonBall);
+				}
+			}
+
+
+			for (BasicEnemy enemy: finishedEnemies){
+				basicEnemies.remove(enemy);
+			}
+			for (CannonBall cannonBall : finishedCannonBalls){
+				cannonBalls.remove(cannonBall);
+
+			}
+
+
 		}
 
 	}
@@ -145,7 +146,7 @@ public class GameEngine {
 		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
 		basicEnemies.add(enemy);
 	}
-	
+
 	public Point computeNearestTowerLocation(Point p) {
 		int nearestTowerLocationX = Constants.GRID_SQUARE_SIZE*((int) Math.floor(p.x / Constants.GRID_SQUARE_SIZE));
 		int nearestTowerLocationY = Constants.GRID_SQUARE_SIZE*((int) Math.floor(p.y / Constants.GRID_SQUARE_SIZE));
@@ -155,17 +156,17 @@ public class GameEngine {
 	public void tileClicked(Point location) {
 		terrainMap.setFocus(computeNearestTowerLocation(location));
 	}
-	
+
 	public void buildTowerClicked(){
 		if (towerManager.isTowerAt(terrainMap.getFocus()) == false){
 			Tower tower = new Tower(terrainMap.getFocus());
 			towerManager.addTower(tower);
 		}
-		
+
 		//BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
 		//basicEnemies.add(enemy);
 	}
-	
+
 
 
 }
