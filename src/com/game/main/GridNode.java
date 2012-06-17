@@ -4,13 +4,13 @@ import android.graphics.Point;
 
 public class GridNode {
 
-		Point me;
+		Point point;
 		private GridNode parent;
 		public int distanceFromStart;
-		public int f_score = Integer.MAX_VALUE;
+		public int distanceToGoal = Integer.MAX_VALUE;
 
 		GridNode(Point me) {
-			this.me = me;
+			this.point = me;
 			parent = null;
 			distanceFromStart = Integer.MAX_VALUE;
 			
@@ -24,17 +24,17 @@ public class GridNode {
 			parent = newParent;
 		}
 
-		public int getDistance () {
+		public int getDistanceFromStart () {
 			return distanceFromStart;
 		}
 
-		public void setDistance (int newDistance) {
+		public void setDistanceFromStart (int newDistance) {
 			distanceFromStart = newDistance;
 		}
 
 
-		public void setF_score(int d) {
-			this.f_score = d;
+		public void setdistanceToGoal(int d) {
+			this.distanceToGoal = d;
 		}
 
 }

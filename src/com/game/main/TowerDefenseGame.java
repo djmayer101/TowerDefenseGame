@@ -4,15 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class TowerDefenseGame extends ArcadeGame{
 
@@ -83,6 +80,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	public void GameOver() {
 		ingame = false;
 	}
+
 
 
 

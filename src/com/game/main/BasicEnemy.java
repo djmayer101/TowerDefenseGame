@@ -1,10 +1,7 @@
 package com.game.main;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.game.main.Constants.State;
-
 import android.graphics.Point;
 
 public class BasicEnemy extends BasicGameObject {
@@ -20,7 +17,6 @@ public class BasicEnemy extends BasicGameObject {
 		this.theta = Constants.EAST;
 		this.health = 100;
 		this.localGoal = startLocation;
-		
 	}
 	
 	@Override
