@@ -34,17 +34,17 @@ public class PathBuilder {
 		runAStarSearch();
 
 		backTrackToCreatePath();
-		path = reversePath();
+		reversePath();
 
 		return path;
 	}
 
-	private CopyOnWriteArrayList<Point> reversePath() {
+	private void reversePath() {
 		CopyOnWriteArrayList<Point> pathTemp = new CopyOnWriteArrayList<Point>();
-		for (int i=path.size()-1;i>=0; i--){
-			pathTemp.add(path.get(i));
+		for (Point p : path){
+			pathTemp.add(0,p);
 		}
-		return pathTemp;
+		path = pathTemp;
 		
 	}
 
