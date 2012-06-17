@@ -34,11 +34,11 @@ public class GridNode {
 
 
 		public void setEstimatedTotalDistance(int d) {
-			this.estimatedTotalDistance = d;
+			estimatedTotalDistance = d;
 		}
 		
 		public int  getEstimatedTotalDistance() {
-			return this.estimatedTotalDistance;
+			return estimatedTotalDistance;
 		}
 
 }

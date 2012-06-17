@@ -9,9 +9,9 @@ public class Constants {
 	public static final double EAST = 0;
 	public static final double WEST = 180;
 	
-	public static final int NUM_COLUMNS = 18;
-	public static final int NUM_ROWS = 10;
-	public static final int GRID_SQUARE_SIZE = 70;
+	public static final int NUM_COLUMNS = 16;
+	public static final int NUM_ROWS = 8;
+	public static final int GRID_SQUARE_SIZE = 75;
 	
 	public static final int WORLD_WIDTH = NUM_COLUMNS*GRID_SQUARE_SIZE;
 	public static final int WORLD_HEIGHT = NUM_ROWS*GRID_SQUARE_SIZE;

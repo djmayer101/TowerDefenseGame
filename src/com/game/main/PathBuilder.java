@@ -160,8 +160,6 @@ public class PathBuilder {
 		pointInWorldHash = new Hashtable<Point, Boolean>();
 		pointToGridNode = new Hashtable<Point, GridNode>();
 		gridNodes = new CopyOnWriteArrayList<GridNode>();
-
-
 	}
 
 }

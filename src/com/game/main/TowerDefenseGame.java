@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class TowerDefenseGame extends ArcadeGame{
 
@@ -31,7 +32,6 @@ public class TowerDefenseGame extends ArcadeGame{
 		super.setUpdatePeriod(Constants.UPDATE_DELAY);
 		this.context = context;
 		initialize();
-
 		ImageButton buildTowerButton= new ImageButton(context);
 		Bitmap buttonImage = getImage(R.drawable.build_tower_button);
 		buttonImage = Bitmap.createScaledBitmap( buttonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
@@ -41,13 +41,18 @@ public class TowerDefenseGame extends ArcadeGame{
 
 		buildTowerButton.setOnClickListener(new View.OnClickListener() {            
 			public void onClick(View v) {
-
 				myGameEngine.buildTowerClicked();
-
 			}
 		});
-
 		this.addView(buildTowerButton);
+		
+		TextView scoreView = new TextView(context);
+		scoreView.setText("Score: 5");
+		this.addView(scoreView);
+		
+		TextView moneyView = new TextView(context);
+		moneyView.setText("Cash: 5");
+		this.addView(moneyView);
 
 	}
 
