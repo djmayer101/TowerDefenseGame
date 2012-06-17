@@ -34,8 +34,18 @@ public class PathBuilder {
 		runAStarSearch();
 
 		backTrackToCreatePath();
+		path = reversePath();
 
 		return path;
+	}
+
+	private CopyOnWriteArrayList<Point> reversePath() {
+		CopyOnWriteArrayList<Point> pathTemp = new CopyOnWriteArrayList<Point>();
+		for (int i=path.size()-1;i>=0; i--){
+			pathTemp.add(path.get(i));
+		}
+		return pathTemp;
+		
 	}
 
 	private void backTrackToCreatePath() {
