@@ -27,7 +27,7 @@ public class SpriteDrawer {
 		towerImage = getImage(R.drawable.awesome_castle);
 		towerImage = Bitmap.createScaledBitmap( towerImage, Constants.OBJECT_CELL_SIDE_LENGTH, Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
-		enemyImage = getImage(R.drawable.awesome_castle);
+		enemyImage = getImage(R.drawable.crazy_enemy);
 		enemyImage = Bitmap.createScaledBitmap(enemyImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
 		cannonBallImage = getImage(R.drawable.cannonball);
