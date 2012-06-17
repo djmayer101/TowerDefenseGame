@@ -56,7 +56,7 @@ public class PathBuilder {
 		while (!gridNodes.isEmpty()) {
 			GridNode currentNode = getLowestDistance();
 
-			if( currentNode == null ||currentNode.distanceFromStart == Integer.MAX_VALUE) {
+			if(currentNode.distanceFromStart == Integer.MAX_VALUE) {
 				break; 
 			}
 			gridNodes.remove(currentNode);
@@ -105,11 +105,7 @@ public class PathBuilder {
 
 	}
 
-	private GridNode getLowestDistance() {
-		if (gridNodes.isEmpty()) {
-			return null;
-		}
-		
+	private GridNode getLowestDistance() {		
 		GridNode lowest = gridNodes.get(0);
 		for (GridNode node :gridNodes){
 			if(lowest.distanceToGoal > node.distanceToGoal){

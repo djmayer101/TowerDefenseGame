@@ -1,7 +1,6 @@
 package com.game.main;
 
 import android.graphics.Point;
-import android.util.Log;
 
 
 public class TerrainMap {
@@ -11,6 +10,7 @@ public class TerrainMap {
 
 	private int numColumns;
 	private int numRows;
+	
 	int squareSize;
 
 	private Point focus;
@@ -20,9 +20,10 @@ public class TerrainMap {
 	public TerrainMap(int width, int height){
 		this.world_width = Constants.WORLD_WIDTH;;
 		this.world_height =  Constants.WORLD_HEIGHT;
-		//Log.e("board dimensions", "height: " + height + " width " + width);
+
 		this.numColumns = Constants.NUM_COLUMNS;
 		this.numRows = Constants.NUM_ROWS;
+		
 		this.squareSize = Constants.GRID_SQUARE_SIZE;
 		worldTerrainGrid = new Constants.DrawObject[numColumns][numRows];
 

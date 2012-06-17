@@ -9,10 +9,7 @@ public class TowerManager {
 	public ConcurrentHashMap<Point,Tower> towersHash = new ConcurrentHashMap<Point,Tower>();
 	public CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<Tower>();
 	
-	public TowerManager(){
-		
-	}
-	
+	public TowerManager(){}
 	
 	public void addTower(Tower tower){
 		towers.add(tower);
