@@ -26,7 +26,12 @@ public class Tower extends BasicGameObject {
 				closestEnemy = enemy;
 			}
 		}
-		return closestEnemy;
+		if(currentClosestDistance<=range){
+			return closestEnemy;
+		}
+		else{
+			return null;
+		}
 	}
 
 	public CannonBall update(CopyOnWriteArrayList<BasicEnemy> basicEnemies) {

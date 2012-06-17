@@ -20,7 +20,7 @@ public class Constants {
 	public static final double BASIC_ENEMY_SPEED = 5;
 	public static final double BASIC_TOWER_SPEED = 0;
 	
-	public static final int BASIC_TOWER_RANGE = 100;
+	public static final int BASIC_TOWER_RANGE = 100000;
 	public static final int BASIC_TOWER_COOLDOWN = 30;
 
 	
