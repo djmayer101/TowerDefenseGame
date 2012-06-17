@@ -83,7 +83,7 @@ public class PathBuilder {
 		if(alt < neighbor.getDistanceFromStart()){
 			neighbor.setDistanceFromStart(alt);
 			neighbor.setParent(currentNode);
-			neighbor.setEstimatedTotalDistance((int) (alt + TerrainMap.calculateDistanceSquared(neighbor.point, this.endNode.point)));
+			neighbor.setEstimatedTotalDistance((int) (alt + Math.sqrt(TerrainMap.calculateDistanceSquared(neighbor.point, this.endNode.point))));
 		}
 	}
 
@@ -152,7 +152,7 @@ public class PathBuilder {
 	private void initializeFields(Point start, Point end) {
 		startNode = new GridNode(start);
 		startNode.setDistanceFromStart(0);
-		startNode.setEstimatedTotalDistance((int) TerrainMap.calculateDistanceSquared(start, end));
+		startNode.setEstimatedTotalDistance((int) Math.sqrt(TerrainMap.calculateDistanceSquared(start, end)));
 		
 		endNode = new GridNode(end);
 
