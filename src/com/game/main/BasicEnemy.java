@@ -55,7 +55,7 @@ public class BasicEnemy extends BasicGameObject {
 	public void updateLocalGoal(){
 		Point gridPoint = TerrainMap.scalePixelToGridPoint(this.location);
 		if (this.path.contains(gridPoint)){
-			int newLocalGoalIndex = this.path.indexOf(TerrainMap.scalePixelToGridPoint(this.location)) - 1;
+			int newLocalGoalIndex = this.path.indexOf(TerrainMap.scalePixelToGridPoint(this.location)) + 1;
 			if(path.size() > newLocalGoalIndex){
 				this.localGoal = TerrainMap.scaleGridPointToPixel(this.path.get(newLocalGoalIndex));
 				this.updateTheta(localGoal);
