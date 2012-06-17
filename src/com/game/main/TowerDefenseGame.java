@@ -94,8 +94,8 @@ public class TowerDefenseGame extends ArcadeGame{
 			float endTouchX = event.getHistoricalX(size);
 			float endTouchY = event.getHistoricalY(size);
 
-			X_offset -= endTouchX - initialTouchX;
-			Y_offset -= endTouchY- initialTouchY;
+			X_offset -= event.getHistorySize()*(endTouchX - initialTouchX);
+			Y_offset -= event.getHistorySize()*(endTouchY- initialTouchY);
 			if(X_offset > 0){
 				X_offset = 0;
 			}
