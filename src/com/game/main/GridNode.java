@@ -6,8 +6,8 @@ public class GridNode {
 
 		Point point;
 		private GridNode parent;
-		public int distanceFromStart;
-		public int distanceToGoal = Integer.MAX_VALUE;
+		private int distanceFromStart;
+		private int estimatedTotalDistance = Integer.MAX_VALUE;
 
 		GridNode(Point me) {
 			this.point = me;
@@ -24,7 +24,7 @@ public class GridNode {
 			parent = newParent;
 		}
 
-		public int getDistanceFromStart () {
+		public int getDistanceFromStart() {
 			return distanceFromStart;
 		}
 
@@ -33,8 +33,12 @@ public class GridNode {
 		}
 
 
-		public void setdistanceToGoal(int d) {
-			this.distanceToGoal = d;
+		public void setEstimatedTotalDistance(int d) {
+			this.estimatedTotalDistance = d;
+		}
+		
+		public int  getEstimatedTotalDistance() {
+			return this.estimatedTotalDistance;
 		}
 
 }

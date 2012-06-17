@@ -66,7 +66,7 @@ public class PathBuilder {
 		while (!gridNodes.isEmpty()) {
 			GridNode currentNode = getLowestDistance();
 
-			if(currentNode.distanceFromStart == Integer.MAX_VALUE) {
+			if(currentNode.getDistanceFromStart() == Integer.MAX_VALUE) {
 				break; 
 			}
 			gridNodes.remove(currentNode);
@@ -79,11 +79,11 @@ public class PathBuilder {
 	}
 
 	private void relaxNeighbors(GridNode currentNode, GridNode neighbor) {
-		int alt = currentNode.distanceFromStart +1;
-		if(alt < neighbor.distanceFromStart){
+		int alt = currentNode.getDistanceFromStart() +1;
+		if(alt < neighbor.getDistanceFromStart()){
 			neighbor.setDistanceFromStart(alt);
 			neighbor.setParent(currentNode);
-			neighbor.setdistanceToGoal((int) (alt + TerrainMap.calculateDistanceSquared(neighbor.point, this.endNode.point)));
+			neighbor.setEstimatedTotalDistance((int) (alt + TerrainMap.calculateDistanceSquared(neighbor.point, this.endNode.point)));
 		}
 	}
 
@@ -118,7 +118,7 @@ public class PathBuilder {
 	private GridNode getLowestDistance() {		
 		GridNode lowest = gridNodes.get(0);
 		for (GridNode node :gridNodes){
-			if(lowest.distanceToGoal > node.distanceToGoal){
+			if(lowest.getEstimatedTotalDistance() > node.getEstimatedTotalDistance()){
 				lowest = node;
 			}
 		}
@@ -152,7 +152,7 @@ public class PathBuilder {
 	private void initializeFields(Point start, Point end) {
 		startNode = new GridNode(start);
 		startNode.setDistanceFromStart(0);
-		startNode.distanceToGoal = (int) TerrainMap.calculateDistanceSquared(start, end);
+		startNode.setEstimatedTotalDistance((int) TerrainMap.calculateDistanceSquared(start, end));
 		
 		endNode = new GridNode(end);
 
