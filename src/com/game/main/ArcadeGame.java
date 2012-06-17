@@ -50,8 +50,7 @@ public abstract class ArcadeGame extends LinearLayout {
 	protected void startUpdateTimer() {
 		this.ingame = true;
 		mUpdateTimer = new Timer();
-		mUpdateTimer.schedule(new UpdateTask(), 0, mPeriod);
-	
+		mUpdateTimer.schedule(new UpdateTask(), 0);
 	}
 	
 	protected void stopUpdateTimer() {
@@ -79,6 +78,7 @@ public abstract class ArcadeGame extends LinearLayout {
 			updatePhysics();
 			
 			postInvalidate();
+			mUpdateTimer.schedule(new UpdateTask(), mPeriod);
 		}
 	}
 	
