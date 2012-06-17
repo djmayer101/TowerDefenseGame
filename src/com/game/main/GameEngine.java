@@ -1,7 +1,6 @@
 package com.game.main;
 
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.game.main.Constants.DrawObject;

@@ -60,10 +60,8 @@ public class TowerDefenseGame extends ArcadeGame{
 		myTowerManager = new TowerManager();
 		myPathBuilder = new PathBuilder(myTerrainMap,myTowerManager);
 		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myTowerManager);
-
-
-
 	}
+	
 	protected Bitmap getImage(int id) {
 		return BitmapFactory.decodeResource(context.getResources(), id);
 	}
@@ -72,9 +70,6 @@ public class TowerDefenseGame extends ArcadeGame{
 	{
 		super.dispatchDraw(canvas);
 		myGameEngine.drawAll(canvas);
-	}
-
-	public void GameStart() {
 	}
 
 	public void GameOver() {
@@ -116,14 +111,13 @@ public class TowerDefenseGame extends ArcadeGame{
 			}
 			break;
 		default:
-			Log.e("offsets", "x: " + X_offset + " y:_" + Y_offset );
+			Log.e("offsets", "x: " + X_offset + " y: " + Y_offset );
 			myGameEngine.tileClicked(new Point((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
 		}
 
 
 		if ( !ingame ) {
 			ingame = true;
-			GameStart();
 		}
 		return true;
 	}

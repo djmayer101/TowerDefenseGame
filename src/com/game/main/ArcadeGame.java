@@ -13,12 +13,9 @@ public abstract class ArcadeGame extends LinearLayout {
 	
 	private Timer mUpdateTimer;
 	
-	private long mPeriod = 10000;
+	private long mPeriod = 1000;
 	protected boolean ingame = false;
 	final int screendelay = 300;
-	
-	
-	
 	
 	public ArcadeGame(Context context) {
 		super(context);
