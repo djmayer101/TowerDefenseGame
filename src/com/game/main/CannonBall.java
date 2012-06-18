@@ -25,7 +25,7 @@ public class CannonBall extends BasicGameObject{
 		if (this.state == State.EXPLODE || this.state == State.DONE){
 			this.state = State.DONE;
 		}
-		else if(distanceSquaredToTarget > this.previousDistanceToTarget){
+		else if(distanceSquaredToTarget < Constants.BASIC_CANNON_SPEED*Constants.BASIC_CANNON_SPEED){
 			this.state = State.EXPLODE;
 		}
 		else{
