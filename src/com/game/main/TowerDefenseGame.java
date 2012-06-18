@@ -38,18 +38,19 @@ public class TowerDefenseGame extends ArcadeGame{
 		super(context, attrs);
 		super.setUpdatePeriod(Constants.UPDATE_DELAY);
 		this.context = context;
-		screen_width = this.getWidth();
-		screen_height = this.getHeight();
 		
-		
+		initialize();
+		initializeClasses();
+		initializeButtons();
+	}
+
+	private void initializeClasses() {
 		mySpriteDrawer = new SpriteDrawer(context);
 		myObstacleManager = new ObstacleManager();
 		myTerrainMap = new TerrainMap(screen_width, screen_height, myObstacleManager);
 		myTerrainMap.setFocus(new Point(Constants.GRID_SQUARE_SIZE,Constants.GRID_SQUARE_SIZE));
 		myPathBuilder = new PathBuilder(myTerrainMap,myObstacleManager);
 		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myObstacleManager);
-		initialize();
-		initializeButtons();
 	}
 
 	private void initializeButtons() {
@@ -115,7 +116,10 @@ public class TowerDefenseGame extends ArcadeGame{
 		}
 		
 	}
-	public void initialize() {}
+	public void initialize() {
+		screen_width = this.getWidth();
+		screen_height = this.getHeight();
+	}
 	
 	
 	@Override
