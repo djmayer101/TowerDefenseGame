@@ -84,7 +84,7 @@ public class GameEngine {
 			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
 		}
 		else if(counter==295){
-			path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
+			
 			counter++;
 		}
 		else{
@@ -163,6 +163,7 @@ public class GameEngine {
 		if ((obstacleManager.isTowerAt(terrainMap.getFocus()) == false) ){
 			Tower tower = new Tower(terrainMap.getFocus());
 			obstacleManager.addTower(tower);
+			path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
 		}
 	}
 
