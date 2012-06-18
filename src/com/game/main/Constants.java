@@ -34,10 +34,10 @@ public class Constants {
 	
 	public static enum State{LAUNCH,TRAVEL,EXPLODE,DONE, INITIAL};
 	
-	public static enum DrawObject{CURSOR,TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY,GRASSTILE_1,GRASSTILE_2,BORDERTILE}
+	public static enum DrawObject{CURSOR,TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY,GRASSTILE_1,GRASSTILE_2,BORDERTILE, STARTTILE, ENDTILE}
 
 
 	
-	public static final Point SPAWN_POINT = new Point(0,0);
-	public static final Point END_POINT = new Point(10,6);
+	public static final Point SPAWN_POINT = new Point(1,1);
+	public static final Point END_POINT = new Point(NUM_COLUMNS-2,NUM_ROWS-2);
 }

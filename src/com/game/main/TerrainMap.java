@@ -37,6 +37,12 @@ public class TerrainMap {
 				if (i == 0 || j == 0 || i ==Constants.NUM_COLUMNS-1 || j == Constants.NUM_ROWS-1){
 					worldTerrainGrid[i][j] = Constants.DrawObject.BORDERTILE;
 				}
+				if(i == 1 && j == 1){
+					worldTerrainGrid[i][j] = Constants.DrawObject.STARTTILE;
+				}
+				if(i == Constants.NUM_COLUMNS-2 && j == Constants.NUM_ROWS-2){
+					worldTerrainGrid[i][j] = Constants.DrawObject.ENDTILE;
+				}
 
 			}
 		}
