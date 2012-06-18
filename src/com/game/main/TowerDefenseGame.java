@@ -142,6 +142,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	public boolean onTouchEvent(MotionEvent event){
 
 		int size;
+		Log.e("offsets", "x: " + X_offset + " y: " + Y_offset );
 		switch(event.getAction()){
 		case MotionEvent.ACTION_MOVE:
 			float initialTouchX = event.getX();
@@ -171,13 +172,10 @@ public class TowerDefenseGame extends ArcadeGame{
 			break;
 		default:
 			if (event.getAction() == MotionEvent.ACTION_DOWN){
-				Log.e("offsets", "x: " + X_offset + " y: " + Y_offset );
 				myGameEngine.tileClicked(new Point((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
 			}
 
 		}
-
-
 		if ( !ingame ) {
 			ingame = true;
 		}

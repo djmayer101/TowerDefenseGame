@@ -9,22 +9,21 @@ import android.widget.LinearLayout;
 
 public abstract class ArcadeGame extends LinearLayout {
 
-	private Context mContex;
+	private Context mContext;
 	
 	private Timer mUpdateTimer;
 	
 	private long mPeriod = 2000;
 	protected boolean ingame = false;
-	final int screendelay = 300;
 	
 	public ArcadeGame(Context context) {
 		super(context);
-		mContex = context;
+		mContext = context;
 	}
 	
 	public ArcadeGame(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		mContex = context;
+		mContext = context;
 	}
 	
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -57,7 +56,7 @@ public abstract class ArcadeGame extends LinearLayout {
 	}
 	
 	public Context getContex() {
-		return mContex;
+		return mContext;
 	}
 	
 
