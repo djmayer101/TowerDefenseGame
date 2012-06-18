@@ -21,6 +21,8 @@ public class SpriteDrawer {
 	private Bitmap borderTerrainTile;
 	private Bitmap GRASS_1TerrainTile;
 	private Bitmap GRASS_2TerrainTile;
+	private Bitmap startTerrainTile;
+	private Bitmap endTerrainTile;
 
 	public SpriteDrawer(Context context){
 		this.context = context;
@@ -47,6 +49,12 @@ public class SpriteDrawer {
 		
 		borderTerrainTile = getImage(R.drawable.border_square);
 		borderTerrainTile = Bitmap.createScaledBitmap( borderTerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		
+		startTerrainTile = getImage(R.drawable.start_square);
+		startTerrainTile = Bitmap.createScaledBitmap( startTerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		
+		endTerrainTile = getImage(R.drawable.end_square);
+		endTerrainTile = Bitmap.createScaledBitmap( endTerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 	}
 
 	protected Bitmap getImage(int id) {
@@ -71,6 +79,10 @@ public class SpriteDrawer {
 		case GRASSTILE_2:			image = GRASS_2TerrainTile;
 		break;
 		case BORDERTILE:			image = borderTerrainTile;
+		break;
+		case STARTTILE:			image = startTerrainTile;
+		break;
+		case ENDTILE:			image = endTerrainTile;
 		break;
 		default:					image = null;
 		}

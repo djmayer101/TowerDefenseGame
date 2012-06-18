@@ -162,9 +162,6 @@ public class GameEngine {
 			Tower tower = new Tower(terrainMap.getFocus());
 			towerManager.addTower(tower);
 		}
-
-		//BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
-		//basicEnemies.add(enemy);
 	}
 
 
