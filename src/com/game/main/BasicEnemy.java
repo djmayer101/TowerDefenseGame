@@ -12,11 +12,11 @@ public class BasicEnemy extends BasicGameObject {
 	private CopyOnWriteArrayList<Point> path;
 
 	public BasicEnemy(Point startLocation, Point endLocation){
-		super(startLocation, Constants.BASIC_ENEMY_SPEED);
+		super(new Point(startLocation.x*Constants.GRID_SQUARE_SIZE, startLocation.y*Constants.GRID_SQUARE_SIZE), Constants.BASIC_ENEMY_SPEED);
 		this.endLocation = endLocation;
 		this.theta = Constants.EAST;
 		this.health = 100;
-		this.localGoal = startLocation;
+		this.localGoal = new Point(startLocation.x*Constants.GRID_SQUARE_SIZE, startLocation.y*Constants.GRID_SQUARE_SIZE);
 	}
 	
 	@Override
