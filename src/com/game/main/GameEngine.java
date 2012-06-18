@@ -24,15 +24,15 @@ public class GameEngine {
 	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
 	private CopyOnWriteArrayList<Point> path;
-	private TowerManager towerManager;
+	private ObstacleManager obstacleManager;
 
 
 
-	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, TowerManager myTowerManager){
+	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager){
 		this.terrainMap = terrainMap;
 		this.spriteDrawer = mySpriteDrawer;
 		this.pathBuilder = myPathBuilder;
-		this.towerManager = myTowerManager;
+		this.obstacleManager = myObstacleManager;
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
 
 	}
@@ -47,7 +47,7 @@ public class GameEngine {
 				spriteDrawer.drawGameObject(canvas, new Point(i*Constants.GRID_SQUARE_SIZE + TowerDefenseGame.X_offset, j *Constants.GRID_SQUARE_SIZE + TowerDefenseGame.Y_offset), terrainMap.worldTerrainGrid[i][j]);
 			}
 		}
-		for (Tower tower:towerManager.towers){
+		for (Tower tower:obstacleManager.towers){
 			Point location = new Point(tower.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.TOWER);
@@ -102,7 +102,7 @@ public class GameEngine {
 					finishedEnemies.add(enemy);
 				}
 			}
-			for (Tower tower: towerManager.towers){
+			for (Tower tower: obstacleManager.towers){
 				CannonBall cannonBall = tower.update(basicEnemies);
 				if(cannonBall != null){
 					cannonBalls.add(cannonBall);
@@ -154,13 +154,15 @@ public class GameEngine {
 	}
 
 	public void tileClicked(Point location) {
-		terrainMap.setFocus(computeNearestTowerLocation(location));
+		if(obstacleManager.isObstacleAt(TerrainMap.scalePixelToGridPoint(location)) == false){
+			terrainMap.setFocus(computeNearestTowerLocation(location));
+		}
 	}
 
 	public void buildTowerClicked(){
-		if (towerManager.isTowerAt(terrainMap.getFocus()) == false){
+		if ((obstacleManager.isTowerAt(terrainMap.getFocus()) == false) ){
 			Tower tower = new Tower(terrainMap.getFocus());
-			towerManager.addTower(tower);
+			obstacleManager.addTower(tower);
 		}
 	}
 

@@ -6,7 +6,7 @@ import android.graphics.Point;
 
 public class PathBuilder {
 	private TerrainMap terrainMap;
-	private TowerManager towerManager;
+	private ObstacleManager obstacleManager;
 	
 	private GridNode startNode;
 	private GridNode endNode;
@@ -17,9 +17,9 @@ public class PathBuilder {
 	private Hashtable<Point, GridNode> pointToGridNode;
 	
 
-	public PathBuilder (TerrainMap terrainMap, TowerManager towerManager) {
+	public PathBuilder (TerrainMap terrainMap, ObstacleManager obstacleManager) {
 		this.terrainMap = terrainMap;
-		this.towerManager = towerManager;
+		this.obstacleManager = obstacleManager;
 	}
 
 	public CopyOnWriteArrayList<Point> getPath(Point start, Point end) {
@@ -100,7 +100,8 @@ public class PathBuilder {
 					pointToGridNode.put(endNode.point, endNode);
 					gridNodes.add(endNode);
 				}
-				else if(towerManager.isTowerAt(TerrainMap.scaleGridPointToPixel(new Point(i,j))) == false){
+				else if((obstacleManager.isTowerAt(TerrainMap.scaleGridPointToPixel(new Point(i,j))) == false) &&
+						(obstacleManager.isObstacleAt((new Point(i,j))) == false)){
 					GridNode newNode = new GridNode(new Point(i, j));
 					pointInWorldHash.put(newNode.point, true);
 					pointToGridNode.put(newNode.point, newNode);

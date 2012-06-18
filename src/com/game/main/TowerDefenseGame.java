@@ -21,7 +21,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	private PathBuilder myPathBuilder;
 	private int screen_width;
 	private int screen_height;
-	private TowerManager myTowerManager;
+	private ObstacleManager myObstacleManager;
 
 	static public int X_offset= 0;
 	static public int Y_offset = 0;
@@ -59,12 +59,14 @@ public class TowerDefenseGame extends ArcadeGame{
 	public void initialize() {
 		screen_width = this.getWidth();
 		screen_height = this.getHeight();
-		myTerrainMap = new TerrainMap(screen_width, screen_height);
-		myTerrainMap.setFocus(new Point(0,0));
+		
+		
 		mySpriteDrawer = new SpriteDrawer(context);
-		myTowerManager = new TowerManager();
-		myPathBuilder = new PathBuilder(myTerrainMap,myTowerManager);
-		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myTowerManager);
+		myObstacleManager = new ObstacleManager();
+		myTerrainMap = new TerrainMap(screen_width, screen_height, myObstacleManager);
+		myTerrainMap.setFocus(new Point(Constants.GRID_SQUARE_SIZE,Constants.GRID_SQUARE_SIZE));
+		myPathBuilder = new PathBuilder(myTerrainMap,myObstacleManager);
+		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myObstacleManager);
 	}
 	
 	protected Bitmap getImage(int id) {
