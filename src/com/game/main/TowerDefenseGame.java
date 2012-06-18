@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class TowerDefenseGame extends ArcadeGame{
@@ -19,44 +21,21 @@ public class TowerDefenseGame extends ArcadeGame{
 	private Context context;
 	private SpriteDrawer mySpriteDrawer;
 	private PathBuilder myPathBuilder;
+	private TowerManager myTowerManager;
+	
 	private int screen_width;
 	private int screen_height;
-	private TowerManager myTowerManager;
+	
+	private int score = 0;
+	private int money = 100;
 
 	static public int X_offset= 0;
 	static public int Y_offset = 0;
-	ImageButton buildTowerButton;
 
 	public TowerDefenseGame(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		super.setUpdatePeriod(Constants.UPDATE_DELAY);
 		this.context = context;
-		initialize();
-		ImageButton buildTowerButton= new ImageButton(context);
-		Bitmap buttonImage = getImage(R.drawable.build_tower_button);
-		buttonImage = Bitmap.createScaledBitmap( buttonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		buildTowerButton.setImageBitmap(buttonImage);
-		buildTowerButton.setBackgroundResource(0);
-		buildTowerButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0));
-
-		buildTowerButton.setOnClickListener(new View.OnClickListener() {            
-			public void onClick(View v) {
-				myGameEngine.buildTowerClicked();
-			}
-		});
-		this.addView(buildTowerButton);
-		
-		TextView scoreView = new TextView(context);
-		scoreView.setText("Score: 5");
-		this.addView(scoreView);
-		
-		TextView moneyView = new TextView(context);
-		moneyView.setText("Cash: 5");
-		this.addView(moneyView);
-
-	}
-
-	public void initialize() {
 		screen_width = this.getWidth();
 		screen_height = this.getHeight();
 		myTerrainMap = new TerrainMap(screen_width, screen_height);
@@ -65,11 +44,78 @@ public class TowerDefenseGame extends ArcadeGame{
 		myTowerManager = new TowerManager();
 		myPathBuilder = new PathBuilder(myTerrainMap,myTowerManager);
 		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myTowerManager);
+		initialize();
+		initializeButtons();
+	}
+
+	private void initializeButtons() {
+LinearLayout buttons = new LinearLayout(context);
+		
+		ImageButton buildTowerButton= new ImageButton(context);
+		Bitmap buttonImage = getImage(R.drawable.build_tower_button);
+		buttonImage = Bitmap.createScaledBitmap( buttonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		buildTowerButton.setImageBitmap(buttonImage);
+		buildTowerButton.setBackgroundResource(0);
+		buildTowerButton.setClickable(true);
+		buildTowerButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0));
+
+		buildTowerButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+				buildTowerClicked();
+			}
+		});
+		
+		
+		ImageButton pauseButton= new ImageButton(context);
+		Bitmap pauseImage = getImage(R.drawable.pause_button);
+		pauseImage = Bitmap.createScaledBitmap( pauseImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		pauseButton.setImageBitmap(pauseImage);
+		pauseButton.setBackgroundResource(0);
+		pauseButton.setClickable(true);
+		pauseButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0));
+
+		pauseButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+				pauseClicked();
+			}
+
+
+		});
+
+		TextView scoreView = new TextView(context);
+		scoreView.setTextSize(24);
+		scoreView.setTextColor(Color.WHITE);
+		scoreView.setText("Score: " + score + " ");
+		scoreView.setBackgroundColor(Color.BLACK);
+
+		TextView moneyView = new TextView(context);
+		moneyView.setTextSize(24);
+		moneyView.setText(" Cash: " + money + " ");
+		moneyView.setTextColor(Color.WHITE);
+		moneyView.setBackgroundColor(Color.BLACK);
+		
+		buttons.addView(scoreView);
+		buttons.addView(moneyView);
+		buttons.addView(buildTowerButton);
+		buttons.addView(pauseButton);
+	
+		this.addView(buttons);
+		
+	}
+	private void pauseClicked() {
+		if (ingame){
+			halt();
+		}
+		else{
+			resume();
+		}
+		
+	}
+	public void initialize() {
+
 	}
 	
-	protected Bitmap getImage(int id) {
-		return BitmapFactory.decodeResource(context.getResources(), id);
-	}
+	
 	@Override
 	protected void onDraw(Canvas canvas) 
 	{
@@ -82,7 +128,13 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 
 
-
+	private void buildTowerClicked() {
+		myGameEngine.buildTowerClicked();
+		
+	}
+	protected Bitmap getImage(int id) {
+		return BitmapFactory.decodeResource(context.getResources(), id);
+	}
 
 
 	public boolean onTouchEvent(MotionEvent event){
@@ -116,8 +168,11 @@ public class TowerDefenseGame extends ArcadeGame{
 			}
 			break;
 		default:
-			Log.e("offsets", "x: " + X_offset + " y: " + Y_offset );
-			myGameEngine.tileClicked(new Point((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
+			if (event.getAction() == MotionEvent.ACTION_DOWN){
+				Log.e("offsets", "x: " + X_offset + " y: " + Y_offset );
+				myGameEngine.tileClicked(new Point((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
+			}
+
 		}
 
 
@@ -139,7 +194,7 @@ public class TowerDefenseGame extends ArcadeGame{
 
 	@Override
 	protected long getScore() {
-		return 0;
+		return this.score;
 	}
 
 }

@@ -51,6 +51,7 @@ public abstract class ArcadeGame extends LinearLayout {
 	}
 	
 	protected void stopUpdateTimer() {
+
 		if (mUpdateTimer != null)
 			mUpdateTimer.cancel();
 	}
@@ -80,10 +81,12 @@ public abstract class ArcadeGame extends LinearLayout {
 	}
 	
 	public void halt() {
+		this.ingame = false;
 		stopUpdateTimer();
 	}
 	
 	public void resume() {
+		this.ingame = true;
 		initialize();
 		startUpdateTimer();
 	}
