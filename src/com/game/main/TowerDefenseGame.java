@@ -21,13 +21,15 @@ public class TowerDefenseGame extends ArcadeGame{
 	private Context context;
 	private SpriteDrawer mySpriteDrawer;
 	private PathBuilder myPathBuilder;
-	private TowerManager myTowerManager;
 	
 	private int screen_width;
 	private int screen_height;
-	
+
 	private int score = 0;
 	private int money = 100;
+
+	private ObstacleManager myObstacleManager;
+
 
 	static public int X_offset= 0;
 	static public int Y_offset = 0;
@@ -38,18 +40,20 @@ public class TowerDefenseGame extends ArcadeGame{
 		this.context = context;
 		screen_width = this.getWidth();
 		screen_height = this.getHeight();
-		myTerrainMap = new TerrainMap(screen_width, screen_height);
-		myTerrainMap.setFocus(new Point(0,0));
+		
+		
 		mySpriteDrawer = new SpriteDrawer(context);
-		myTowerManager = new TowerManager();
-		myPathBuilder = new PathBuilder(myTerrainMap,myTowerManager);
-		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myTowerManager);
+		myObstacleManager = new ObstacleManager();
+		myTerrainMap = new TerrainMap(screen_width, screen_height, myObstacleManager);
+		myTerrainMap.setFocus(new Point(Constants.GRID_SQUARE_SIZE,Constants.GRID_SQUARE_SIZE));
+		myPathBuilder = new PathBuilder(myTerrainMap,myObstacleManager);
+		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myObstacleManager);
 		initialize();
 		initializeButtons();
 	}
 
 	private void initializeButtons() {
-LinearLayout buttons = new LinearLayout(context);
+		LinearLayout buttons = new LinearLayout(context);
 		
 		ImageButton buildTowerButton= new ImageButton(context);
 		Bitmap buttonImage = getImage(R.drawable.build_tower_button);
@@ -111,9 +115,7 @@ LinearLayout buttons = new LinearLayout(context);
 		}
 		
 	}
-	public void initialize() {
-
-	}
+	public void initialize() {}
 	
 	
 	@Override

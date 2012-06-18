@@ -5,11 +5,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.graphics.Point;
 
-public class TowerManager {
+public class ObstacleManager {
 	public ConcurrentHashMap<Point,Tower> towersHash = new ConcurrentHashMap<Point,Tower>();
+	public ConcurrentHashMap<Point,Object> obstaclesHash = new ConcurrentHashMap<Point,Object>();
 	public CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<Tower>();
 	
-	public TowerManager(){}
+	public ObstacleManager(){}
 	
 	public void addTower(Tower tower){
 		towers.add(tower);
@@ -18,6 +19,13 @@ public class TowerManager {
 	
 	public boolean isTowerAt(Point p) {
 		if (towersHash.get(p) == null){
+			return false;
+		}
+		return true;
+	}
+
+	public boolean isObstacleAt(Point p) {
+		if (obstaclesHash.get(p) == null){
 			return false;
 		}
 		return true;
