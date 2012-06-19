@@ -1,4 +1,4 @@
-package com.game.mainTest;
+/*package com.game.mainTest;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,3 +35,4 @@ public class PathBuilderTest{
 		assertEquals("work",1,1);
 	}
 }
+*/
