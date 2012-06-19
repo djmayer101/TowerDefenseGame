@@ -13,6 +13,8 @@ public class GameEngine {
 	private TerrainMap terrainMap;
 	private SpriteDrawer spriteDrawer;
 	private PathBuilder pathBuilder;
+	private ObstacleManager obstacleManager;
+	private GameStatistics gameStatistics;
 
 	Point enemyStartPoint = Constants.SPAWN_POINT;
 	Point enemyEndPoint = Constants.END_POINT;
@@ -24,15 +26,16 @@ public class GameEngine {
 	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
 	private CopyOnWriteArrayList<Point> path;
-	private ObstacleManager obstacleManager;
 
 
 
-	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager){
+
+	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics){
 		this.terrainMap = terrainMap;
 		this.spriteDrawer = mySpriteDrawer;
 		this.pathBuilder = myPathBuilder;
 		this.obstacleManager = myObstacleManager;
+		this.gameStatistics = gameStatistics;
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
 
 	}
@@ -161,6 +164,7 @@ public class GameEngine {
 
 	public void buildTowerClicked(){
 		if ((obstacleManager.isTowerAt(terrainMap.getFocus()) == false) ){
+			gameStatistics.decrementMoney(Constants.TOWER_COST);
 			Tower tower = new Tower(terrainMap.getFocus());
 			obstacleManager.addTower(tower);
 			path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);

@@ -40,4 +40,5 @@ public class Constants {
 	
 	public static final Point SPAWN_POINT = new Point(1,1);
 	public static final Point END_POINT = new Point(NUM_COLUMNS-2,NUM_ROWS-2);
+	public static final int TOWER_COST = 20;
 }

@@ -19,6 +19,7 @@ public class GameStatistics {
 	
 	public void decrementMoney(int amountSpent){
 		money -= amountSpent;
+		refreshMenu();
 	}
 	
 	public void incrementRound(){
@@ -37,6 +38,8 @@ public class GameStatistics {
 		return money;
 	}
 	
-	
+	private void refreshMenu(){
+		game.refreshButtons();
+	}
 
 }
