@@ -191,10 +191,6 @@ public class TowerDefenseGame extends ArcadeGame{
 		}
 
 
-		/*if ( !ingame ) {
->>>>>>> d7024cf03722e897a920aa40f02a143c3c4a6524
-			ingame = true;
-		}*/
 		return true;
 	}
 

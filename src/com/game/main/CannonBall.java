@@ -6,7 +6,6 @@ import com.game.main.Constants.State;
 public class CannonBall extends BasicGameObject{
 
 	private Point endLocation;
-	private double previousDistanceToTarget;
 
 	public CannonBall(Point location, Point endLocation) {
 		super(location, Constants.BASIC_CANNON_SPEED);
@@ -15,8 +14,6 @@ public class CannonBall extends BasicGameObject{
 		this.state = State.LAUNCH;
 
 		updateTheta(endLocation);
-
-		this.previousDistanceToTarget = Double.MAX_VALUE;
 	}
 
 	@Override
@@ -31,6 +28,5 @@ public class CannonBall extends BasicGameObject{
 		else{
 			this.state = State.TRAVEL;
 		}
-		this.previousDistanceToTarget = distanceSquaredToTarget;
 	}
 }

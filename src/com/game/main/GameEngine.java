@@ -78,7 +78,7 @@ public class GameEngine {
 	private int counter = 0;
 
 	public void updatePhysics() {
-		if(counter == 300){
+			/*if(counter == 300){
 			addEnemy();
 			counter = 0;
 			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
@@ -88,9 +88,12 @@ public class GameEngine {
 			counter++;
 		}
 		else{
-			counter++;
-
-
+			counter++;*/
+			BasicEnemy myEnemy = myGameRound.update();
+			if(myEnemy != null){
+				addEnemy(myEnemy);
+			}
+			
 			ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
 			for (BasicEnemy enemy: basicEnemies){
 				//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
@@ -128,7 +131,7 @@ public class GameEngine {
 			}
 
 
-		}
+		//}
 
 	}
 
@@ -142,9 +145,8 @@ public class GameEngine {
 		}
 	}
 
-	private void addEnemy(){
-		BasicEnemy enemy = new BasicEnemy(enemyStartPoint,enemyEndPoint);
-		basicEnemies.add(enemy);
+	private void addEnemy(BasicEnemy myEnemy){
+		basicEnemies.add(myEnemy);
 	}
 
 	public Point computeNearestTowerLocation(Point p) {
