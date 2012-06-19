@@ -59,11 +59,13 @@ public class TowerDefenseActivity extends Activity{
 	protected void backToMenu(){
     	Intent i = new Intent(TowerDefenseActivity.this, GameMain.class);
     	startActivity(i);
+    	finish();
 	}
 	
     public void startNewGame(){
     	Intent i = new Intent(TowerDefenseActivity.this, TowerDefenseActivity.class);
     	startActivity(i);
+    	finish();
     }
 
 
