@@ -1,6 +1,8 @@
 package com.game.main;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -33,8 +35,11 @@ public class TowerDefenseGame extends ArcadeGame{
 	private TextView moneyView;
 	private TextView roundView;
 	private LinearLayout buttons;
+	
+	private Handler mHandler = new Handler();
 
 	private TextView livesView;
+	private TowerDefenseActivity activity;
 
 	static public int X_offset= 0;
 	static public int Y_offset = 0;
@@ -172,6 +177,26 @@ public class TowerDefenseGame extends ArcadeGame{
 
 	public void gameOver() {
 		ingame = false;
+		 mHandler.post(new Runnable() {
+	            public void run() {
+	            	AlertDialog.Builder builder = new AlertDialog.Builder(context);
+	        		builder.setMessage("YOU LOSE!!!")
+	        		       .setCancelable(false)
+	        		       .setPositiveButton("New Game", new DialogInterface.OnClickListener() {
+	        		           public void onClick(DialogInterface dialog, int id) {
+	        		                activity.startNewGame();
+	        		           }
+	        		       })
+	        		       .setNegativeButton("Menu", new DialogInterface.OnClickListener() {
+	        		           public void onClick(DialogInterface dialog, int id) {
+	        		        	   activity.backToMenu();
+	        		           }
+	        		       });
+	        		AlertDialog alert = builder.create();
+	        		alert.show();
+	            }
+	        });
+	
 	}
 
 
@@ -238,7 +263,7 @@ public class TowerDefenseGame extends ArcadeGame{
 		return false;
 	}
 	
-	private Handler mHandler = new Handler();
+
 
     // This gets executed in a non-UI thread:
     public void refreshButtons() {
@@ -251,6 +276,11 @@ public class TowerDefenseGame extends ArcadeGame{
             }
         });
     }
+
+	public void setTowerActivity(TowerDefenseActivity towerDefenseActivity) {
+		this.activity = towerDefenseActivity;
+		
+	}
 	
 
 
