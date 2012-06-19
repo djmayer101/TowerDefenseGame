@@ -26,18 +26,16 @@ public class GameEngine {
 	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
 	private CopyOnWriteArrayList<Point> path;
-	private GameRound gameRound;
 
 
 
 
-	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics, GameRound gameRound){
+	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics){
 		this.terrainMap = terrainMap;
 		this.spriteDrawer = mySpriteDrawer;
 		this.pathBuilder = myPathBuilder;
 		this.obstacleManager = myObstacleManager;
 		this.gameStatistics = gameStatistics;
-		this.gameRound = gameRound;
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
 
 	}
@@ -94,7 +92,7 @@ public class GameEngine {
 		}
 		else{
 			counter++;*/
-		BasicEnemy myEnemy = gameRound.update();
+		BasicEnemy myEnemy = gameStatistics.currentGameRound.update();
 		if(myEnemy != null){
 			addEnemy(myEnemy);
 		}

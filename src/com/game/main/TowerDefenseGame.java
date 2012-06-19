@@ -33,7 +33,7 @@ public class TowerDefenseGame extends ArcadeGame{
 	private TextView roundView;
 	private LinearLayout buttons;
 	private TextView livesView;
-	private GameRound gameRound;
+	//private GameRound gameRound;
 
 
 
@@ -57,8 +57,8 @@ public class TowerDefenseGame extends ArcadeGame{
 		myTerrainMap.setFocus(new Point(Constants.GRID_SQUARE_SIZE,Constants.GRID_SQUARE_SIZE));
 		myPathBuilder = new PathBuilder(myTerrainMap,myObstacleManager);
 		gameStatistics = new GameStatistics(this);
-		gameRound = new GameRound(gameStatistics.getRound());
-		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myObstacleManager,gameStatistics, gameRound);
+		//gameRound = new GameRound(gameStatistics.getRound());
+		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myObstacleManager,gameStatistics);
 
 	}
 
@@ -95,6 +95,22 @@ public class TowerDefenseGame extends ArcadeGame{
 
 
 		});
+		
+		ImageButton startButton= new ImageButton(context);
+		Bitmap startImage = getImage(R.drawable.start_button);
+		startImage = Bitmap.createScaledBitmap( startImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		startButton.setImageBitmap(startImage);
+		startButton.setBackgroundResource(0);
+		startButton.setClickable(true);
+		startButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0));
+
+		startButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+				startRound();
+			}
+
+
+		});
 
 		roundView = new TextView(context);
 		roundView.setTextSize(24);
@@ -119,10 +135,19 @@ public class TowerDefenseGame extends ArcadeGame{
 		buttons.addView(livesView);
 		buttons.addView(buildTowerButton);
 		buttons.addView(pauseButton);
+		buttons.addView(startButton);
 	
 		this.addView(buttons);
 		
 	}
+	protected void startRound() {
+		if(!ingame){
+			gameStatistics.incrementRound();
+			gameStatistics.startRound();
+			ingame = true;
+		}
+	}
+
 	private void pauseClicked() {
 		if (ingame){
 			pause();
@@ -132,6 +157,7 @@ public class TowerDefenseGame extends ArcadeGame{
 		}
 		
 	}
+	
 	public void initialize() {
 		screen_width = this.getWidth();
 		screen_height = this.getHeight();

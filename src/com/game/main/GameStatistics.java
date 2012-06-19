@@ -1,10 +1,11 @@
 package com.game.main;
 
 public class GameStatistics {
-	private int round = 1;
+	private int round = 0;
 	private int lives = 10;
 	private int money = 100;
 	private TowerDefenseGame game;
+	public GameRound currentGameRound;
 	
 	public GameStatistics(TowerDefenseGame game){
 		this.game = game;
@@ -40,6 +41,10 @@ public class GameStatistics {
 	
 	private void refreshMenu(){
 		game.refreshButtons();
+	}
+
+	public void startRound() {
+		this.currentGameRound = new GameRound(this.round);
 	}
 
 }
