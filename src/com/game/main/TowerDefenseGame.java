@@ -117,10 +117,10 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 	private void pauseClicked() {
 		if (ingame){
-			halt();
+			pause();
 		}
 		else{
-			resume();
+			go();
 		}
 		
 	}
@@ -189,15 +189,20 @@ public class TowerDefenseGame extends ArcadeGame{
 			}
 
 		}
-		if ( !ingame ) {
+
+
+		/*if ( !ingame ) {
+>>>>>>> d7024cf03722e897a920aa40f02a143c3c4a6524
 			ingame = true;
-		}
+		}*/
 		return true;
 	}
 
 	@Override
 	protected void updatePhysics() {
-		myGameEngine.updatePhysics();
+		if (ingame){
+			myGameEngine.updatePhysics();
+		}
 	}
 
 	@Override

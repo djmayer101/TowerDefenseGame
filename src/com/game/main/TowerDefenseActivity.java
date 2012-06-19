@@ -41,13 +41,12 @@ public class TowerDefenseActivity extends Activity{
 	@Override
 	protected void onPause() {
 		super.onPause();
-		onStop();
+		myGame.pause();
 	}
 
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		//((ArcadeGame)view).resume();
 		myGame.resume();
 	}
 
