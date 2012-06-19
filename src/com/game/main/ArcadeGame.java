@@ -55,11 +55,6 @@ public abstract class ArcadeGame extends LinearLayout {
 			mUpdateTimer.cancel();
 	}
 	
-	public Context getContex() {
-		return mContext;
-	}
-	
-
 	
 	abstract protected void updatePhysics();
 	

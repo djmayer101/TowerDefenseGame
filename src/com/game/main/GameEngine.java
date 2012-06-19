@@ -13,6 +13,8 @@ public class GameEngine {
 	private TerrainMap terrainMap;
 	private SpriteDrawer spriteDrawer;
 	private PathBuilder pathBuilder;
+	private ObstacleManager obstacleManager;
+	private GameStatistics gameStatistics;
 
 	Point enemyStartPoint = Constants.SPAWN_POINT;
 	Point enemyEndPoint = Constants.END_POINT;
@@ -24,15 +26,18 @@ public class GameEngine {
 	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
 	private CopyOnWriteArrayList<Point> path;
-	private ObstacleManager obstacleManager;
+	private GameRound gameRound;
 
 
 
-	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager){
+
+	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics, GameRound gameRound){
 		this.terrainMap = terrainMap;
 		this.spriteDrawer = mySpriteDrawer;
 		this.pathBuilder = myPathBuilder;
 		this.obstacleManager = myObstacleManager;
+		this.gameStatistics = gameStatistics;
+		this.gameRound = gameRound;
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
 
 	}
@@ -78,57 +83,57 @@ public class GameEngine {
 	private int counter = 0;
 
 	public void updatePhysics() {
-			/*if(counter == 300){
+		/*if(counter == 300){
 			addEnemy();
 			counter = 0;
 			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
 		}
 		else if(counter==295){
-			
+
 			counter++;
 		}
 		else{
 			counter++;*/
-			BasicEnemy myEnemy = myGameRound.update();
-			if(myEnemy != null){
-				addEnemy(myEnemy);
+		BasicEnemy myEnemy = gameRound.update();
+		if(myEnemy != null){
+			addEnemy(myEnemy);
+		}
+
+		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
+		for (BasicEnemy enemy: basicEnemies){
+			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
+			enemy.updatePath(path);
+			enemy.updateLocalGoal();
+			enemy.updateLocation();
+			enemy.updateState();
+			if (enemy.getState() == Constants.State.DONE ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
+				finishedEnemies.add(enemy);
 			}
-			
-			ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
-			for (BasicEnemy enemy: basicEnemies){
-				//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
-				enemy.updatePath(path);
-				enemy.updateLocalGoal();
-				enemy.updateLocation();
-				enemy.updateState();
-				if (enemy.getState() == Constants.State.DONE ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
-					finishedEnemies.add(enemy);
-				}
+		}
+		for (Tower tower: obstacleManager.towers){
+			CannonBall cannonBall = tower.update(basicEnemies);
+			if(cannonBall != null){
+				cannonBalls.add(cannonBall);
 			}
-			for (Tower tower: obstacleManager.towers){
-				CannonBall cannonBall = tower.update(basicEnemies);
-				if(cannonBall != null){
-					cannonBalls.add(cannonBall);
-				}
+		}
+		finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
+		for (CannonBall cannonBall: cannonBalls){
+			cannonBall.updateLocation();
+			cannonBall.updateState();
+			if (cannonBall.getState() == Constants.State.DONE){
+				explodeCannonBall(cannonBall);
+				finishedCannonBalls.add(cannonBall);
 			}
-			finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
-			for (CannonBall cannonBall: cannonBalls){
-				cannonBall.updateLocation();
-				cannonBall.updateState();
-				if (cannonBall.getState() == Constants.State.DONE){
-					explodeCannonBall(cannonBall);
-					finishedCannonBalls.add(cannonBall);
-				}
-			}
+		}
 
 
-			for (BasicEnemy enemy: finishedEnemies){
-				basicEnemies.remove(enemy);
-			}
-			for (CannonBall cannonBall : finishedCannonBalls){
-				cannonBalls.remove(cannonBall);
+		for (BasicEnemy enemy: finishedEnemies){
+			basicEnemies.remove(enemy);
+		}
+		for (CannonBall cannonBall : finishedCannonBalls){
+			cannonBalls.remove(cannonBall);
 
-			}
+		}
 
 
 		//}
@@ -163,9 +168,12 @@ public class GameEngine {
 
 	public void buildTowerClicked(){
 		if ((obstacleManager.isTowerAt(terrainMap.getFocus()) == false) ){
-			Tower tower = new Tower(terrainMap.getFocus());
-			obstacleManager.addTower(tower);
-			path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
+			if(gameStatistics.getMoney() >= Constants.TOWER_COST){
+				gameStatistics.decrementMoney(Constants.TOWER_COST);
+				Tower tower = new Tower(terrainMap.getFocus());
+				obstacleManager.addTower(tower);
+				path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
+			}
 		}
 	}
 
