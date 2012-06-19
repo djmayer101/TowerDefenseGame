@@ -104,6 +104,12 @@ public class GameEngine {
 				if (enemy.getState() == Constants.State.DONE ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
 					finishedEnemies.add(enemy);
 				}
+				Point scaledCurrentLocation = TerrainMap.scalePixelToGridPoint(enemy.getLocation());
+				if(scaledCurrentLocation.x == enemy.getEndLocation().x && scaledCurrentLocation.y == enemy.getEndLocation().y ||
+						enemy.state == Constants.State.MADE_IT_TO_GOAL_LOCATION){
+					finishedEnemies.add(enemy);
+					gameStatistics.decrementLives();
+				}
 			}
 			for (Tower tower: obstacleManager.towers){
 				CannonBall cannonBall = tower.update(basicEnemies);

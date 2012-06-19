@@ -2,6 +2,7 @@ package com.game.main;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,5 +50,6 @@ public class TowerDefenseActivity extends Activity{
 		super.onRestart();
 		myGame.resume();
 	}
+
 
 }

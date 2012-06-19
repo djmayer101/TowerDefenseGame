@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -28,11 +29,11 @@ public class TowerDefenseGame extends ArcadeGame{
 
 
 	private ObstacleManager myObstacleManager;
-	private GameStatistics gameStatistics;
-	private TextView moneyView;
-	private TextView roundView;
+	GameStatistics gameStatistics;
+	TextView moneyView;
+	TextView roundView;
 	private LinearLayout buttons;
-	private TextView livesView;
+	TextView livesView;
 
 
 
@@ -211,15 +212,22 @@ public class TowerDefenseGame extends ArcadeGame{
 		
 		return false;
 	}
+	
+	private Handler mHandler = new Handler();
 
-	public void refreshButtons() {
-		Toast.makeText(getContext(), "hello", Toast.LENGTH_LONG).show();
-		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
-		moneyView.refreshDrawableState();
-		buttons.invalidate();
-		buttons.refreshDrawableState();
-		
-	}
+    // This gets executed in a non-UI thread:
+    public void refreshButtons() {
+        mHandler.post(new Runnable() {
+            public void run() {
+                // This gets executed on the UI thread so it can safely modify Views
+        		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
+        		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
+        		roundView.setText("Round: " + gameStatistics.getRound() + " ");
+            }
+        });
+    }
+	
+
 
 
 }

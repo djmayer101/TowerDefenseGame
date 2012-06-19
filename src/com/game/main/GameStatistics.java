@@ -15,6 +15,7 @@ public class GameStatistics {
 		if (lives == 0){
 			game.gameOver();
 		}
+		refreshMenu();
 	}
 	
 	public void decrementMoney(int amountSpent){
