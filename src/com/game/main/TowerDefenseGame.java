@@ -109,10 +109,10 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 	private void pauseClicked() {
 		if (ingame){
-			halt();
+			pause();
 		}
 		else{
-			resume();
+			go();
 		}
 		
 	}
@@ -182,15 +182,17 @@ public class TowerDefenseGame extends ArcadeGame{
 		}
 
 
-		if ( !ingame ) {
+		/*if ( !ingame ) {
 			ingame = true;
-		}
+		}*/
 		return true;
 	}
 
 	@Override
 	protected void updatePhysics() {
-		myGameEngine.updatePhysics();
+		if (ingame){
+			myGameEngine.updatePhysics();
+		}
 	}
 
 	@Override
