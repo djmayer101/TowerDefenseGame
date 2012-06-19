@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TowerDefenseGame extends ArcadeGame{
 
@@ -25,10 +26,10 @@ public class TowerDefenseGame extends ArcadeGame{
 	private int screen_width;
 	private int screen_height;
 
-	private int score = 0;
-	private int money = 100;
 
 	private ObstacleManager myObstacleManager;
+	private GameStatistics gameStatistics;
+
 
 
 	static public int X_offset= 0;
@@ -51,6 +52,7 @@ public class TowerDefenseGame extends ArcadeGame{
 		myTerrainMap.setFocus(new Point(Constants.GRID_SQUARE_SIZE,Constants.GRID_SQUARE_SIZE));
 		myPathBuilder = new PathBuilder(myTerrainMap,myObstacleManager);
 		myGameEngine = new GameEngine(myTerrainMap,mySpriteDrawer,myPathBuilder,myObstacleManager);
+		gameStatistics = new GameStatistics(this);
 	}
 
 	private void initializeButtons() {
@@ -87,19 +89,25 @@ public class TowerDefenseGame extends ArcadeGame{
 
 		});
 
-		TextView scoreView = new TextView(context);
-		scoreView.setTextSize(24);
-		scoreView.setTextColor(Color.WHITE);
-		scoreView.setText("Score: " + score + " ");
-		scoreView.setBackgroundColor(Color.BLACK);
+		TextView roundView = new TextView(context);
+		roundView.setTextSize(24);
+		roundView.setTextColor(Color.WHITE);
+		roundView.setText("Round: " + gameStatistics.getRound() + " ");
+		roundView.setBackgroundColor(Color.BLACK);
 
 		TextView moneyView = new TextView(context);
 		moneyView.setTextSize(24);
-		moneyView.setText(" Cash: " + money + " ");
+		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
 		moneyView.setTextColor(Color.WHITE);
 		moneyView.setBackgroundColor(Color.BLACK);
 		
-		buttons.addView(scoreView);
+		TextView livesView = new TextView(context);
+		livesView.setTextSize(24);
+		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
+		livesView.setTextColor(Color.WHITE);
+		livesView.setBackgroundColor(Color.BLACK);
+		
+		buttons.addView(roundView);
 		buttons.addView(moneyView);
 		buttons.addView(buildTowerButton);
 		buttons.addView(pauseButton);
@@ -129,8 +137,9 @@ public class TowerDefenseGame extends ArcadeGame{
 		myGameEngine.drawAll(canvas);
 	}
 
-	public void GameOver() {
+	public void gameOver() {
 		ingame = false;
+		Toast.makeText(getContex(), "GAME OVER", Toast.LENGTH_LONG);
 	}
 
 
@@ -192,13 +201,10 @@ public class TowerDefenseGame extends ArcadeGame{
 	}
 
 	@Override
-	protected boolean gameOver() {
+	protected boolean isGameOver() {
+		
 		return false;
 	}
 
-	@Override
-	protected long getScore() {
-		return this.score;
-	}
 
 }

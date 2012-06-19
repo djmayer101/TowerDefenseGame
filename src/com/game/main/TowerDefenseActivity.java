@@ -48,6 +48,7 @@ public class TowerDefenseActivity extends Activity{
 	protected void onRestart() {
 		super.onRestart();
 		//((ArcadeGame)view).resume();
+		myGame.resume();
 	}
 
 }

@@ -65,9 +65,8 @@ public abstract class ArcadeGame extends LinearLayout {
 	
 	abstract protected void initialize();
 	
-	abstract protected boolean gameOver();
+	abstract protected boolean isGameOver();
 	
-	abstract protected long getScore();
 	
 	private class UpdateTask extends TimerTask {
 		@Override
