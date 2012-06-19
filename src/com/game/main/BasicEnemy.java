@@ -40,6 +40,7 @@ public class BasicEnemy extends BasicGameObject {
 		if((this.location.x == TerrainMap.scaleGridPointToPixel(endLocation).x) &&
 				(this.location.y == TerrainMap.scaleGridPointToPixel(endLocation).y)){
 			this.speed = 0;
+			state = State.MADE_IT_TO_GOAL_LOCATION;
 		}
 		else if (TerrainMap.calculateDistanceSquared(location, localGoal) < this.speed * this.speed){
 			this.location = new Point(localGoal);
@@ -62,6 +63,7 @@ public class BasicEnemy extends BasicGameObject {
 			}
 			else{
 				this.localGoal = TerrainMap.scaleGridPointToPixel(this.endLocation);
+
 			}
 		}
 	}

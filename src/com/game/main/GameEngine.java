@@ -2,6 +2,7 @@ package com.game.main;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Semaphore;
 
 import com.game.main.Constants.DrawObject;
 import android.graphics.Canvas;
@@ -15,6 +16,9 @@ public class GameEngine {
 	private PathBuilder pathBuilder;
 	private ObstacleManager obstacleManager;
 	private GameStatistics gameStatistics;
+
+	private static Semaphore mutex;
+
 
 	private boolean isNewTowerBuilt = false;
 	Point enemyStartPoint = Constants.SPAWN_POINT;
@@ -38,7 +42,7 @@ public class GameEngine {
 		this.obstacleManager = myObstacleManager;
 		this.gameStatistics = gameStatistics;
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
-
+		mutex = new Semaphore(1, true);
 	}
 
 
@@ -79,28 +83,47 @@ public class GameEngine {
 		spriteDrawer.drawGameObject(canvas,cursor_location, DrawObject.CURSOR);
 	}
 
-	private int counter = 0;
-
 	public void updatePhysics() {
 		BasicEnemy myEnemy = gameStatistics.currentGameRound.update();
 		if(myEnemy != null){
 			addEnemy(myEnemy);
 		}
 
+		try {
+			mutex.acquire();
+			if(isNewTowerBuilt){
+				for (BasicEnemy enemy: basicEnemies){
+					path = pathBuilder.getPath(TerrainMap.scalePixelToGridPoint(enemy.getLocation()), enemyEndPoint);
+					enemy.updatePath(path);
+				}
+			}
+			isNewTowerBuilt = false;
+			mutex.release();
+		} catch (InterruptedException e) {
+			System.out.println("Exception " + e.toString());
+		}
+
+
+
 		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
 		for (BasicEnemy enemy: basicEnemies){
-			if(isNewTowerBuilt){
-				path = pathBuilder.getPath(TerrainMap.scalePixelToGridPoint(enemy.getLocation()), enemyEndPoint);
-				enemy.updatePath(path);
-			}
 			enemy.updateLocalGoal();
 			enemy.updateLocation();
 			enemy.updateState();
 			if (enemy.getState() == Constants.State.DONE ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
 				finishedEnemies.add(enemy);
 			}
+			Point scaledCurrentLocation = TerrainMap.scalePixelToGridPoint(enemy.getLocation());
+			if(scaledCurrentLocation.x == enemy.getEndLocation().x && scaledCurrentLocation.y == enemy.getEndLocation().y ||
+					enemy.state == Constants.State.MADE_IT_TO_GOAL_LOCATION){
+				finishedEnemies.add(enemy);
+				gameStatistics.decrementLives();
+			}
+
 		}
-		isNewTowerBuilt = false;
+
+		updateIsNewTowerBuilt(false);
+
 		for (Tower tower: obstacleManager.towers){
 			CannonBall cannonBall = tower.update(basicEnemies);
 			if(cannonBall != null){
@@ -162,11 +185,20 @@ public class GameEngine {
 				Tower tower = new Tower(terrainMap.getFocus());
 				obstacleManager.addTower(tower);
 				//path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
-				isNewTowerBuilt = true;
+				updateIsNewTowerBuilt(true);
 			}
 		}
 	}
 
+	private void updateIsNewTowerBuilt (boolean newVar){		
+		try {
+			mutex.acquire();
+			isNewTowerBuilt = newVar;
+			mutex.release();
+		} catch (InterruptedException e) {
+			System.out.println("Exception " + e.toString());
+		}
+	}
 
 
 }

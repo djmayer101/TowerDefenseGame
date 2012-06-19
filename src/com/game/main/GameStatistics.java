@@ -16,6 +16,7 @@ public class GameStatistics {
 		if (lives == 0){
 			game.gameOver();
 		}
+		refreshMenu();
 	}
 	
 	public void decrementMoney(int amountSpent){
@@ -25,6 +26,7 @@ public class GameStatistics {
 	
 	public void incrementRound(){
 		round += 1;
+		refreshMenu();
 	}
 
 	public int getRound() {
