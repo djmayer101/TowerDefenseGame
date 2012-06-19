@@ -16,6 +16,7 @@ public class GameEngine {
 	private ObstacleManager obstacleManager;
 	private GameStatistics gameStatistics;
 
+	private boolean isNewTowerBuilt = false;
 	Point enemyStartPoint = Constants.SPAWN_POINT;
 	Point enemyEndPoint = Constants.END_POINT;
 
@@ -81,17 +82,6 @@ public class GameEngine {
 	private int counter = 0;
 
 	public void updatePhysics() {
-		/*if(counter == 300){
-			addEnemy();
-			counter = 0;
-			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
-		}
-		else if(counter==295){
-
-			counter++;
-		}
-		else{
-			counter++;*/
 		BasicEnemy myEnemy = gameStatistics.currentGameRound.update();
 		if(myEnemy != null){
 			addEnemy(myEnemy);
@@ -99,8 +89,10 @@ public class GameEngine {
 
 		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
 		for (BasicEnemy enemy: basicEnemies){
-			//path = terrainMap.getPath(enemyStartPoint, enemyEndPoint);
-			enemy.updatePath(path);
+			if(isNewTowerBuilt){
+				path = pathBuilder.getPath(TerrainMap.scalePixelToGridPoint(enemy.getLocation()), enemyEndPoint);
+				enemy.updatePath(path);
+			}
 			enemy.updateLocalGoal();
 			enemy.updateLocation();
 			enemy.updateState();
@@ -108,6 +100,7 @@ public class GameEngine {
 				finishedEnemies.add(enemy);
 			}
 		}
+		isNewTowerBuilt = false;
 		for (Tower tower: obstacleManager.towers){
 			CannonBall cannonBall = tower.update(basicEnemies);
 			if(cannonBall != null){
@@ -132,10 +125,6 @@ public class GameEngine {
 			cannonBalls.remove(cannonBall);
 
 		}
-
-
-		//}
-
 	}
 
 	private void explodeCannonBall(CannonBall cannonBall){
@@ -150,6 +139,8 @@ public class GameEngine {
 
 	private void addEnemy(BasicEnemy myEnemy){
 		basicEnemies.add(myEnemy);
+		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
+		myEnemy.updatePath(path);
 	}
 
 	public Point computeNearestTowerLocation(Point p) {
@@ -170,7 +161,8 @@ public class GameEngine {
 				gameStatistics.decrementMoney(Constants.TOWER_COST);
 				Tower tower = new Tower(terrainMap.getFocus());
 				obstacleManager.addTower(tower);
-				path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
+				//path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
+				isNewTowerBuilt = true;
 			}
 		}
 	}
