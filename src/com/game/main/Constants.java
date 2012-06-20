@@ -27,7 +27,8 @@ public class Constants {
 	public static final String GAME_NAME = "TowerDefense";
 	public static final int OBJECT_CELL_SIDE_LENGTH = (int) (GRID_SQUARE_SIZE*.9);
 	public static final int IMAGE_OFFSET = 3;
-	public static final long UPDATE_DELAY = 40;
+	
+	public static final int UPDATE_CYCLE_TIME = 25;
 	
 	public static final int CANNONBALL_EXPLOSION_RADIUS_SQUARED = 1625;
 	public static final int CANNONBALL_DAMAGE = 20;
