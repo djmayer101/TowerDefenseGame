@@ -140,7 +140,6 @@ public class GameEngine {
 			if (distanceSquared < Constants.CANNONBALL_EXPLOSION_RADIUS_SQUARED){
 				enemy.reduceHeath(Constants.CANNONBALL_DAMAGE);
 			}
-			Log.e("enemy health","health: " + enemy.health);
 		}
 	}
 

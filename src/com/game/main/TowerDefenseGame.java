@@ -46,7 +46,6 @@ public class TowerDefenseGame extends ArcadeGame{
 
 	public TowerDefenseGame(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		super.setUpdatePeriod(Constants.UPDATE_DELAY);
 		this.context = context;
 		
 		initialize();

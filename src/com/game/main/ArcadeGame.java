@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 public abstract class ArcadeGame extends LinearLayout {
@@ -12,8 +13,6 @@ public abstract class ArcadeGame extends LinearLayout {
 	private Context mContext;
 	
 	private Timer mUpdateTimer;
-	
-	private long mPeriod = 2000;
 	protected boolean ingame = false;
 	
 	public ArcadeGame(Context context) {
@@ -35,10 +34,7 @@ public abstract class ArcadeGame extends LinearLayout {
 			e.printStackTrace();
 		}
 	}
-	
-	public void setUpdatePeriod(long period) {
-		mPeriod = period;
-	}
+
 	
 	
 	
@@ -66,10 +62,28 @@ public abstract class ArcadeGame extends LinearLayout {
 	private class UpdateTask extends TimerTask {
 		@Override
 		public void run() {
+			long start_time = System.currentTimeMillis();
 			updatePhysics();
 			
 			postInvalidate();
-			mUpdateTimer.schedule(new UpdateTask(), mPeriod);
+			long end_time = System.currentTimeMillis();
+			long remaining_time = Constants.UPDATE_CYCLE_TIME -end_time+start_time;
+			if (remaining_time < 20){
+				Log.e("Physics Update Time", "Time left over: " + remaining_time);
+			}
+
+
+			if (remaining_time < 0){
+				remaining_time =0;
+			}
+			try {
+				Thread.sleep(remaining_time);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			mUpdateTimer.schedule(new UpdateTask(),0);
+			
 		}
 	}
 	
