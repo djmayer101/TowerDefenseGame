@@ -2,6 +2,8 @@ package com.game.main;
 
 import java.util.Hashtable;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Semaphore;
+
 import android.graphics.Point;
 
 public class PathBuilder {
@@ -16,18 +18,16 @@ public class PathBuilder {
 	private Hashtable<Point, Boolean> pointInWorldHash;
 	private Hashtable<Point, GridNode> pointToGridNode;
 	
+	private Semaphore pathMutex;
+	
 
 	public PathBuilder (TerrainMap terrainMap, ObstacleManager obstacleManager) {
 		this.terrainMap = terrainMap;
 		this.obstacleManager = obstacleManager;
+		pathMutex = new Semaphore(1, true);
 	}
-
-	public CopyOnWriteArrayList<Point> getPath(Point start, Point end) {
-		if (start.x == end.x && start.y == end.y){
-			path = new CopyOnWriteArrayList<Point>();
-			return path;
-		}
-
+	
+	public CopyOnWriteArrayList<Point> safeGetPath(Point start, Point end) {
 		initializeFields(start,end);
 		initializeGrid();
 
@@ -37,6 +37,27 @@ public class PathBuilder {
 		reversePath();
 
 		return path;
+	
+	}
+
+	public CopyOnWriteArrayList<Point> getPath(Point start, Point end) {
+		CopyOnWriteArrayList<Point> myPath = null;
+		if (start.x == end.x && start.y == end.y){
+			myPath = new CopyOnWriteArrayList<Point>();
+			return myPath;
+		}
+		
+		try {
+			pathMutex.acquire();
+			myPath = safeGetPath(start, end);
+			pathMutex.release();
+		} catch (InterruptedException e) {
+			System.out.println("Exception " + e.toString());
+		}
+		if (myPath == null){
+			//bad things happenned
+		}
+		return myPath;
 	}
 
 	private void reversePath() {

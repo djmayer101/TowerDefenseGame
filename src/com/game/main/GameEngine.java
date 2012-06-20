@@ -160,9 +160,9 @@ public class GameEngine {
 	}
 
 	private void addEnemy(BasicEnemy myEnemy){
-		basicEnemies.add(myEnemy);
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
 		myEnemy.updatePath(path);
+		basicEnemies.add(myEnemy);
 	}
 
 	public Point computeNearestTowerLocation(Point p) {
