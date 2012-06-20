@@ -47,31 +47,31 @@ public class GameRound {
 	
 	private void fillRound2() {
 		for (int i=0;i<10;i++){
-			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.1*Constants.BASIC_ENEMY_HEALTH));
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.1*(double)(Constants.BASIC_ENEMY_HEALTH))));
 		}
 	}
 	
 	private void fillRound3() {
 		for (int i=0;i<10;i++){
-			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.2*Constants.BASIC_ENEMY_HEALTH));
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.2*(double)(Constants.BASIC_ENEMY_HEALTH))));
 		}
 	}
 	
 	private void fillRound4() {
 		for (int i=0;i<10;i++){
-			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.3*Constants.BASIC_ENEMY_HEALTH));
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.3*(double)(Constants.BASIC_ENEMY_HEALTH))));
 		}
 	}
 	
 	private void fillRound5() {
 		for (int i=0;i<10;i++){
-			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.4*Constants.BASIC_ENEMY_HEALTH));
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.4*(double)(Constants.BASIC_ENEMY_HEALTH))));
 		}
 	}
 	
 	private void fillRound6() {
 		for (int i=0;i<10;i++){
-			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.5*Constants.BASIC_ENEMY_HEALTH));
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.5*(double)(Constants.BASIC_ENEMY_HEALTH))));
 		}
 	}
 
