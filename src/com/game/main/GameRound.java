@@ -24,10 +24,10 @@ public class GameRound {
 		switch (roundNumber){
 		case 1:		fillRound1(); 	break;
 		case 2:		fillRound2(); 	break;
-		case 3:		fillRound1(); 	break;
-		case 4:		fillRound1(); 	break;
-		case 5:		fillRound1(); 	break;
-		case 6:		fillRound1(); 	break;
+		case 3:		fillRound3(); 	break;
+		case 4:		fillRound4(); 	break;
+		case 5:		fillRound5(); 	break;
+		case 6:		fillRound6(); 	break;
 		case 7:		fillRound1(); 	break;
 		}
 	}
@@ -41,13 +41,37 @@ public class GameRound {
 	
 	private void fillRound1() {
 		for (int i=0;i<10;i++){
-			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT));
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, Constants.BASIC_ENEMY_HEALTH));
 		}
 	}
 	
 	private void fillRound2() {
-		for (int i=0;i<20;i++){
-			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT));
+		for (int i=0;i<10;i++){
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.1*Constants.BASIC_ENEMY_HEALTH));
+		}
+	}
+	
+	private void fillRound3() {
+		for (int i=0;i<10;i++){
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.2*Constants.BASIC_ENEMY_HEALTH));
+		}
+	}
+	
+	private void fillRound4() {
+		for (int i=0;i<10;i++){
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.3*Constants.BASIC_ENEMY_HEALTH));
+		}
+	}
+	
+	private void fillRound5() {
+		for (int i=0;i<10;i++){
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.4*Constants.BASIC_ENEMY_HEALTH));
+		}
+	}
+	
+	private void fillRound6() {
+		for (int i=0;i<10;i++){
+			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) 1.5*Constants.BASIC_ENEMY_HEALTH));
 		}
 	}
 
