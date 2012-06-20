@@ -69,7 +69,7 @@ public abstract class ArcadeGame extends LinearLayout {
 			postInvalidate();
 			long end_time = System.currentTimeMillis();
 			long remaining_time = Constants.UPDATE_CYCLE_TIME -end_time+start_time;
-			if (remaining_time < 20){
+			if (remaining_time < Constants.UPDATE_CYCLE_TIME/2.0){
 				Log.e("Physics Update Time", "Time left over: " + remaining_time);
 			}
 
