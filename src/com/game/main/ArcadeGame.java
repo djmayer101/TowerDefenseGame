@@ -41,6 +41,7 @@ public abstract class ArcadeGame extends LinearLayout {
 
 	protected void startUpdateTimer() {
 		//this.ingame = true;
+		stopUpdateTimer();
 		mUpdateTimer = new Timer();
 		mUpdateTimer.schedule(new UpdateTask(), 0);
 	}
@@ -82,7 +83,7 @@ public abstract class ArcadeGame extends LinearLayout {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			mUpdateTimer.schedule(new UpdateTask(),0);
+			startUpdateTimer();
 			
 		}
 	}

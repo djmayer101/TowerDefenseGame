@@ -17,7 +17,7 @@ public class Constants {
 	public static final int WORLD_HEIGHT = NUM_ROWS*GRID_SQUARE_SIZE;
 	
 	public static final double BASIC_CANNON_SPEED = 30;
-	public static final double BASIC_ENEMY_SPEED = 5;
+	public static final double BASIC_ENEMY_SPEED = 4;
 	public static final double BASIC_TOWER_SPEED = 0;
 	
 	public static final int BASIC_TOWER_RANGE = 100000;
@@ -28,7 +28,7 @@ public class Constants {
 	public static final int OBJECT_CELL_SIDE_LENGTH = (int) (GRID_SQUARE_SIZE*.9);
 	public static final int IMAGE_OFFSET = 3;
 	
-	public static final int UPDATE_CYCLE_TIME = 25;
+	public static final int UPDATE_CYCLE_TIME = 50;
 	
 	public static final int CANNONBALL_EXPLOSION_RADIUS_SQUARED = 1625;
 	public static final int CANNONBALL_DAMAGE = 20;
