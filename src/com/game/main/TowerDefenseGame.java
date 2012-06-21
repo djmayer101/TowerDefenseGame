@@ -97,4 +97,8 @@ public class TowerDefenseGame{
 		towerDefenseView.showRoundOver();
 	}
 
+	public boolean getInGame() {
+		return ingame;
+	}
+
 }

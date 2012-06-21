@@ -33,8 +33,6 @@ public class GameEngine {
 	private TowerDefenseGame towerDefenseGame;
 
 
-
-
 	public GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics, TowerDefenseGame towerDefenseGame){
 		this.terrainMap = terrainMap;
 		this.spriteDrawer = mySpriteDrawer;
@@ -107,8 +105,10 @@ public class GameEngine {
 
 
 		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
-		if (basicEnemies.size() == 0 && gameStatistics.currentGameRound.isRoundDeployed()){
+		if (basicEnemies.size() == 0 && gameStatistics.currentGameRound.isRoundDeployed() && towerDefenseGame.getInGame()){
 			towerDefenseGame.showRoundOver();
+			towerDefenseGame.setIngame(false);
+			cannonBalls.clear();
 		}
 		for (BasicEnemy enemy: basicEnemies){
 			enemy.updateLocalGoal();
