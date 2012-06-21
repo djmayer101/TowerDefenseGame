@@ -44,4 +44,6 @@ public class Constants {
 	public static final int TOWER_COST = 20;
 	public static final int BASIC_ENEMY_HEALTH = 100;
 	public static final int BASICENEMYDELAY = 50;
+	
+	public static final int BASIC_ENEMY_VALUE = 10;
 }

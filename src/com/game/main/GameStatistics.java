@@ -43,4 +43,8 @@ public class GameStatistics {
 		this.currentGameRound = new GameRound(this.round);
 	}
 
+	public void incrementMoney(int amountSpent){
+		money += amountSpent;
+		towerDefenseView.refreshButtons();
+	}
 }
