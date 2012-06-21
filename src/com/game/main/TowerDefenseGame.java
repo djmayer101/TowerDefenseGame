@@ -3,7 +3,7 @@ package com.game.main;
 import android.graphics.Point;
 
 public class TowerDefenseGame{
-	
+
 	private boolean ingame = false;
 	private TowerDefenseView towerDefenseView;
 	private SpriteDrawer spriteDrawer;
@@ -28,10 +28,10 @@ public class TowerDefenseGame{
 		pathBuilder = new PathBuilder(terrainMap,obstacleManager);
 		gameEngine = new GameEngine(terrainMap,spriteDrawer,pathBuilder,obstacleManager,gameStatistics,this);
 		updateTaskManager = new UpdateTaskManager(towerDefenseView, this);
-		
+
 	}
 
-	
+
 	protected void startRound() {
 		if(!ingame){
 			gameStatistics.incrementRound();
@@ -48,7 +48,7 @@ public class TowerDefenseGame{
 			updateTaskManager.go();
 		}
 	}
-	
+
 	public void gameOver() {
 		ingame = false;
 		towerDefenseView.showGameOver();
@@ -79,7 +79,7 @@ public class TowerDefenseGame{
 
 	public void setIngame(boolean b) {
 		ingame = b;
-		
+
 	}
 
 	public UpdateTaskManager getUpdateTaskManager() {
@@ -89,7 +89,7 @@ public class TowerDefenseGame{
 	public void showTowerOptions() {
 		towerDefenseView.showTowerOptions();
 	}
-	
+
 	public void showRoundOver(){
 		towerDefenseView.showRoundOver();
 	}
@@ -100,7 +100,7 @@ public class TowerDefenseGame{
 
 	public void killedEnemy(BasicEnemy enemy) {
 		gameStatistics.incrementMoney(enemy.value());
-		
+
 	}
 
 }

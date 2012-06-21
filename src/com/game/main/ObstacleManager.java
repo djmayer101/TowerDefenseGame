@@ -9,14 +9,14 @@ public class ObstacleManager {
 	public ConcurrentHashMap<Point,Tower> towersHash = new ConcurrentHashMap<Point,Tower>();
 	public ConcurrentHashMap<Point,Object> obstaclesHash = new ConcurrentHashMap<Point,Object>();
 	public CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<Tower>();
-	
+
 	public ObstacleManager(){}
-	
+
 	public void addTower(Tower tower){
 		towers.add(tower);
 		towersHash.put(tower.location, tower);
 	}
-	
+
 	public boolean isTowerAt(Point p) {
 		if (towersHash.get(p) == null){
 			return false;

@@ -9,24 +9,24 @@ import android.graphics.Point;
 public class PathBuilder {
 	private TerrainMap terrainMap;
 	private ObstacleManager obstacleManager;
-	
+
 	private GridNode startNode;
 	private GridNode endNode;
 	private CopyOnWriteArrayList<Point> path;
-	
+
 	private CopyOnWriteArrayList<GridNode> gridNodes;
 	private Hashtable<Point, Boolean> pointInWorldHash;
 	private Hashtable<Point, GridNode> pointToGridNode;
-	
+
 	private Semaphore pathMutex;
-	
+
 
 	public PathBuilder (TerrainMap terrainMap, ObstacleManager obstacleManager) {
 		this.terrainMap = terrainMap;
 		this.obstacleManager = obstacleManager;
 		pathMutex = new Semaphore(1, true);
 	}
-	
+
 	public CopyOnWriteArrayList<Point> safeGetPath(Point start, Point end) {
 		initializeFields(start,end);
 		initializeGrid();
@@ -37,7 +37,7 @@ public class PathBuilder {
 		reversePath();
 
 		return path;
-	
+
 	}
 
 	public CopyOnWriteArrayList<Point> getPath(Point start, Point end) {
@@ -46,7 +46,7 @@ public class PathBuilder {
 			myPath = new CopyOnWriteArrayList<Point>();
 			return myPath;
 		}
-		
+
 		try {
 			pathMutex.acquire();
 			myPath = safeGetPath(start, end);
@@ -66,7 +66,7 @@ public class PathBuilder {
 			pathTemp.add(0,p);
 		}
 		path = pathTemp;
-		
+
 	}
 
 	private void backTrackToCreatePath() {
@@ -175,7 +175,7 @@ public class PathBuilder {
 		startNode = new GridNode(start);
 		startNode.setDistanceFromStart(0);
 		startNode.setEstimatedTotalDistance((int) Math.sqrt(TerrainMap.calculateDistanceSquared(start, end)));
-		
+
 		endNode = new GridNode(end);
 
 		path = new CopyOnWriteArrayList<Point>();

@@ -23,7 +23,7 @@ public class TowerDefenseView extends LinearLayout {
 
 	public static int X_offset;
 	public static int Y_offset;
-	
+
 	private Handler mHandler = new Handler();
 
 	private TowerDefenseGame towerDefenseGame;
@@ -50,30 +50,30 @@ public class TowerDefenseView extends LinearLayout {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void initialize() {
 		screen_width = this.getWidth();
 		screen_height = this.getHeight();
-		
+
 		if(!gameStarted){
 			towerDefenseGame = new TowerDefenseGame(this,gameStatistics);
 			gameEngine = towerDefenseGame.getGameEngine();
 			buttonsWrapper.setTowerDefenseGame(towerDefenseGame);
 			setGameStarted(true);
 		}
-		
+
 		towerDefenseActivity.setTowerDefenseGame();
 		towerDefenseGame.getUpdateTaskManager().startUpdateTimer();
 	}
-	
-	
+
+
 	@Override
 	protected void onDraw(Canvas canvas) 
 	{
 		super.dispatchDraw(canvas);
 		towerDefenseGame.getGameEngine().drawAll(canvas);
 	}
-	
+
 	public boolean onTouchEvent(MotionEvent event){
 
 		int size;
@@ -112,77 +112,77 @@ public class TowerDefenseView extends LinearLayout {
 		}
 		return true;
 	}
-	
-	
-	   // This gets executed in a non-UI thread:
-    public void refreshButtons() {
-        mHandler.post(new Runnable() {
-            public void run() {
-                buttonsWrapper.refreshButtons();
-            }
-        });
-    }
+
+
+	// This gets executed in a non-UI thread:
+	public void refreshButtons() {
+		mHandler.post(new Runnable() {
+			public void run() {
+				buttonsWrapper.refreshButtons();
+			}
+		});
+	}
 
 	public void showGameOver() {
-		 mHandler.post(new Runnable() {
-	            public void run() {
-	            	AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-	        		builder.setMessage("YOU LOSE!!!")
-	        		       .setCancelable(false)
-	        		       .setPositiveButton("New Game", new DialogInterface.OnClickListener() {
-	        		           public void onClick(DialogInterface dialog, int id) {
-	        		                towerDefenseActivity.startNewGame();
-	        		           }
-	        		       })
-	        		       .setNegativeButton("Menu", new DialogInterface.OnClickListener() {
-	        		           public void onClick(DialogInterface dialog, int id) {
-	        		        	   towerDefenseActivity.backToMenu();
-	        		           }
-	        		       });
-	        		AlertDialog alert = builder.create();
-	        		alert.show();
-	            }
-	        });
+		mHandler.post(new Runnable() {
+			public void run() {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+				builder.setMessage("YOU LOSE!!!")
+				.setCancelable(false)
+				.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						towerDefenseActivity.startNewGame();
+					}
+				})
+				.setNegativeButton("Menu", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						towerDefenseActivity.backToMenu();
+					}
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
 	}
-		 
-		 public void showRoundOver() {
-			 mHandler.post(new Runnable() {
-		            public void run() {
-		            	AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-		        		builder.setMessage("Round " + gameStatistics.getRound() + " Complete!")
-		        		       .setCancelable(false)
-		        		       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-		        		           public void onClick(DialogInterface dialog, int id){
-		        		           }
-		        		       });
-		        		   
-		        		AlertDialog alert = builder.create();
-		        		alert.show();
-		            }
-		        });
-			 
-		 }
-			 public void showTowerOptions() {
-				 mHandler.post(new Runnable() {
-			            public void run() {
-			            	AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-			        		builder.setMessage("Choose a tower!")
-			        		       .setCancelable(false)
-			        		       .setPositiveButton("regular", new DialogInterface.OnClickListener() {
-			        		           public void onClick(DialogInterface dialog, int id) {
-			        						towerDefenseGame.buildTowerClicked();
-			        		           }
-			        		       })
-			        		        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-	        		           public void onClick(DialogInterface dialog, int id) {
-	        		           }
-	        		       });
-			        		AlertDialog alert = builder.create();
-			        		alert.show();
-			            }
-			        });
-			
-		
+
+	public void showRoundOver() {
+		mHandler.post(new Runnable() {
+			public void run() {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+				builder.setMessage("Round " + gameStatistics.getRound() + " Complete!")
+				.setCancelable(false)
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id){
+					}
+				});
+
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
+
+	}
+	public void showTowerOptions() {
+		mHandler.post(new Runnable() {
+			public void run() {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+				builder.setMessage("Choose a tower!")
+				.setCancelable(false)
+				.setPositiveButton("regular", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						towerDefenseGame.buildTowerClicked();
+					}
+				})
+				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+					}
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
+
+
 	}
 
 	public TowerDefenseGame getGame() {
@@ -192,7 +192,7 @@ public class TowerDefenseView extends LinearLayout {
 	public void setTowerDefenseActivity(TowerDefenseActivity towerDefenseActivity) {
 		this.towerDefenseActivity = towerDefenseActivity;	
 	}
-	
+
 	private void setGameStarted(boolean b){
 		try {
 			gameStartedMutex.acquire();
