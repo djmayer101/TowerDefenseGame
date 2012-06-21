@@ -58,6 +58,10 @@ public class TowerDefenseView extends LinearLayout {
 			gameStarted = true;
 		}
 		
+
+
+		towerDefenseActivity.setTowerDefenseGame();
+
 		towerDefenseGame.getUpdateTaskManager().startUpdateTimer();
 	}
 	
@@ -104,9 +108,7 @@ public class TowerDefenseView extends LinearLayout {
 			if (event.getAction() == MotionEvent.ACTION_DOWN){
 				gameEngine.tileClicked(new Point((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
 			}
-
 		}
-
 		return true;
 	}
 	
@@ -140,6 +142,43 @@ public class TowerDefenseView extends LinearLayout {
 	        		alert.show();
 	            }
 	        });
+	}
+		 
+		 public void showRoundOver() {
+			 mHandler.post(new Runnable() {
+		            public void run() {
+		            	AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+		        		builder.setMessage("Round " + gameStatistics.getRound() + " Complete!")
+		        		       .setCancelable(false)
+		        		       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		        		           public void onClick(DialogInterface dialog, int id){
+		        		           }
+		        		       });
+		        		   
+		        		AlertDialog alert = builder.create();
+		        		alert.show();
+		            }
+		        });
+			 
+		 }
+			 public void showTowerOptions() {
+				 mHandler.post(new Runnable() {
+			            public void run() {
+			            	AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+			        		builder.setMessage("Choose a tower!")
+			        		       .setCancelable(false)
+			        		       .setPositiveButton("regular", new DialogInterface.OnClickListener() {
+			        		           public void onClick(DialogInterface dialog, int id) {
+			        		                //towerDefenseActivity.startNewGame();
+			        						towerDefenseGame.buildTowerClicked();
+			        		           }
+			        		       });
+			        		   
+			        		AlertDialog alert = builder.create();
+			        		alert.show();
+			            }
+			        });
+			
 		
 	}
 

@@ -8,11 +8,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-// shit to do
-//add a lock to TowerDefenseView.gameStarted()
-//add buttons
-//start timer
-
 public class TowerDefenseActivity extends Activity{
 	private View view;
 	private TowerDefenseView towerDefenseView;
@@ -30,14 +25,14 @@ public class TowerDefenseActivity extends Activity{
 
 		towerDefenseView = (TowerDefenseView) this.findViewById(R.id.ll_absolute);
 		towerDefenseView.setTowerDefenseActivity(this);
-		towerDefenseGame = towerDefenseView.getGame();
-
-
+		
 		view.setFocusable(true);
 		view.setFocusableInTouchMode(true);
-		
-		//
 
+	}
+	
+	public void setTowerDefenseGame (){
+		towerDefenseGame = towerDefenseView.getGame();
 	}
 
 	@Override

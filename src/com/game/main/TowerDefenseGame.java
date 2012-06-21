@@ -89,4 +89,13 @@ public class TowerDefenseGame{
 		return updateTaskManager;
 	}
 
+	public void showTowerOptions() {
+		towerDefenseView.showTowerOptions();
+		
+	}
+	
+	public void showRoundOver(){
+		towerDefenseView.showRoundOver();
+	}
+
 }

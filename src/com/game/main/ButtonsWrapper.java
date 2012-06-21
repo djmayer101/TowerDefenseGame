@@ -52,7 +52,8 @@ public class ButtonsWrapper {
 
 		buildTowerButton.setOnClickListener(new OnClickListener() {            
 			public void onClick(View v) {
-				towerDefenseGame.buildTowerClicked();
+
+				towerDefenseGame.showTowerOptions();
 			}
 		});
 		
@@ -110,9 +111,9 @@ public class ButtonsWrapper {
 		buttons.addView(roundView);
 		buttons.addView(moneyView);
 		buttons.addView(livesView);
-		buttons.addView(buildTowerButton);
 		buttons.addView(pauseButton);
 		buttons.addView(startButton);
+		buttons.addView(buildTowerButton);
 	}
 	
 	private Bitmap getImage(int id) {

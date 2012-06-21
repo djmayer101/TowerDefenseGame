@@ -107,6 +107,9 @@ public class GameEngine {
 
 
 		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
+		if (basicEnemies.size() == 0 && gameStatistics.currentGameRound.isRoundDeployed()){
+			towerDefenseGame.showRoundOver();
+		}
 		for (BasicEnemy enemy: basicEnemies){
 			enemy.updateLocalGoal();
 			enemy.updateLocation();
