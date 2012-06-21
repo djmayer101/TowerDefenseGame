@@ -29,7 +29,6 @@ public class TerrainMap {
 		this.squareSize = Constants.GRID_SQUARE_SIZE;
 		worldTerrainGrid = new Constants.DrawObject[numColumns][numRows];
 		initializeMap();
-		
 	}
 	
 	private void initializeMap(){
@@ -58,7 +57,6 @@ public class TerrainMap {
 	public void setFocus(Point p) {
 		this.focus = p;
 	}
-
 
 	public boolean LocationOutOfBounds(Point location) {
 		if (location.x < 0 || location.x > this.world_width || location.y < 0 || location.y > this.world_height){
