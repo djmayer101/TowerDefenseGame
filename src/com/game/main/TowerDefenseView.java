@@ -27,9 +27,7 @@ public class TowerDefenseView extends LinearLayout {
 	private TowerDefenseActivity towerDefenseActivity;
 
 	private GameEngine gameEngine;
-
 	private ButtonsWrapper buttonsWrapper;
-
 	private GameStatistics gameStatistics;
 
 
