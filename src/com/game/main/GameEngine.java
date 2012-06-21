@@ -30,17 +30,19 @@ public class GameEngine {
 	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
 	private CopyOnWriteArrayList<Point> path;
+	private TowerDefenseGame towerDefenseGame;
 
 
 
 
-	public GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics){
+	public GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics, TowerDefenseGame towerDefenseGame){
 		this.terrainMap = terrainMap;
 		this.spriteDrawer = mySpriteDrawer;
 		this.pathBuilder = myPathBuilder;
 		this.obstacleManager = myObstacleManager;
 		this.gameStatistics = gameStatistics;
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
+		this.towerDefenseGame = towerDefenseGame;
 		mutex = new Semaphore(1, true);
 	}
 
@@ -117,6 +119,9 @@ public class GameEngine {
 					enemy.state == Constants.State.MADE_IT_TO_GOAL_LOCATION){
 				finishedEnemies.add(enemy);
 				gameStatistics.decrementLives();
+				if (gameStatistics.getLives() == 0){
+					towerDefenseGame.gameOver();
+				}
 			}
 
 		}
