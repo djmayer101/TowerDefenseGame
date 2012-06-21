@@ -18,8 +18,9 @@ public class TowerDefenseGame{
 
 	
 
-	public TowerDefenseGame(TowerDefenseView towerDefenseView) {
+	public TowerDefenseGame(TowerDefenseView towerDefenseView, GameStatistics gameStatistics) {
 		this.towerDefenseView = towerDefenseView;
+		this.gameStatistics = gameStatistics;
 		initializeClasses();
 	}
 
@@ -29,7 +30,6 @@ public class TowerDefenseGame{
 		terrainMap = new TerrainMap(towerDefenseView.getWidth(), towerDefenseView.getHeight(), obstacleManager);
 		terrainMap.setFocus(new Point(Constants.GRID_SQUARE_SIZE,Constants.GRID_SQUARE_SIZE));
 		pathBuilder = new PathBuilder(terrainMap,obstacleManager);
-		gameStatistics = new GameStatistics(this,towerDefenseView);
 		gameEngine = new GameEngine(terrainMap,spriteDrawer,pathBuilder,obstacleManager,gameStatistics);
 		updateTaskManager = new UpdateTaskManager(towerDefenseView, this);
 		

@@ -4,20 +4,16 @@ public class GameStatistics {
 	private int round = 0;
 	private int lives = 10;
 	private int money = 100;
-	private TowerDefenseGame game;
+
 	public GameRound currentGameRound;
 	private TowerDefenseView towerDefenseView;
 	
-	public GameStatistics(TowerDefenseGame game, TowerDefenseView towerDefenseView){
+	public GameStatistics(TowerDefenseView towerDefenseView){
 		this.towerDefenseView = towerDefenseView;
-		this.game = game;
 	}
 	
 	public void decrementLives(){
 		lives -= 1;
-		if (lives == 0){
-			game.gameOver();
-		}
 		towerDefenseView.refreshButtons();
 	}
 	
