@@ -101,4 +101,9 @@ public class TowerDefenseGame{
 		return ingame;
 	}
 
+	public void killedEnemy(BasicEnemy enemy) {
+		gameStatistics.incrementMoney(enemy.value());
+		
+	}
+
 }

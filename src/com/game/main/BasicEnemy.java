@@ -71,6 +71,10 @@ public class BasicEnemy extends BasicGameObject {
 	public void updatePath(CopyOnWriteArrayList<Point> path) {
 		this.path = path;
 	}
+
+	public int value() {
+		return Constants.BASIC_ENEMY_VALUE;
+	}
 	
 	
 	

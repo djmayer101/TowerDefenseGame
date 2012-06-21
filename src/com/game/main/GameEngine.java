@@ -114,12 +114,13 @@ public class GameEngine {
 			enemy.updateLocalGoal();
 			enemy.updateLocation();
 			enemy.updateState();
-			if (enemy.getState() == Constants.State.DONE ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
+			if (enemy.getState() == Constants.State.DONE ){
 				finishedEnemies.add(enemy);
+				towerDefenseGame.killedEnemy(enemy);
 			}
 			Point scaledCurrentLocation = TerrainMap.scalePixelToGridPoint(enemy.getLocation());
 			if(scaledCurrentLocation.x == enemy.getEndLocation().x && scaledCurrentLocation.y == enemy.getEndLocation().y ||
-					enemy.state == Constants.State.MADE_IT_TO_GOAL_LOCATION){
+					enemy.state == Constants.State.MADE_IT_TO_GOAL_LOCATION ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
 				finishedEnemies.add(enemy);
 				gameStatistics.decrementLives();
 				if (gameStatistics.getLives() == 0){

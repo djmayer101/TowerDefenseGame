@@ -17,7 +17,7 @@ public class Constants {
 	public static final int WORLD_HEIGHT = NUM_ROWS*GRID_SQUARE_SIZE;
 	
 	public static final double BASIC_CANNON_SPEED = 30;
-	public static final double BASIC_ENEMY_SPEED = 4;
+	public static final double BASIC_ENEMY_SPEED = 6;
 	public static final double BASIC_TOWER_SPEED = 0;
 	
 	public static final int BASIC_TOWER_RANGE = 100000;
