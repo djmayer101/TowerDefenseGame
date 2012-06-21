@@ -30,7 +30,7 @@ public class TowerDefenseActivity extends Activity{
 
 		towerDefenseView = (TowerDefenseView) this.findViewById(R.id.ll_absolute);
 		towerDefenseView.setTowerDefenseActivity(this);
-		towerDefenseGame = towerDefenseView.getGame();
+		
 
 
 		view.setFocusable(true);
@@ -38,6 +38,10 @@ public class TowerDefenseActivity extends Activity{
 		
 		//
 
+	}
+	
+	public void setTowerDefenseGame (){
+		towerDefenseGame = towerDefenseView.getGame();
 	}
 
 	@Override
