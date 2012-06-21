@@ -7,7 +7,6 @@ public class TowerDefenseGame{
 	
 	private boolean ingame = false;
 	private TowerDefenseView towerDefenseView;
-	private TowerDefenseActivity towerDefenseActivity;
 	private SpriteDrawer spriteDrawer;
 	private ObstacleManager obstacleManager;
 	private TerrainMap terrainMap;

@@ -48,10 +48,8 @@ public class TowerDefenseView extends LinearLayout {
 	}
 	
 	public void initialize() {
-		
 		screen_width = this.getWidth();
 		screen_height = this.getHeight();
-
 		
 		if(!gameStarted){
 			towerDefenseGame = new TowerDefenseGame(this,gameStatistics);
@@ -60,11 +58,7 @@ public class TowerDefenseView extends LinearLayout {
 			gameStarted = true;
 		}
 		
-
-		
 		towerDefenseGame.getUpdateTaskManager().startUpdateTimer();
-		
-
 	}
 	
 	
