@@ -3,7 +3,6 @@ package com.game.main;
 import android.graphics.Point;
 
 public class TowerDefenseGame{
-
 	
 	private boolean ingame = false;
 	private TowerDefenseView towerDefenseView;
@@ -14,8 +13,6 @@ public class TowerDefenseGame{
 	private GameStatistics gameStatistics;
 	private GameEngine gameEngine;
 	private UpdateTaskManager updateTaskManager;
-
-	
 
 	public TowerDefenseGame(TowerDefenseView towerDefenseView, GameStatistics gameStatistics) {
 		this.towerDefenseView = towerDefenseView;

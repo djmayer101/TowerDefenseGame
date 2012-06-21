@@ -62,10 +62,7 @@ public class TowerDefenseView extends LinearLayout {
 			setGameStarted(true);
 		}
 		
-
-
 		towerDefenseActivity.setTowerDefenseGame();
-
 		towerDefenseGame.getUpdateTaskManager().startUpdateTimer();
 	}
 	
