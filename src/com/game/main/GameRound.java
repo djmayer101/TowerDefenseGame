@@ -6,6 +6,7 @@ public class GameRound {
 	private HashMap<Integer, BasicEnemy> roundEnemies;
 	private int counter;
 	private int roundNumber;
+	private boolean roundDeployed = false;
 	
 	
 	public GameRound(int roundNumber){
@@ -30,6 +31,7 @@ public class GameRound {
 		case 6:		fillRound6(); 	break;
 		case 7:		fillRound1(); 	break;
 		}
+		roundDeployed = true;
 	}
 
 	public BasicEnemy update(){
@@ -73,6 +75,10 @@ public class GameRound {
 		for (int i=0;i<10;i++){
 			roundEnemies.put(i*50, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.5*(double)(Constants.BASIC_ENEMY_HEALTH))));
 		}
+	}
+	
+	public boolean isRoundDeployed(){
+		return roundDeployed;
 	}
 
 	

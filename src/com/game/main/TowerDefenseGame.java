@@ -91,7 +91,6 @@ public class TowerDefenseGame{
 
 	public void showTowerOptions() {
 		towerDefenseView.showTowerOptions();
-		
 	}
 	
 	public void showRoundOver(){

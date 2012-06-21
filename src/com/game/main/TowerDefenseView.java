@@ -1,5 +1,7 @@
 package com.game.main;
 
+import java.util.concurrent.Semaphore;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 public class TowerDefenseView extends LinearLayout {
 
 	private boolean gameStarted = false;
+	private static Semaphore gameStartedMutex;
 
 	private int screen_width;
 	private int screen_height;
@@ -36,6 +39,7 @@ public class TowerDefenseView extends LinearLayout {
 		gameStatistics = new GameStatistics(this);
 		buttonsWrapper = new ButtonsWrapper(getContext(),towerDefenseGame,gameStatistics);
 		this.addView(buttonsWrapper.getButtons());
+		gameStartedMutex = new Semaphore(1, true);
 	}
 
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -55,7 +59,7 @@ public class TowerDefenseView extends LinearLayout {
 			towerDefenseGame = new TowerDefenseGame(this,gameStatistics);
 			gameEngine = towerDefenseGame.getGameEngine();
 			buttonsWrapper.setTowerDefenseGame(towerDefenseGame);
-			gameStarted = true;
+			setGameStarted(true);
 		}
 		
 
@@ -169,11 +173,13 @@ public class TowerDefenseView extends LinearLayout {
 			        		       .setCancelable(false)
 			        		       .setPositiveButton("regular", new DialogInterface.OnClickListener() {
 			        		           public void onClick(DialogInterface dialog, int id) {
-			        		                //towerDefenseActivity.startNewGame();
 			        						towerDefenseGame.buildTowerClicked();
 			        		           }
-			        		       });
-			        		   
+			        		       })
+			        		        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+	        		           public void onClick(DialogInterface dialog, int id) {
+	        		           }
+	        		       });
 			        		AlertDialog alert = builder.create();
 			        		alert.show();
 			            }
@@ -188,6 +194,16 @@ public class TowerDefenseView extends LinearLayout {
 
 	public void setTowerDefenseActivity(TowerDefenseActivity towerDefenseActivity) {
 		this.towerDefenseActivity = towerDefenseActivity;	
+	}
+	
+	private void setGameStarted(boolean b){
+		try {
+			gameStartedMutex.acquire();
+			gameStarted = b;
+			gameStartedMutex.release();
+		} catch (InterruptedException e) {
+			System.out.println("Exception " + e.toString());
+		}
 	}
 
 
