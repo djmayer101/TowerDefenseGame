@@ -16,10 +16,10 @@ public class TerrainMap {
 	private Point focus;
 
 	public Constants.DrawObject[][] worldTerrainGrid;
-	private ObstacleManager myObstacleManager;
+	private ObstacleManager obstacleManager;
 
-	public TerrainMap(int width, int height, ObstacleManager myObstacleManager){
-		this.myObstacleManager = myObstacleManager;
+	public TerrainMap(int width, int height, ObstacleManager obstacleManager){
+		this.obstacleManager = obstacleManager;
 		this.world_width = Constants.WORLD_WIDTH;;
 		this.world_height =  Constants.WORLD_HEIGHT;
 
@@ -28,7 +28,11 @@ public class TerrainMap {
 		
 		this.squareSize = Constants.GRID_SQUARE_SIZE;
 		worldTerrainGrid = new Constants.DrawObject[numColumns][numRows];
-
+		initializeMap();
+		
+	}
+	
+	private void initializeMap(){
 		for (int i=0; i<Constants.NUM_COLUMNS; i++){
 			for (int j=0; j<Constants.NUM_ROWS; j++){
 				if (i %2 == 0 && j %2 == 0){
@@ -38,7 +42,7 @@ public class TerrainMap {
 				}
 				if (i == 0 || j == 0 || i ==Constants.NUM_COLUMNS-1 || j == Constants.NUM_ROWS-1){
 					worldTerrainGrid[i][j] = Constants.DrawObject.BORDERTILE;
-					myObstacleManager.obstaclesHash.put(new Point(i,j),true);
+					obstacleManager.obstaclesHash.put(new Point(i,j),true);
 				}
 				if(i == 1 && j == 1){
 					worldTerrainGrid[i][j] = Constants.DrawObject.STARTTILE;

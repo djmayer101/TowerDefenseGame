@@ -8,14 +8,12 @@ import android.util.Log;
 public class UpdateTaskManager{
 	private TowerDefenseView towerDefenseView;
 	private TowerDefenseGame towerDefenseGame;
-	private GameEngine gameEngine;
 
 	private static Timer mUpdateTimer = new Timer();
 
 	public UpdateTaskManager(TowerDefenseView towerDefenseView, TowerDefenseGame towerDefenseGame){
 		this.towerDefenseView = towerDefenseView;
 		this.towerDefenseGame = towerDefenseGame;
-		this.gameEngine = towerDefenseGame.getGameEngine();
 	}
 
 	private class UpdateTask extends TimerTask {
