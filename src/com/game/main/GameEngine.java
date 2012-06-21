@@ -3,11 +3,10 @@ package com.game.main;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
-
 import com.game.main.Constants.DrawObject;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.util.Log;
+
 
 public class GameEngine {
 
@@ -35,7 +34,7 @@ public class GameEngine {
 
 
 
-	GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics){
+	public GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics){
 		this.terrainMap = terrainMap;
 		this.spriteDrawer = mySpriteDrawer;
 		this.pathBuilder = myPathBuilder;
@@ -52,34 +51,34 @@ public class GameEngine {
 
 		for (int i=0; i<Constants.NUM_COLUMNS; i++){
 			for (int j=0; j<Constants.NUM_ROWS; j++){
-				spriteDrawer.drawGameObject(canvas, new Point(i*Constants.GRID_SQUARE_SIZE + TowerDefenseGame.X_offset, j *Constants.GRID_SQUARE_SIZE + TowerDefenseGame.Y_offset), terrainMap.worldTerrainGrid[i][j]);
+				spriteDrawer.drawGameObject(canvas, new Point(i*Constants.GRID_SQUARE_SIZE + TowerDefenseView.X_offset, j *Constants.GRID_SQUARE_SIZE + TowerDefenseView.Y_offset), terrainMap.worldTerrainGrid[i][j]);
 			}
 		}
 		for (Tower tower:obstacleManager.towers){
 			Point location = new Point(tower.getLocation());
-			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
+			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.TOWER);
 		}
 		for (BasicEnemy enemy:basicEnemies){
 			Point location = new Point(enemy.getLocation());
-			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
+			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_ENEMY);
 
 		}
 		for (CannonBall cannonBall: cannonBalls){
 			Point location = new Point(cannonBall.getLocation());
-			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
+			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL);
 
 		}
 
 		for (CannonBall cannonBall: finishedCannonBalls){
 			Point location = new Point(cannonBall.getLocation());
-			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseGame.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseGame.Y_offset);
+			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL_EXPLOSION);
 
 		}
-		Point cursor_location = new Point(terrainMap.getFocus().x+ TowerDefenseGame.X_offset,terrainMap.getFocus().y+ TowerDefenseGame.Y_offset);
+		Point cursor_location = new Point(terrainMap.getFocus().x+ TowerDefenseView.X_offset,terrainMap.getFocus().y+ TowerDefenseView.Y_offset);
 		spriteDrawer.drawGameObject(canvas,cursor_location, DrawObject.CURSOR);
 	}
 

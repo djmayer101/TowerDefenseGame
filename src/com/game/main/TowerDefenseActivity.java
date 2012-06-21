@@ -3,19 +3,20 @@ package com.game.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageButton;
+
+// shit to do
+//add a lock to TowerDefenseView.gameStarted()
+//add buttons
+//start timer
 
 public class TowerDefenseActivity extends Activity{
 	private View view;
-	private TowerDefenseGame myGame;
+	private TowerDefenseView towerDefenseView;
+	private TowerDefenseGame towerDefenseGame;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,36 +25,37 @@ public class TowerDefenseActivity extends Activity{
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		LayoutInflater factory = LayoutInflater.from(this);
 
-		// Set game layout
 		view = factory.inflate(R.layout.main, null);
 		setContentView(view);
 
-		myGame = (TowerDefenseGame) this.findViewById(R.id.ll_absolute);
-		myGame.setTowerActivity(this);
+		towerDefenseView = (TowerDefenseView) this.findViewById(R.id.ll_absolute);
+		towerDefenseView.setTowerDefenseActivity(this);
+		towerDefenseGame = towerDefenseView.getGame();
 
-		// Enable view key events
+
 		view.setFocusable(true);
 		view.setFocusableInTouchMode(true);
+		
+		//
 
 	}
-
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		myGame.halt();
+		towerDefenseGame.getUpdateTaskManager().halt();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		myGame.pause();
+		towerDefenseGame.getUpdateTaskManager().pause();
 	}
 
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		myGame.resume();
+		towerDefenseGame.getUpdateTaskManager().resume();
 	}
 	
 	protected void backToMenu(){

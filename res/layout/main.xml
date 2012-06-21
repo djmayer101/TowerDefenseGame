@@ -4,7 +4,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent" >
 
-	<com.game.main.TowerDefenseGame
+	<com.game.main.TowerDefenseView
 		xmlns:android="http://schemas.android.com/apk/res/android" 
 		android:id="@+id/ll_absolute"
 		android:orientation="vertical" 
@@ -12,5 +12,5 @@
 		android:layout_height="fill_parent" 
 		android:background="@drawable/greensquare"
 		android:layout_gravity="center_horizontal">
-	</com.game.main.TowerDefenseGame>
+	</com.game.main.TowerDefenseView>
 </LinearLayout>
