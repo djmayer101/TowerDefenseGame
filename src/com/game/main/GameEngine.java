@@ -70,7 +70,7 @@ public class GameEngine {
 			break;	
 			default:	drawObject = DrawObject.BASIC_ENEMY;
 			}
-			spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_ENEMY);
+			spriteDrawer.drawGameObject(canvas,location, drawObject);
 
 		}
 		for (CannonBall cannonBall: cannonBalls){

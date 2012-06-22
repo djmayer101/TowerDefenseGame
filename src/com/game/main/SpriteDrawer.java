@@ -33,10 +33,10 @@ public class SpriteDrawer {
 		basicEnemyImage = getImage(R.drawable.crazy_enemy);
 		basicEnemyImage = Bitmap.createScaledBitmap(basicEnemyImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
-		iceEnemyImage = getImage(R.drawable.crazy_enemy);
+		iceEnemyImage = getImage(R.drawable.ice_monster);
 		iceEnemyImage = Bitmap.createScaledBitmap(iceEnemyImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
 		
-		cannonBallImage = getImage(R.drawable.cannonball);
+		cannonBallImage = getImage(R.drawable.fire_projectile);
 		cannonBallImage = Bitmap.createScaledBitmap(cannonBallImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
 		cannonBallExplosionImage = getImage(R.drawable.cannonball_explosion);
@@ -45,10 +45,11 @@ public class SpriteDrawer {
 		cursorImage = getImage(R.drawable.clearyellow);
 		cursorImage = Bitmap.createScaledBitmap(cursorImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 
-		GRASS_1TerrainTile = getImage(R.drawable.grass_square_1);
+		
+		GRASS_1TerrainTile = getImage(R.drawable.fire_ground_tile);
 		GRASS_1TerrainTile = Bitmap.createScaledBitmap( GRASS_1TerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-
-		GRASS_2TerrainTile = getImage(R.drawable.grass_square_2);
+		
+		GRASS_2TerrainTile = getImage(R.drawable.fire_ground_tile);
 		GRASS_2TerrainTile = Bitmap.createScaledBitmap( GRASS_2TerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 
 		borderTerrainTile = getImage(R.drawable.border_square);
