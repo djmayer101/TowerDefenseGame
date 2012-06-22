@@ -21,6 +21,10 @@ public class ButtonsWrapper {
 	public TextView livesView;
 	private TowerDefenseGame towerDefenseGame;
 	private GameStatistics gameStatistics;
+	private ImageButton pauseButton;
+	private Bitmap pauseImage;
+	private boolean showingPaused = true;
+	private Bitmap startImage;
 
 	public ButtonsWrapper(Context context, TowerDefenseGame towerDefenseGame,GameStatistics gameStatistics){
 		this.context = context;
@@ -58,10 +62,13 @@ public class ButtonsWrapper {
 		});
 
 
-		ImageButton pauseButton= new ImageButton(context);
-		Bitmap pauseImage = getImage(R.drawable.pause_button);
+		pauseButton= new ImageButton(context);
+		pauseImage = getImage(R.drawable.pause_button);
 		pauseImage = Bitmap.createScaledBitmap( pauseImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		pauseButton.setImageBitmap(pauseImage);
+		
+		startImage = getImage(R.drawable.start_button);
+		startImage = Bitmap.createScaledBitmap( startImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		pauseButton.setImageBitmap(startImage);
 		pauseButton.setBackgroundResource(0);
 		pauseButton.setClickable(true);
 		pauseButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0));
@@ -106,5 +113,16 @@ public class ButtonsWrapper {
 	}
 	public void setTowerDefenseGame(TowerDefenseGame towerDefenseGame){
 		this.towerDefenseGame = towerDefenseGame;
+	}
+	
+	public void togglePausePlayButtons(){
+		if (showingPaused){
+			pauseButton.setImageBitmap(pauseImage);
+			showingPaused = false;
+		}
+		else{
+			showingPaused = true;
+			pauseButton.setImageBitmap(startImage);
+		}
 	}
 }

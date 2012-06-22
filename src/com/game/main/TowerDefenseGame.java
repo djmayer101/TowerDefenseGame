@@ -38,13 +38,16 @@ public class TowerDefenseGame{
 	void pauseOrStartRoundClicked() {
 		if (ingame){
 			updateTaskManager.pause();
+			towerDefenseView.togglePausePlayButtons();
 		}
 		else if(inround){
 			updateTaskManager.go();
+			towerDefenseView.togglePausePlayButtons();
 		}
 		else if (!inround){
 			gameStatistics.incrementRound();
 			gameStatistics.startRound();
+			towerDefenseView.togglePausePlayButtons();
 			ingame = true;
 			inround = true;
 		}

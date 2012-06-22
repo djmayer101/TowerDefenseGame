@@ -122,6 +122,15 @@ public class TowerDefenseView extends LinearLayout {
 			}
 		});
 	}
+	
+	// This gets executed in a non-UI thread:
+	public void togglePausePlayButtons() {
+		mHandler.post(new Runnable() {
+			public void run() {
+				buttonsWrapper.togglePausePlayButtons();
+			}
+		});
+	}
 
 	public void showGameOver() {
 		mHandler.post(new Runnable() {
