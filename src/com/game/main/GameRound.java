@@ -32,7 +32,11 @@ public class GameRound {
 		case 4:		fillRound4(); 	break;
 		case 5:		fillRound5(); 	break;
 		case 6:		fillRound6(); 	break;
-		case 7:		fillRound1(); 	break;
+		case 7:		fillRound7(); 	break;
+		case 8:		fillRound8(); 	break;
+		case 9:		fillRound9(); 	break;
+		case 10:	fillRound10(); 	break;
+		case 11:	fillRound11(); 	break;
 		}
 	}
 
@@ -57,7 +61,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.1*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.2*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
 		}
 	}
 
@@ -65,7 +69,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.2*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.4*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
 		}
 	}
 
@@ -73,7 +77,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.3*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.6*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
 		}
 	}
 
@@ -81,7 +85,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.4*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.8*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
 		}
 	}
 
@@ -89,7 +93,47 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.5*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (2*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
+		}
+	}
+	
+	private void fillRound7() {
+		numEnemies = 10;
+		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
+		for (int i=0;i<numEnemies;i++){
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (2.2*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
+		}
+	}
+
+	private void fillRound8() {
+		numEnemies = 10;
+		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
+		for (int i=0;i<numEnemies;i++){
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (2.4*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
+		}
+	}
+
+	private void fillRound9() {
+		numEnemies = 10;
+		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
+		for (int i=0;i<numEnemies;i++){
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (2.6*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
+		}
+	}
+
+	private void fillRound10() {
+		numEnemies = 10;
+		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
+		for (int i=0;i<numEnemies;i++){
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (2.8*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
+		}
+	}
+
+	private void fillRound11() {
+		numEnemies = 10;
+		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
+		for (int i=0;i<numEnemies;i++){
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (3*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
 		}
 	}
 
