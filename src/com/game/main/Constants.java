@@ -46,9 +46,9 @@ public class Constants {
 	public static final Point SPAWN_POINT = new Point(1,1);
 	public static final Point END_POINT = new Point(NUM_COLUMNS-2,NUM_ROWS-2);
 	public static final int TOWER_COST = 20;
-	public static final int BASIC_ENEMY_HEALTH = 100;
-	public static final int ICE_ENEMY_HEALTH = 150;
-	public static final int BASIC_ENEMY_DELAY = 50;
+	public static final int BASIC_ENEMY_HEALTH = 80;
+	public static final int ICE_ENEMY_HEALTH = 130;
+	public static final int BASIC_ENEMY_DELAY = 40;
 
 	public static final int ICE_ENEMY_VALUE = 8;
 	public static final int BASIC_ENEMY_VALUE = 5;

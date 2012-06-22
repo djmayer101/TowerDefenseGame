@@ -9,10 +9,12 @@ public class GameRound {
 	private int maxCount;
 	private int numEnemies;
 	private boolean roundDeployed = false;
+	private int roundDelay;
 
 
 	public GameRound(int roundNumber){
 		this.roundNumber = roundNumber;
+		roundDelay = (int)(Constants.BASIC_ENEMY_DELAY*(double)(1.0-roundNumber*0.05));
 		initialize();
 		populateHashMap();
 	}
@@ -20,7 +22,6 @@ public class GameRound {
 	private void initialize(){
 		counter = 0;
 		roundEnemies = new HashMap<Integer, BasicEnemy>();
-
 	}
 
 	private void populateHashMap(){
@@ -40,7 +41,6 @@ public class GameRound {
 		if(counter>maxCount){
 			roundDeployed = true;
 		}
-		//if(myEnemy==null)
 		counter++;
 		return myEnemy;
 	}
@@ -49,7 +49,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, Constants.BASIC_ENEMY_HEALTH, Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, Constants.BASIC_ENEMY_HEALTH, Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
 		}
 	}
 
@@ -57,7 +57,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.1*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.1*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
 		}
 	}
 
@@ -65,7 +65,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.2*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.2*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
 		}
 	}
 
@@ -73,7 +73,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.3*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.3*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
 		}
 	}
 
@@ -81,7 +81,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.4*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.4*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
 		}
 	}
 
@@ -89,7 +89,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.5*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
+			roundEnemies.put(i*roundDelay, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.5*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
 		}
 	}
 
