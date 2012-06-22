@@ -16,13 +16,14 @@ public class BasicEnemy extends BasicGameObject {
 	private CopyOnWriteArrayList<Point> path;
 
 	public BasicEnemy(Point startLocation, Point endLocation, int health, EnemyType type, int value){
-		super(new Point(startLocation.x*Constants.GRID_SQUARE_SIZE, startLocation.y*Constants.GRID_SQUARE_SIZE), Constants.BASIC_ENEMY_SPEED);
+		super(new Point(startLocation.x*Constants.GRID_SQUARE_SIZE, startLocation.y*Constants.GRID_SQUARE_SIZE), 0);
 		this.endLocation = endLocation;
 		this.theta = Constants.EAST;
 		this.health = health;
 		this.localGoal = new Point(startLocation.x*Constants.GRID_SQUARE_SIZE, startLocation.y*Constants.GRID_SQUARE_SIZE);
 		this.type = type;
 		this.value = value;
+		setSpeed();
 	}
 
 	@Override
@@ -84,6 +85,15 @@ public class BasicEnemy extends BasicGameObject {
 	
 	public EnemyType getType(){
 		return type;
+	}
+	
+	private void setSpeed(){
+		switch(type){
+		case	BASIC:	speed = Constants.BASIC_ENEMY_SPEED;
+		break;
+		case	ICE:	speed = Constants.ICE_ENEMY_SPEED;
+		break;
+		}
 	}
 
 

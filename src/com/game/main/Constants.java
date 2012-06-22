@@ -18,8 +18,10 @@ public class Constants {
 	public static final int WORLD_HEIGHT = NUM_ROWS*GRID_SQUARE_SIZE;
 
 	public static final double BASIC_CANNON_SPEED = 30;
-	public static final double BASIC_ENEMY_SPEED = 6;
+	public static final double BASIC_ENEMY_SPEED = 8;
 	public static final double BASIC_TOWER_SPEED = 0;
+	
+	public static final double ICE_ENEMY_SPEED = 5;
 
 	public static final int BASIC_TOWER_RANGE = 100000;
 	public static final int BASIC_TOWER_COOLDOWN = 30;
@@ -45,7 +47,9 @@ public class Constants {
 	public static final Point END_POINT = new Point(NUM_COLUMNS-2,NUM_ROWS-2);
 	public static final int TOWER_COST = 20;
 	public static final int BASIC_ENEMY_HEALTH = 100;
+	public static final int ICE_ENEMY_HEALTH = 150;
 	public static final int BASIC_ENEMY_DELAY = 50;
 
-	public static final int BASIC_ENEMY_VALUE = 10;
+	public static final int ICE_ENEMY_VALUE = 8;
+	public static final int BASIC_ENEMY_VALUE = 5;
 }

@@ -57,7 +57,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.1*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.BASIC_ENEMY_VALUE));
+			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.1*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
 		}
 	}
 
@@ -73,7 +73,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.3*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
+			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.3*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
 		}
 	}
 
@@ -89,7 +89,7 @@ public class GameRound {
 		numEnemies = 10;
 		maxCount = (numEnemies-1)*Constants.BASIC_ENEMY_DELAY + 1;
 		for (int i=0;i<numEnemies;i++){
-			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.5*(double)(Constants.BASIC_ENEMY_HEALTH)), Constants.EnemyType.BASIC, Constants.BASIC_ENEMY_VALUE));
+			roundEnemies.put(i*Constants.BASIC_ENEMY_DELAY, new BasicEnemy(Constants.SPAWN_POINT, Constants.END_POINT, (int) (1.5*(double)(Constants.ICE_ENEMY_HEALTH)), Constants.EnemyType.ICE, Constants.ICE_ENEMY_VALUE));
 		}
 	}
 
