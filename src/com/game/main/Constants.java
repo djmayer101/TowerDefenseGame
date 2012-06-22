@@ -35,15 +35,16 @@ public class Constants {
 
 	public static enum State{LAUNCH,TRAVEL,EXPLODE,DONE, INITIAL, MADE_IT_TO_GOAL_LOCATION};
 
-	public static enum DrawObject{CURSOR,TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY,GRASSTILE_1,GRASSTILE_2,BORDERTILE, STARTTILE, ENDTILE}
+	public static enum DrawObject{CURSOR,TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY,GRASSTILE_1,GRASSTILE_2,BORDERTILE, STARTTILE, ENDTILE, ICE_ENEMY}
 
+	public static enum EnemyType{BASIC,ICE,FIRE,BOSS1,BOSS2,BOSS3};
 
 
 	public static final Point SPAWN_POINT = new Point(1,1);
 	public static final Point END_POINT = new Point(NUM_COLUMNS-2,NUM_ROWS-2);
 	public static final int TOWER_COST = 20;
 	public static final int BASIC_ENEMY_HEALTH = 100;
-	public static final int BASICENEMYDELAY = 50;
+	public static final int BASIC_ENEMY_DELAY = 50;
 
 	public static final int BASIC_ENEMY_VALUE = 10;
 }

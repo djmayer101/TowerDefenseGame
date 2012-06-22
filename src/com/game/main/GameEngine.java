@@ -62,6 +62,14 @@ public class GameEngine {
 		for (BasicEnemy enemy:basicEnemies){
 			Point location = new Point(enemy.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
+			Constants.DrawObject drawObject;
+			switch(enemy.getType()){
+			case	BASIC:	drawObject = DrawObject.BASIC_ENEMY;	
+			break;
+			case	ICE:	drawObject = DrawObject.ICE_ENEMY;	
+			break;	
+			default:	drawObject = DrawObject.BASIC_ENEMY;
+			}
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_ENEMY);
 
 		}

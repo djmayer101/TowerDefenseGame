@@ -11,7 +11,8 @@ import android.graphics.Point;
 
 public class SpriteDrawer {
 	private Bitmap towerImage;
-	private Bitmap enemyImage;
+	private Bitmap basicEnemyImage;
+	private Bitmap iceEnemyImage;
 	private Bitmap cannonBallImage;
 	private Bitmap cannonBallExplosionImage;
 	private Bitmap cursorImage;
@@ -29,9 +30,12 @@ public class SpriteDrawer {
 		towerImage = getImage(R.drawable.awesome_castle);
 		towerImage = Bitmap.createScaledBitmap( towerImage, Constants.OBJECT_CELL_SIDE_LENGTH, Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
-		enemyImage = getImage(R.drawable.crazy_enemy);
-		enemyImage = Bitmap.createScaledBitmap(enemyImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
+		basicEnemyImage = getImage(R.drawable.crazy_enemy);
+		basicEnemyImage = Bitmap.createScaledBitmap(basicEnemyImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
+		iceEnemyImage = getImage(R.drawable.crazy_enemy);
+		iceEnemyImage = Bitmap.createScaledBitmap(iceEnemyImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
+		
 		cannonBallImage = getImage(R.drawable.cannonball);
 		cannonBallImage = Bitmap.createScaledBitmap(cannonBallImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
@@ -72,7 +76,9 @@ public class SpriteDrawer {
 		break;
 		case CANNON_BALL_EXPLOSION:	image = cannonBallExplosionImage;
 		break;
-		case BASIC_ENEMY:			image = enemyImage;
+		case BASIC_ENEMY:			image = basicEnemyImage;
+		break;
+		case ICE_ENEMY:				image = iceEnemyImage;
 		break;
 		case GRASSTILE_1:			image = GRASS_1TerrainTile;
 		break;
@@ -80,9 +86,9 @@ public class SpriteDrawer {
 		break;
 		case BORDERTILE:			image = borderTerrainTile;
 		break;
-		case STARTTILE:			image = startTerrainTile;
+		case STARTTILE:				image = startTerrainTile;
 		break;
-		case ENDTILE:			image = endTerrainTile;
+		case ENDTILE:				image = endTerrainTile;
 		break;
 		default:					image = null;
 		}

@@ -1,6 +1,8 @@
 package com.game.main;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import com.game.main.Constants.EnemyType;
 import com.game.main.Constants.State;
 import android.graphics.Point;
 
@@ -9,14 +11,18 @@ public class BasicEnemy extends BasicGameObject {
 	protected int health;
 	private Point endLocation;
 	private Point localGoal;
+	private EnemyType type;
+	private int value;
 	private CopyOnWriteArrayList<Point> path;
 
-	public BasicEnemy(Point startLocation, Point endLocation, int health){
+	public BasicEnemy(Point startLocation, Point endLocation, int health, EnemyType type, int value){
 		super(new Point(startLocation.x*Constants.GRID_SQUARE_SIZE, startLocation.y*Constants.GRID_SQUARE_SIZE), Constants.BASIC_ENEMY_SPEED);
 		this.endLocation = endLocation;
 		this.theta = Constants.EAST;
 		this.health = health;
 		this.localGoal = new Point(startLocation.x*Constants.GRID_SQUARE_SIZE, startLocation.y*Constants.GRID_SQUARE_SIZE);
+		this.type = type;
+		this.value = value;
 	}
 
 	@Override
@@ -73,7 +79,11 @@ public class BasicEnemy extends BasicGameObject {
 	}
 
 	public int value() {
-		return Constants.BASIC_ENEMY_VALUE;
+		return value;
+	}
+	
+	public EnemyType getType(){
+		return type;
 	}
 
 
