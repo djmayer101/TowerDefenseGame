@@ -102,6 +102,9 @@ public class TowerDefenseGame{
 	public void showRoundOver(){
 		towerDefenseView.showRoundOver();
 		this.inround = false;
+		if(towerDefenseView.getButtonsWrapper().isShowingPaused()){
+			towerDefenseView.togglePausePlayButtons();
+		}
 	}
 
 	public boolean getInGame() {

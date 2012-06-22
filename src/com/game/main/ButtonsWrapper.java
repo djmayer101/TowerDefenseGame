@@ -23,7 +23,7 @@ public class ButtonsWrapper {
 	private GameStatistics gameStatistics;
 	private ImageButton pauseButton;
 	private Bitmap pauseImage;
-	private boolean showingPaused = true;
+	private boolean showingPaused = false;
 	private Bitmap startImage;
 
 	public ButtonsWrapper(Context context, TowerDefenseGame towerDefenseGame,GameStatistics gameStatistics){
@@ -116,13 +116,17 @@ public class ButtonsWrapper {
 	}
 	
 	public void togglePausePlayButtons(){
-		if (showingPaused){
+		if (!showingPaused){
 			pauseButton.setImageBitmap(pauseImage);
-			showingPaused = false;
+			showingPaused = true;
 		}
 		else{
-			showingPaused = true;
+			showingPaused = false;
 			pauseButton.setImageBitmap(startImage);
 		}
+	}
+	
+	public boolean isShowingPaused(){
+		return showingPaused;
 	}
 }

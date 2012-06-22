@@ -51,6 +51,9 @@ public class TowerDefenseActivity extends Activity{
 	protected void onRestart() {
 		super.onRestart();
 		towerDefenseGame.getUpdateTaskManager().resume();
+		if(towerDefenseView.getButtonsWrapper().isShowingPaused()){
+			towerDefenseView.togglePausePlayButtons();
+		}
 	}
 
 	protected void backToMenu(){

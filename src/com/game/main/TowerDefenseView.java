@@ -212,5 +212,9 @@ public class TowerDefenseView extends LinearLayout {
 		}
 	}
 
+	public ButtonsWrapper getButtonsWrapper() {
+		return buttonsWrapper;
+	}
+
 
 }
