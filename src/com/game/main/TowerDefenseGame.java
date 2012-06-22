@@ -5,6 +5,8 @@ import android.graphics.Point;
 public class TowerDefenseGame{
 
 	private boolean ingame = false;
+	private boolean inround = false;
+	
 	private TowerDefenseView towerDefenseView;
 	private SpriteDrawer spriteDrawer;
 	private ObstacleManager obstacleManager;
@@ -32,21 +34,25 @@ public class TowerDefenseGame{
 	}
 
 
-	protected void startRound() {
-		if(!ingame){
-			gameStatistics.incrementRound();
-			gameStatistics.startRound();
-			ingame = true;
-		}
-	}
 
-	void pauseClicked() {
+	void pauseOrStartRoundClicked() {
 		if (ingame){
 			updateTaskManager.pause();
 		}
-		else{
+		else if(inround){
 			updateTaskManager.go();
 		}
+		else if (!inround){
+			gameStatistics.incrementRound();
+			gameStatistics.startRound();
+			ingame = true;
+			inround = true;
+		}
+		else{
+			throw new RuntimeException("shouldnt be here");
+		}
+		
+
 	}
 
 	public void gameOver() {
@@ -92,6 +98,7 @@ public class TowerDefenseGame{
 
 	public void showRoundOver(){
 		towerDefenseView.showRoundOver();
+		this.inround = false;
 	}
 
 	public boolean getInGame() {

@@ -68,27 +68,13 @@ public class ButtonsWrapper {
 
 		pauseButton.setOnClickListener(new OnClickListener() {            
 			public void onClick(View v) {
-				towerDefenseGame.pauseClicked();
+				towerDefenseGame.pauseOrStartRoundClicked();
 			}
 
 
 		});
 
-		ImageButton startButton= new ImageButton(context);
-		Bitmap startImage = getImage(R.drawable.start_button);
-		startImage = Bitmap.createScaledBitmap( startImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		startButton.setImageBitmap(startImage);
-		startButton.setBackgroundResource(0);
-		startButton.setClickable(true);
-		startButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0));
-
-		startButton.setOnClickListener(new OnClickListener() {            
-			public void onClick(View v) {
-				towerDefenseGame.startRound();
-			}
-
-
-		});
+		
 
 		roundView = new TextView(context);
 		roundView.setTextSize(24);
@@ -112,7 +98,6 @@ public class ButtonsWrapper {
 		buttons.addView(moneyView);
 		buttons.addView(livesView);
 		buttons.addView(pauseButton);
-		buttons.addView(startButton);
 		buttons.addView(buildTowerButton);
 	}
 
