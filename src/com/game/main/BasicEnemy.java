@@ -5,7 +5,7 @@ import com.game.main.Constants.State;
 import android.graphics.Point;
 
 public class BasicEnemy extends BasicGameObject {
-	
+
 	protected int health;
 	private Point endLocation;
 	private Point localGoal;
@@ -18,7 +18,7 @@ public class BasicEnemy extends BasicGameObject {
 		this.health = health;
 		this.localGoal = new Point(startLocation.x*Constants.GRID_SQUARE_SIZE, startLocation.y*Constants.GRID_SQUARE_SIZE);
 	}
-	
+
 	@Override
 	void updateState() {
 		if (health <= 0){
@@ -30,11 +30,11 @@ public class BasicEnemy extends BasicGameObject {
 		health -= cannonBallDamage;
 	}
 
-	
+
 	public Point getEndLocation(){
 		return endLocation;
 	}
-	
+
 	@Override
 	public void updateLocation(){
 		if((this.location.x == TerrainMap.scaleGridPointToPixel(endLocation).x) &&
@@ -52,7 +52,7 @@ public class BasicEnemy extends BasicGameObject {
 		}
 
 	}
-	
+
 	public void updateLocalGoal(){
 		Point gridPoint = TerrainMap.scalePixelToGridPoint(this.location);
 		if (this.path.contains(gridPoint)){
@@ -75,8 +75,8 @@ public class BasicEnemy extends BasicGameObject {
 	public int value() {
 		return Constants.BASIC_ENEMY_VALUE;
 	}
-	
-	
-	
+
+
+
 }
 

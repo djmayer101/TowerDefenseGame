@@ -40,19 +40,20 @@ public class SpriteDrawer {
 
 		cursorImage = getImage(R.drawable.clearyellow);
 		cursorImage = Bitmap.createScaledBitmap(cursorImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+
 		
 		GRASS_1TerrainTile = getImage(R.drawable.fire_ground_tile);
 		GRASS_1TerrainTile = Bitmap.createScaledBitmap( GRASS_1TerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 		
 		GRASS_2TerrainTile = getImage(R.drawable.fire_ground_tile);
 		GRASS_2TerrainTile = Bitmap.createScaledBitmap( GRASS_2TerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		
+
 		borderTerrainTile = getImage(R.drawable.border_square);
 		borderTerrainTile = Bitmap.createScaledBitmap( borderTerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		
+
 		startTerrainTile = getImage(R.drawable.start_square);
 		startTerrainTile = Bitmap.createScaledBitmap( startTerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		
+
 		endTerrainTile = getImage(R.drawable.end_square);
 		endTerrainTile = Bitmap.createScaledBitmap( endTerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 	}

@@ -7,21 +7,21 @@ public class GameStatistics {
 
 	public GameRound currentGameRound;
 	private TowerDefenseView towerDefenseView;
-	
+
 	public GameStatistics(TowerDefenseView towerDefenseView){
 		this.towerDefenseView = towerDefenseView;
 	}
-	
+
 	public void decrementLives(){
 		lives -= 1;
 		towerDefenseView.refreshButtons();
 	}
-	
+
 	public void decrementMoney(int amountSpent){
 		money -= amountSpent;
 		towerDefenseView.refreshButtons();
 	}
-	
+
 	public void incrementRound(){
 		round += 1;
 		towerDefenseView.refreshButtons();
@@ -38,7 +38,7 @@ public class GameStatistics {
 	public int getMoney() {
 		return money;
 	}
-	
+
 	public void startRound() {
 		this.currentGameRound = new GameRound(this.round);
 	}

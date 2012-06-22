@@ -10,28 +10,28 @@ import android.widget.Button;
 
 
 public class GameMain extends Activity {
-    /** Called when the activity is first created. */
+	/** Called when the activity is first created. */
 	Button myButton;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        final Window window = getWindow();
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.main_menu);
-     
-        myButton = (Button) findViewById(R.id.start_new_game_button);
-        myButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	startNewGame(v);
-            }
-        });
-        
-    }
-    
-    public void startNewGame(View view){
-    	Intent i = new Intent(GameMain.this, TowerDefenseActivity.class);
-    	startActivity(i);
-    }
-    
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		final Window window = getWindow();
+		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.main_menu);
+
+		myButton = (Button) findViewById(R.id.start_new_game_button);
+		myButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				startNewGame(v);
+			}
+		});
+
+	}
+
+	public void startNewGame(View view){
+		Intent i = new Intent(GameMain.this, TowerDefenseActivity.class);
+		startActivity(i);
+	}
+
 }

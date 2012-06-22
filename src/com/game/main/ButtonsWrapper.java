@@ -29,18 +29,18 @@ public class ButtonsWrapper {
 		buttons = new LinearLayout(context);
 		initializeButtons();
 	}
-	
+
 	public LinearLayout getButtons(){
 		return buttons;
 	}
-	
+
 	public void refreshButtons(){
 		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
 		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
 		roundView.setText("Round: " + gameStatistics.getRound() + " ");
 		Log.e("refreshing buttons", "money: " + gameStatistics.getMoney() + moneyView.getText());
 	}
-	
+
 	private void initializeButtons() {
 		ImageButton buildTowerButton= new ImageButton(context);
 		Bitmap buttonImage = getImage(R.drawable.build_tower_button);
@@ -56,8 +56,8 @@ public class ButtonsWrapper {
 				towerDefenseGame.showTowerOptions();
 			}
 		});
-		
-		
+
+
 		ImageButton pauseButton= new ImageButton(context);
 		Bitmap pauseImage = getImage(R.drawable.pause_button);
 		pauseImage = Bitmap.createScaledBitmap( pauseImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
@@ -73,7 +73,7 @@ public class ButtonsWrapper {
 
 
 		});
-		
+
 		ImageButton startButton= new ImageButton(context);
 		Bitmap startImage = getImage(R.drawable.start_button);
 		startImage = Bitmap.createScaledBitmap( startImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
@@ -101,13 +101,13 @@ public class ButtonsWrapper {
 		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
 		moneyView.setTextColor(Color.WHITE);
 		moneyView.setBackgroundColor(Color.BLACK);
-		
+
 		livesView = new TextView(context);
 		livesView.setTextSize(24);
 		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
 		livesView.setTextColor(Color.WHITE);
 		livesView.setBackgroundColor(Color.BLACK);
-		
+
 		buttons.addView(roundView);
 		buttons.addView(moneyView);
 		buttons.addView(livesView);
@@ -115,7 +115,7 @@ public class ButtonsWrapper {
 		buttons.addView(startButton);
 		buttons.addView(buildTowerButton);
 	}
-	
+
 	private Bitmap getImage(int id) {
 		return BitmapFactory.decodeResource(context.getResources(), id);
 	}

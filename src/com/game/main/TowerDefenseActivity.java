@@ -16,8 +16,8 @@ public class TowerDefenseActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        final Window window = getWindow();
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		final Window window = getWindow();
+		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		LayoutInflater factory = LayoutInflater.from(this);
 
 		view = factory.inflate(R.layout.main, null);
@@ -25,12 +25,12 @@ public class TowerDefenseActivity extends Activity{
 
 		towerDefenseView = (TowerDefenseView) this.findViewById(R.id.ll_absolute);
 		towerDefenseView.setTowerDefenseActivity(this);
-		
+
 		view.setFocusable(true);
 		view.setFocusableInTouchMode(true);
 
 	}
-	
+
 	public void setTowerDefenseGame (){
 		towerDefenseGame = towerDefenseView.getGame();
 	}
@@ -52,18 +52,18 @@ public class TowerDefenseActivity extends Activity{
 		super.onRestart();
 		towerDefenseGame.getUpdateTaskManager().resume();
 	}
-	
+
 	protected void backToMenu(){
-    	Intent i = new Intent(TowerDefenseActivity.this, GameMain.class);
-    	startActivity(i);
-    	finish();
+		Intent i = new Intent(TowerDefenseActivity.this, GameMain.class);
+		startActivity(i);
+		finish();
 	}
-	
-    public void startNewGame(){
-    	Intent i = new Intent(TowerDefenseActivity.this, TowerDefenseActivity.class);
-    	startActivity(i);
-    	finish();
-    }
+
+	public void startNewGame(){
+		Intent i = new Intent(TowerDefenseActivity.this, TowerDefenseActivity.class);
+		startActivity(i);
+		finish();
+	}
 
 
 }

@@ -15,7 +15,7 @@ public class Tower extends BasicGameObject {
 		super(location,Constants.BASIC_TOWER_SPEED);
 		this.coolDownCounter = 0;
 	}
-	
+
 	public BasicEnemy findNearestEnemy(CopyOnWriteArrayList<BasicEnemy> basicEnemies){
 		double currentClosestDistance = Double.MAX_VALUE;
 		BasicEnemy closestEnemy = null;
@@ -42,13 +42,13 @@ public class Tower extends BasicGameObject {
 				return new CannonBall(location,nearestEnemy.getLocation());
 			}
 			return null;
-			
+
 		}else{
 			coolDownCounter +=1;
 			return null;
 		}
 
-		
+
 	}
 
 	@Override
