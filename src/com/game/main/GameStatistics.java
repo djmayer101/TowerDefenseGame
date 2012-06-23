@@ -2,8 +2,8 @@ package com.game.main;
 
 public class GameStatistics {
 	private int round = 0;
-	private int lives = 10;
-	private int money = 100;
+	private int lives = Constants.STARTING_LIVES;
+	private int money = Constants.STARTING_MONEY;
 
 	public GameRound currentGameRound;
 	private TowerDefenseView towerDefenseView;
