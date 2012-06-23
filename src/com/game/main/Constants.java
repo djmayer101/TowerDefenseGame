@@ -4,6 +4,9 @@ import android.graphics.Point;
 
 public class Constants {
 
+	public enum TowerType {BASIC,FAST,SLOW,ICE,FIRE	};
+
+
 	public static final double SOUTH = 270;
 	public static final double NORTH = 90;
 	public static final double EAST = 0;
@@ -23,33 +26,54 @@ public class Constants {
 	
 	public static final double ICE_ENEMY_SPEED = 5;
 
-	public static final int BASIC_TOWER_RANGE = 100000;
-	public static final int BASIC_TOWER_COOLDOWN = 30;
-
-
 	public static final String GAME_NAME = "TowerDefense";
 	public static final int OBJECT_CELL_SIDE_LENGTH = (int) (GRID_SQUARE_SIZE*.9);
 	public static final int IMAGE_OFFSET = 3;
 
 	public static final int UPDATE_CYCLE_TIME = 50;
 
-	public static final int CANNONBALL_EXPLOSION_RADIUS_SQUARED = 1625;
-	public static final int CANNONBALL_DAMAGE = 20;
+	public static final int CANNONBALL_EXPLOSION_RADIUS_SQUARED = (int) Math.pow((GRID_SQUARE_SIZE/2), 2);
+
 
 	public static enum State{LAUNCH,TRAVEL,EXPLODE,DONE, INITIAL, MADE_IT_TO_GOAL_LOCATION};
 
-	public static enum DrawObject{CURSOR,TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY,GRASSTILE_1,GRASSTILE_2,BORDERTILE, STARTTILE, ENDTILE, ICE_ENEMY}
+	public static enum DrawObject{CURSOR,BASIC_TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY,GRASSTILE_1,GRASSTILE_2,BORDERTILE, STARTTILE, ENDTILE, ICE_ENEMY}
 
 	public static enum EnemyType{BASIC,ICE,FIRE,BOSS1,BOSS2,BOSS3};
 
 
 	public static final Point SPAWN_POINT = new Point(1,1);
 	public static final Point END_POINT = new Point(NUM_COLUMNS-2,NUM_ROWS-2);
-	public static final int TOWER_COST = 20;
+
 	public static final int BASIC_ENEMY_HEALTH = 80;
 	public static final int ICE_ENEMY_HEALTH = 130;
 	public static final int BASIC_ENEMY_DELAY = 40;
 
 	public static final int ICE_ENEMY_VALUE = 8;
 	public static final int BASIC_ENEMY_VALUE = 5;
+	
+	public static final int BASIC_TOWER_COOLDOWN = 30;
+	public static final int FAST_TOWER_COOLDOWN = 15;
+	public static final int SLOW_TOWER_COOLDOWN = 50;
+	public static final int ICE_TOWER_COOLDOWN = 50;
+	public static final int FIRE_TOWER_COOLDOWN = 25;
+	
+	public static final int FAST_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*3), 2);
+	public static final int SLOW_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*5), 2);
+	public static final int ICE_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*3), 2);
+	public static final int FIRE_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*3), 2);
+	public static final int BASIC_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*4), 2);
+	
+	public static final int BASIC_TOWER_DAMAGE = 20;
+	public static final int FAST_TOWER_DAMAGE = 10;
+	public static final int SLOW_TOWER_DAMAGE = 40;
+	public static final int ICE_TOWER_DAMAGE = 20;
+	public static final int FIRE_TOWER_DAMAGE = 15;
+	
+	public static final int BASIC_TOWER_COST = 20;
+	public static final int FAST_TOWER_COST = 25;
+	public static final int SLOW_TOWER_COST = 50;
+	public static final int ICE_TOWER_COST = 50;
+	public static final int FIRE_TOWER_COST = 40;
+	
 }

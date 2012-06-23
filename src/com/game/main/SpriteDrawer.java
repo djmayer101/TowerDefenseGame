@@ -71,7 +71,7 @@ public class SpriteDrawer {
 		switch (drawObject) {
 		case CURSOR:				image = cursorImage;
 		break;
-		case TOWER:					image = towerImage;
+		case BASIC_TOWER:			image = towerImage;
 		break;
 		case CANNON_BALL:			image = cannonBallImage;
 		break;

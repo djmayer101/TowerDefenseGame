@@ -57,7 +57,7 @@ public class GameEngine {
 		for (Tower tower:obstacleManager.towers){
 			Point location = new Point(tower.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
-			spriteDrawer.drawGameObject(canvas,location, DrawObject.TOWER);
+			spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_TOWER);
 		}
 		for (BasicEnemy enemy:basicEnemies){
 			Point location = new Point(enemy.getLocation());
@@ -170,7 +170,7 @@ public class GameEngine {
 		for (BasicEnemy enemy: basicEnemies){
 			double distanceSquared = TerrainMap.calculateDistanceSquared(enemy.getLocation(), cannonBall.getLocation());
 			if (distanceSquared < Constants.CANNONBALL_EXPLOSION_RADIUS_SQUARED){
-				enemy.reduceHeath(Constants.CANNONBALL_DAMAGE);
+				enemy.reduceHeath(cannonBall.getDamage());
 			}
 		}
 	}
@@ -193,21 +193,23 @@ public class GameEngine {
 		}
 	}
 
-	public void buildTowerClicked(){
+	public boolean buildTowerClicked(Constants.TowerType towerType){
+		boolean impossibru = false;
 		if ((obstacleManager.isTowerAt(terrainMap.getFocus()) == false) ){
-			if(gameStatistics.getMoney() >= Constants.TOWER_COST){
-				Tower tower = new Tower(terrainMap.getFocus());
+			if(gameStatistics.getMoney() >= Tower.getTowerCost(towerType)){
+				Tower tower = new Tower(terrainMap.getFocus(), towerType);
 				obstacleManager.addTower(tower);
-				boolean impossibru = checkPaths();
+				impossibru = checkPaths();
 				if(!impossibru){
 					updateIsNewTowerBuilt(true);
-					gameStatistics.decrementMoney(Constants.TOWER_COST);
+					gameStatistics.decrementMoney(Tower.getTowerCost(towerType));
 				}
 				else {
 					obstacleManager.remove(tower);
 				}
 			}
 		}
+		return !impossibru;
 	}
 
 	private void updateIsNewTowerBuilt (boolean newVar){		

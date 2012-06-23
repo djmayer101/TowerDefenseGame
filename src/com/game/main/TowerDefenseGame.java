@@ -65,7 +65,11 @@ public class TowerDefenseGame{
 
 
 	void buildTowerClicked() {
-		gameEngine.buildTowerClicked();
+		Constants.TowerType towerType = Constants.TowerType.FAST;
+		boolean built = gameEngine.buildTowerClicked(towerType);
+		if(!built){
+			//todo - flash focus red or something
+		}
 	}
 
 	protected void updatePhysics() {

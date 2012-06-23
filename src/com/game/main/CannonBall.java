@@ -6,10 +6,11 @@ import com.game.main.Constants.State;
 public class CannonBall extends BasicGameObject{
 
 	private Point endLocation;
+	private int damage;
 
-	public CannonBall(Point location, Point endLocation) {
+	public CannonBall(Point location, Point endLocation, int damage) {
 		super(location, Constants.BASIC_CANNON_SPEED);
-
+		this.damage = damage;
 		this.endLocation = endLocation;
 		this.state = State.LAUNCH;
 
@@ -28,5 +29,9 @@ public class CannonBall extends BasicGameObject{
 		else{
 			this.state = State.TRAVEL;
 		}
+	}
+
+	public int getDamage() {
+		return damage;
 	}
 }
