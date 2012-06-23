@@ -1,14 +1,13 @@
 package com.game.main;
 
-import android.graphics.Point;
 import com.game.main.Constants.State;
 
 public class CannonBall extends BasicGameObject{
 
-	private Point endLocation;
+	private PixelPoint endLocation;
 	private int damage;
 
-	public CannonBall(Point location, Point endLocation, int damage) {
+	public CannonBall(PixelPoint location, PixelPoint endLocation, int damage) {
 		super(location, Constants.BASIC_CANNON_SPEED);
 		this.damage = damage;
 		this.endLocation = endLocation;

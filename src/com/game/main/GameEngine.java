@@ -5,7 +5,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
 import com.game.main.Constants.DrawObject;
 import android.graphics.Canvas;
-import android.graphics.Point;
 
 
 public class GameEngine {
@@ -20,8 +19,8 @@ public class GameEngine {
 
 
 	private boolean isNewTowerBuilt = false;
-	Point enemyStartPoint = Constants.SPAWN_POINT;
-	Point enemyEndPoint = Constants.END_POINT;
+	GridPoint enemyStartPoint = Constants.SPAWN_POINT;
+	GridPoint enemyEndPoint = Constants.END_POINT;
 
 
 	public CopyOnWriteArrayList<BasicEnemy> basicEnemies = new CopyOnWriteArrayList<BasicEnemy>();
@@ -29,7 +28,7 @@ public class GameEngine {
 	public CopyOnWriteArrayList <CannonBall> cannonBalls = new CopyOnWriteArrayList <CannonBall>();
 	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
-	private CopyOnWriteArrayList<Point> path;
+	private CopyOnWriteArrayList<GridPoint> path;
 	private TowerDefenseGame towerDefenseGame;
 
 
@@ -51,16 +50,16 @@ public class GameEngine {
 
 		for (int i=0; i<Constants.NUM_COLUMNS; i++){
 			for (int j=0; j<Constants.NUM_ROWS; j++){
-				spriteDrawer.drawGameObject(canvas, new Point(i*Constants.GRID_SQUARE_SIZE + TowerDefenseView.X_offset, j *Constants.GRID_SQUARE_SIZE + TowerDefenseView.Y_offset), terrainMap.worldTerrainGrid[i][j]);
+				spriteDrawer.drawGameObject(canvas, new PixelPoint(i*Constants.GRID_SQUARE_SIZE + TowerDefenseView.X_offset, j*Constants.GRID_SQUARE_SIZE  + TowerDefenseView.Y_offset), terrainMap.worldTerrainGrid[i][j]);
 			}
 		}
 		for (Tower tower:obstacleManager.towers){
-			Point location = new Point(tower.getLocation());
+			PixelPoint location = new PixelPoint(tower.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_TOWER);
 		}
 		for (BasicEnemy enemy:basicEnemies){
-			Point location = new Point(enemy.getLocation());
+			PixelPoint location = new PixelPoint(enemy.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
 			Constants.DrawObject drawObject;
 			switch(enemy.getType()){
@@ -74,19 +73,19 @@ public class GameEngine {
 
 		}
 		for (CannonBall cannonBall: cannonBalls){
-			Point location = new Point(cannonBall.getLocation());
+			PixelPoint location = new PixelPoint(cannonBall.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL);
 
 		}
 
 		for (CannonBall cannonBall: finishedCannonBalls){
-			Point location = new Point(cannonBall.getLocation());
+			PixelPoint location = new PixelPoint(cannonBall.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
 			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL_EXPLOSION);
 
 		}
-		Point cursor_location = new Point(terrainMap.getFocus().x+ TowerDefenseView.X_offset,terrainMap.getFocus().y+ TowerDefenseView.Y_offset);
+		PixelPoint cursor_location = new PixelPoint(terrainMap.getFocus().x+ TowerDefenseView.X_offset,terrainMap.getFocus().y+ TowerDefenseView.Y_offset);
 		spriteDrawer.drawGameObject(canvas,cursor_location, DrawObject.CURSOR);
 	}
 
@@ -100,7 +99,7 @@ public class GameEngine {
 			mutex.acquire();
 			if(isNewTowerBuilt){
 				for (BasicEnemy enemy: basicEnemies){
-					path = pathBuilder.getPath(TerrainMap.scalePixelToGridPoint(enemy.getLocation()), enemyEndPoint);
+					path = pathBuilder.getPath(enemy.getLocation().scaleToGridPoint(), enemyEndPoint);
 					enemy.updatePath(path);
 				}
 			}
@@ -126,7 +125,7 @@ public class GameEngine {
 				finishedEnemies.add(enemy);
 				towerDefenseGame.killedEnemy(enemy);
 			}
-			Point scaledCurrentLocation = TerrainMap.scalePixelToGridPoint(enemy.getLocation());
+			GridPoint scaledCurrentLocation = enemy.getLocation().scaleToGridPoint();
 			if(scaledCurrentLocation.x == enemy.getEndLocation().x && scaledCurrentLocation.y == enemy.getEndLocation().y ||
 					enemy.state == Constants.State.MADE_IT_TO_GOAL_LOCATION ||terrainMap.LocationOutOfBounds(enemy.getLocation())){
 				finishedEnemies.add(enemy);
@@ -181,14 +180,13 @@ public class GameEngine {
 		basicEnemies.add(myEnemy);
 	}
 
-	public Point computeNearestTowerLocation(Point p) {
-		int nearestTowerLocationX = Constants.GRID_SQUARE_SIZE*((int) Math.floor(p.x / Constants.GRID_SQUARE_SIZE));
-		int nearestTowerLocationY = Constants.GRID_SQUARE_SIZE*((int) Math.floor(p.y / Constants.GRID_SQUARE_SIZE));
-		return new Point(nearestTowerLocationX, nearestTowerLocationY);
+	public PixelPoint computeNearestTowerLocation(PixelPoint p) {
+		PixelPoint towerLocation = p.scaleToGridPoint().scaleToPixelPoint();
+		return towerLocation;
 	}
 
-	public void tileClicked(Point location) {
-		if(obstacleManager.isObstacleAt(TerrainMap.scalePixelToGridPoint(location)) == false){
+	public void tileClicked(PixelPoint location) {
+		if(obstacleManager.isObstacleAt(location.scaleToGridPoint()) == false){
 			terrainMap.setFocus(computeNearestTowerLocation(location));
 		}
 	}
@@ -225,7 +223,7 @@ public class GameEngine {
 	public boolean checkPaths(){
 		boolean impossibru= false;
 		for (BasicEnemy enemy: basicEnemies){
-			path = pathBuilder.getPath(TerrainMap.scalePixelToGridPoint(enemy.getLocation()), enemyEndPoint);
+			path = pathBuilder.getPath(enemy.getLocation().scaleToGridPoint(), enemyEndPoint);
 			if(path.size() == 0){
 				impossibru = true;
 				break;

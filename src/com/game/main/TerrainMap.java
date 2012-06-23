@@ -1,8 +1,5 @@
 package com.game.main;
 
-import android.graphics.Point;
-
-
 public class TerrainMap {
 
 	private int world_width;
@@ -13,7 +10,7 @@ public class TerrainMap {
 
 	int squareSize;
 
-	private Point focus;
+	private PixelPoint focus;
 
 	public Constants.DrawObject[][] worldTerrainGrid;
 	private ObstacleManager obstacleManager;
@@ -41,7 +38,7 @@ public class TerrainMap {
 				}
 				if (i == 0 || j == 0 || i ==Constants.NUM_COLUMNS-1 || j == Constants.NUM_ROWS-1){
 					worldTerrainGrid[i][j] = Constants.DrawObject.BORDERTILE;
-					obstacleManager.obstaclesHash.put(new Point(i,j),true);
+					obstacleManager.obstaclesHash.put(new GridPoint(i,j),true);
 				}
 				if(i == 1 && j == 1){
 					worldTerrainGrid[i][j] = Constants.DrawObject.STARTTILE;
@@ -54,31 +51,27 @@ public class TerrainMap {
 		}
 	}
 
-	public void setFocus(Point p) {
+	public void setFocus(PixelPoint p) {
 		this.focus = p;
 	}
 
-	public boolean LocationOutOfBounds(Point location) {
+	public boolean LocationOutOfBounds(PixelPoint location) {
 		if (location.x < 0 || location.x > this.world_width || location.y < 0 || location.y > this.world_height){
 			return true;
 		}
 		return false;
 	}
 
-	public Point getFocus() {
+	public PixelPoint getFocus() {
 		return this.focus;
 	}
 
-	protected static double calculateDistanceSquared(Point startLocation,Point endLocation) {
+	protected static double calculateDistanceSquared(GridPoint startLocation,GridPoint endLocation) {
 		return Math.pow(startLocation.x-endLocation.x, 2) + Math.pow(startLocation.y-endLocation.y,2);
 	}
-
-	public static Point scaleGridPointToPixel(Point point){
-		return new Point(point.x*Constants.GRID_SQUARE_SIZE, point.y*Constants.GRID_SQUARE_SIZE);
-	}
-
-	public static Point scalePixelToGridPoint(Point point){
-		return new Point((int) Math.floor(point.x/Constants.GRID_SQUARE_SIZE), (int) Math.floor(point.y/Constants.GRID_SQUARE_SIZE));
+	
+	protected static double calculateDistanceSquared(PixelPoint startLocation,PixelPoint endLocation) {
+		return Math.pow(startLocation.x-endLocation.x, 2) + Math.pow(startLocation.y-endLocation.y,2);
 	}
 
 }

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 
 public class SpriteDrawer {
 	private Bitmap towerImage;
@@ -66,7 +65,7 @@ public class SpriteDrawer {
 		return BitmapFactory.decodeResource(context.getResources(), id);
 	}
 
-	public void drawGameObject(Canvas canvas, Point location, DrawObject drawObject){
+	public void drawGameObject(Canvas canvas, PixelPoint location, DrawObject drawObject){
 		Bitmap image;
 		switch (drawObject) {
 		case CURSOR:				image = cursorImage;

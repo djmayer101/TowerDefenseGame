@@ -4,19 +4,17 @@ import java.util.Hashtable;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
 
-import android.graphics.Point;
-
 public class PathBuilder {
 	private TerrainMap terrainMap;
 	private ObstacleManager obstacleManager;
 
 	private GridNode startNode;
 	private GridNode endNode;
-	private CopyOnWriteArrayList<Point> path;
+	private CopyOnWriteArrayList<GridPoint> path;
 
 	private CopyOnWriteArrayList<GridNode> gridNodes;
-	private Hashtable<Point, Boolean> pointInWorldHash;
-	private Hashtable<Point, GridNode> pointToGridNode;
+	private Hashtable<GridPoint, Boolean> pointInWorldHash;
+	private Hashtable<GridPoint, GridNode> pointToGridNode;
 
 	private Semaphore pathMutex;
 
@@ -27,7 +25,7 @@ public class PathBuilder {
 		pathMutex = new Semaphore(1, true);
 	}
 
-	public CopyOnWriteArrayList<Point> safeGetPath(Point start, Point end) {
+	public CopyOnWriteArrayList<GridPoint> safeGetPath(GridPoint start, GridPoint end) {
 		initializeFields(start,end);
 		initializeGrid();
 
@@ -40,10 +38,10 @@ public class PathBuilder {
 
 	}
 
-	public CopyOnWriteArrayList<Point> getPath(Point start, Point end) {
-		CopyOnWriteArrayList<Point> myPath = null;
-		if (start.x == end.x && start.y == end.y){
-			myPath = new CopyOnWriteArrayList<Point>();
+	public CopyOnWriteArrayList<GridPoint> getPath(GridPoint start, GridPoint end) {
+		CopyOnWriteArrayList<GridPoint> myPath = null;
+		if (start.equals(end)){
+			myPath = new CopyOnWriteArrayList<GridPoint>();
 			return myPath;
 		}
 
@@ -61,8 +59,8 @@ public class PathBuilder {
 	}
 
 	private void reversePath() {
-		CopyOnWriteArrayList<Point> pathTemp = new CopyOnWriteArrayList<Point>();
-		for (Point p : path){
+		CopyOnWriteArrayList<GridPoint> pathTemp = new CopyOnWriteArrayList<GridPoint>();
+		for (GridPoint p : path){
 			pathTemp.add(0,p);
 		}
 		path = pathTemp;
@@ -111,25 +109,25 @@ public class PathBuilder {
 	private void initializeGrid() {
 		for(int i=0; i<terrainMap.worldTerrainGrid.length; i++) {
 			for(int j=0; j<terrainMap.worldTerrainGrid[0].length; j++) {
-				if(startNode.point.equals(new Point(i,j))){
+				if(startNode.point.equals(new GridPoint(i,j))){
 					pointInWorldHash.put(startNode.point, true);
 					pointToGridNode.put(startNode.point, startNode);
 					gridNodes.add(startNode);
 				}
-				else if(endNode.point.equals(new Point(i,j))) {
+				else if(endNode.point.equals(new GridPoint(i,j))) {
 					pointInWorldHash.put(endNode.point, true);
 					pointToGridNode.put(endNode.point, endNode);
 					gridNodes.add(endNode);
 				}
-				else if((obstacleManager.isTowerAt(TerrainMap.scaleGridPointToPixel(new Point(i,j))) == false) &&
-						(obstacleManager.isObstacleAt((new Point(i,j))) == false)){
-					GridNode newNode = new GridNode(new Point(i, j));
+				else if((obstacleManager.isTowerAt((new GridPoint(i,j)).scaleToPixelPoint()) == false) &&
+						(obstacleManager.isObstacleAt((new GridPoint(i,j))) == false)){
+					GridNode newNode = new GridNode(new GridPoint(i, j));
 					pointInWorldHash.put(newNode.point, true);
 					pointToGridNode.put(newNode.point, newNode);
 					gridNodes.add(newNode);
 				}
 				else {
-					GridNode newNode = new GridNode(new Point(i, j));
+					GridNode newNode = new GridNode(new GridPoint(i, j));
 					pointInWorldHash.put(newNode.point, false);
 				}
 			}
@@ -151,12 +149,12 @@ public class PathBuilder {
 	private CopyOnWriteArrayList<GridNode> getNeighbors(GridNode v) {
 		CopyOnWriteArrayList<GridNode> neighbors = new CopyOnWriteArrayList<GridNode>();
 
-		Point n1 = new Point(v.point.x, v.point.y+1);
-		Point n2 = new Point(v.point.x+1, v.point.y);
-		Point n3 = new Point(v.point.x, v.point.y-1);
-		Point n4 = new Point(v.point.x-1, v.point.y);
+		GridPoint n1 = new GridPoint(v.point.x, v.point.y+1);
+		GridPoint n2 = new GridPoint(v.point.x+1, v.point.y);
+		GridPoint n3 = new GridPoint(v.point.x, v.point.y-1);
+		GridPoint n4 = new GridPoint(v.point.x-1, v.point.y);
 
-		if(pointInWorldHash.get(n1)!=null && pointInWorldHash.get(n1)) {
+		/*if(pointInWorldHash.get(n1)!=null && pointInWorldHash.get(n1)) {
 			neighbors.add(pointToGridNode.get(n1));
 		}
 		if(pointInWorldHash.get(n2)!=null && pointInWorldHash.get(n2)) {
@@ -167,20 +165,40 @@ public class PathBuilder {
 		}
 		if(pointInWorldHash.get(n4)!=null && pointInWorldHash.get(n4)) {
 			neighbors.add(pointToGridNode.get(n4));
+		}*/
+		if(pointInWorldHash.get(n1)!=null){
+			if(pointInWorldHash.get(n1)) {
+			neighbors.add(pointToGridNode.get(n1));
+			}
+		}
+		if(pointInWorldHash.get(n2)!=null){
+			if(pointInWorldHash.get(n2)) {
+			neighbors.add(pointToGridNode.get(n2));
+			}
+		}
+		if(pointInWorldHash.get(n3)!=null){
+			if(pointInWorldHash.get(n3)) {
+			neighbors.add(pointToGridNode.get(n3));
+			}
+		}
+		if(pointInWorldHash.get(n4)!=null){
+			if(pointInWorldHash.get(n4)) {
+			neighbors.add(pointToGridNode.get(n4));
+			}
 		}
 		return neighbors;
 	}
 
-	private void initializeFields(Point start, Point end) {
+	private void initializeFields(GridPoint start, GridPoint end) {
 		startNode = new GridNode(start);
 		startNode.setDistanceFromStart(0);
 		startNode.setEstimatedTotalDistance((int) Math.sqrt(TerrainMap.calculateDistanceSquared(start, end)));
 
 		endNode = new GridNode(end);
 
-		path = new CopyOnWriteArrayList<Point>();
-		pointInWorldHash = new Hashtable<Point, Boolean>();
-		pointToGridNode = new Hashtable<Point, GridNode>();
+		path = new CopyOnWriteArrayList<GridPoint>();
+		pointInWorldHash = new Hashtable<GridPoint, Boolean>();
+		pointToGridNode = new Hashtable<GridPoint, GridNode>();
 		gridNodes = new CopyOnWriteArrayList<GridNode>();
 	}
 

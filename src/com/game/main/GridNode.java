@@ -1,15 +1,14 @@
 package com.game.main;
-import android.graphics.Point;
 
 
 public class GridNode {
 
-	Point point;
+	GridPoint point;
 	private GridNode parent;
 	private int distanceFromStart;
 	private int estimatedTotalDistance = Integer.MAX_VALUE;
 
-	GridNode(Point me) {
+	GridNode(GridPoint me) {
 		this.point = me;
 		parent = null;
 		distanceFromStart = Integer.MAX_VALUE;
