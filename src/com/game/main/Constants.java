@@ -3,7 +3,7 @@ package com.game.main;
 
 public class Constants {
 
-	public enum TowerType {BASIC,FAST,SLOW,ICE,FIRE, HEAVY	};
+
 
 
 	public static final double SOUTH = 270;
@@ -19,37 +19,49 @@ public class Constants {
 	public static final int WORLD_WIDTH = NUM_COLUMNS*GRID_SQUARE_SIZE;
 	public static final int WORLD_HEIGHT = NUM_ROWS*GRID_SQUARE_SIZE;
 
-	public static final double BASIC_CANNON_SPEED = 50;
-	public static final double BASIC_ENEMY_SPEED = 8;
-	public static final double BASIC_TOWER_SPEED = 0;
-	
-	public static final double ICE_ENEMY_SPEED = 5;
-
 	public static final String GAME_NAME = "TowerDefense";
 	public static final int OBJECT_CELL_SIDE_LENGTH = (int) (GRID_SQUARE_SIZE*.9);
 	public static final int IMAGE_OFFSET = 3;
 
 	public static final int UPDATE_CYCLE_TIME = 50;
+	
+	public static enum State{LAUNCH,TRAVEL,EXPLODE,DONE, INITIAL, MADE_IT_TO_GOAL_LOCATION};
 
+	public static enum DrawObject{CURSOR,BASIC_TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY,
+			GRASSTILE_1,GRASSTILE_2,BORDERTILE, STARTTILE, ENDTILE, ICE_ENEMY, HEAVY_TOWER, FAST_TOWER}
+
+
+	/*						  Projectile Stuff									*/
+
+	public static final double BASIC_CANNON_SPEED = 50;
+	
 	public static final int CANNONBALL_EXPLOSION_RADIUS_SQUARED = (int) Math.pow((GRID_SQUARE_SIZE/2), 2);
 
 
-	public static enum State{LAUNCH,TRAVEL,EXPLODE,DONE, INITIAL, MADE_IT_TO_GOAL_LOCATION};
-
-	public static enum DrawObject{CURSOR,BASIC_TOWER,CANNON_BALL,CANNON_BALL_EXPLOSION, BASIC_ENEMY,GRASSTILE_1,GRASSTILE_2,BORDERTILE, STARTTILE, ENDTILE, ICE_ENEMY, HEAVY_TOWER, FAST_TOWER}
-
-	public static enum EnemyType{BASIC,ICE,FIRE,BOSS1,BOSS2,BOSS3};
-
+	/*						  Enemy Stuff										*/
 
 	public static final GridPoint SPAWN_POINT = new GridPoint(1,1);
 	public static final GridPoint END_POINT = new GridPoint(NUM_COLUMNS-2,NUM_ROWS-2);
 
+	public static enum EnemyType{BASIC,ICE,FIRE,BOSS1,BOSS2,BOSS3};
+	
 	public static final int BASIC_ENEMY_HEALTH = 70;
 	public static final int ICE_ENEMY_HEALTH = 110;
-	public static final int BASIC_ENEMY_DELAY = 40;
 
 	public static final int ICE_ENEMY_VALUE = 5;
 	public static final int BASIC_ENEMY_VALUE = 3;
+	
+	public static final double BASIC_ENEMY_SPEED = 8;
+	public static final double ICE_ENEMY_SPEED = 5;
+	
+	public static final int BASIC_ENEMY_DELAY = 40;
+
+	
+	/*						  Tower Stuff										*/
+
+	public enum TowerType {BASIC,FAST,SLOW,ICE,FIRE, HEAVY};
+	
+	public static final double BASIC_TOWER_SPEED = 0;
 	
 	public static final int BASIC_TOWER_COOLDOWN = 30;
 	public static final int FAST_TOWER_COOLDOWN = 10;
@@ -76,7 +88,5 @@ public class Constants {
 	public static final int FIRE_TOWER_COST = 40;
 	public static final int STARTING_LIVES = 10;
 	public static final int STARTING_MONEY = 150;
-	
-	
-	
+
 }
