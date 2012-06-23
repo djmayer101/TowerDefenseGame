@@ -30,4 +30,10 @@ public class ObstacleManager {
 		}
 		return true;
 	}
+
+	public void remove(Tower tower) {
+		towers.remove(tower);
+		towersHash.remove(tower.location, tower);
+		
+	}
 }
