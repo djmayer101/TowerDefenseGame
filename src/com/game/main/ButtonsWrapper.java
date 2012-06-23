@@ -7,14 +7,17 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ButtonsWrapper {
 
-	private LinearLayout buttons;
+	private RelativeLayout buttons;
 	private Context context;
 	public TextView roundView;
 	public TextView moneyView;
@@ -25,53 +28,188 @@ public class ButtonsWrapper {
 	private Bitmap pauseImage;
 	private boolean showingPaused = false;
 	private Bitmap startImage;
+	private RelativeLayout towerSelectorView;
+	private ImageButton towerSelectorToggleButton;
+	private int buildTowerId;
+	private ImageButton upgradeTowerButton;
+	private ImageButton buildNormalTowerButton;
+	private int buildNormalTowerId;
+	private int buildFreezeTowerId;
+	private ImageButton buildFreezeTowerButton;
+	private int buildSuperTowerId;
+	private ImageButton buildSuperTowerButton;
+	private RelativeLayout infoView;
 
 	public ButtonsWrapper(Context context, TowerDefenseGame towerDefenseGame,GameStatistics gameStatistics){
 		this.context = context;
 		this.towerDefenseGame = towerDefenseGame;
 		this.gameStatistics = gameStatistics;
-		buttons = new LinearLayout(context);
+		buttons = new RelativeLayout(context);
+		buttons.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
 		initializeButtons();
 	}
 
-	public LinearLayout getButtons(){
-		return buttons;
-	}
-
-	public void refreshButtons(){
-		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
-		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
-		roundView.setText("Round: " + gameStatistics.getRound() + " ");
-		Log.e("refreshing buttons", "money: " + gameStatistics.getMoney() + moneyView.getText());
-	}
-
 	private void initializeButtons() {
-		ImageButton buildTowerButton= new ImageButton(context);
-		Bitmap buttonImage = getImage(R.drawable.build_tower_button);
-		buttonImage = Bitmap.createScaledBitmap( buttonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		buildTowerButton.setImageBitmap(buttonImage);
-		buildTowerButton.setBackgroundResource(0);
-		buildTowerButton.setClickable(true);
-		buildTowerButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0));
 
-		buildTowerButton.setOnClickListener(new OnClickListener() {            
+		initializeTowerSelectorView();
+		initializeTowerSelectorToggleButton();
+		initializeTowerUpgradeButton();
+		initializePauseButton();
+		initializeBuildNormalTowerButton();
+		initializeBuildFreezeTowerButton();
+		initializeBuildSuperTowerButton();
+		initializeInfoView();
+
+		infoView.addView(roundView);
+		infoView.addView(moneyView);
+		infoView.addView(livesView);
+
+		towerSelectorView.addView(buildNormalTowerButton);
+		towerSelectorView.addView(buildFreezeTowerButton);
+		towerSelectorView.addView(buildSuperTowerButton);
+
+		buttons.addView(infoView);
+		buttons.addView(pauseButton);
+		buttons.addView(towerSelectorToggleButton);
+		buttons.addView(upgradeTowerButton);
+		buttons.addView(towerSelectorView);
+	}
+
+	private void initializeInfoView() {
+		infoView = new RelativeLayout(context);
+		LayoutParams infoViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		infoViewLayout.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		infoViewLayout.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		infoView.setLayoutParams(infoViewLayout);
+
+		int roundViewId = 1234667;
+		roundView = new TextView(context);
+		roundView.setId(roundViewId);
+		roundView.setTextSize(24);
+		roundView.setTextColor(Color.WHITE);
+		roundView.setText("Round: " + gameStatistics.getRound() + " ");
+		roundView.setBackgroundColor(Color.BLACK);
+
+		int moneyViewId = 9876;
+		moneyView = new TextView(context);
+		moneyView.setId(moneyViewId);
+		moneyView.setTextSize(24);
+		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
+		moneyView.setTextColor(Color.WHITE);
+		moneyView.setBackgroundColor(Color.BLACK);
+
+		LayoutParams moneyViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		moneyViewLayout.addRule(RelativeLayout.RIGHT_OF,roundViewId);
+		moneyViewLayout.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		moneyView.setLayoutParams(moneyViewLayout);
+
+		livesView = new TextView(context);
+		livesView.setTextSize(24);
+		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
+		livesView.setTextColor(Color.WHITE);
+		livesView.setBackgroundColor(Color.BLACK);
+
+		LayoutParams livesViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		livesViewLayout.addRule(RelativeLayout.RIGHT_OF,moneyViewId);
+		livesViewLayout.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		livesView.setLayoutParams(livesViewLayout);
+
+	}
+
+	private void initializeBuildSuperTowerButton() {
+		buildSuperTowerButton= new ImageButton(context);
+		buildSuperTowerId = 243;
+		buildSuperTowerButton.setId(buildSuperTowerId);
+		Bitmap buildSuperTowerImage = getImage(R.drawable.build_tower_button);
+		buildSuperTowerImage = Bitmap.createScaledBitmap( buildSuperTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		buildSuperTowerButton.setImageBitmap(buildSuperTowerImage);
+		buildSuperTowerButton.setBackgroundResource(0);
+
+
+		LayoutParams buildSuperTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		buildSuperTowerButtonLayout.addRule(RelativeLayout.RIGHT_OF, buildFreezeTowerId);
+		buildSuperTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		buildSuperTowerButton.setLayoutParams(buildSuperTowerButtonLayout);
+
+
+		buildSuperTowerButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+				Toast.makeText(context, "super", Toast.LENGTH_SHORT).show();
+				towerDefenseGame.showTowerOptions();
+				//towerDefenseGame.showTowerOptions();
+			}
+		});
+
+	}
+
+	private void initializeBuildFreezeTowerButton() {
+		buildFreezeTowerButton= new ImageButton(context);
+		buildFreezeTowerId = 243523;
+		buildFreezeTowerButton.setId(buildFreezeTowerId);
+		Bitmap BuildFreezeTowerImage = getImage(R.drawable.build_tower_button);
+		BuildFreezeTowerImage = Bitmap.createScaledBitmap( BuildFreezeTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		buildFreezeTowerButton.setImageBitmap(BuildFreezeTowerImage);
+		buildFreezeTowerButton.setBackgroundResource(0);
+
+
+		LayoutParams buildFreezeTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		buildFreezeTowerButtonLayout.addRule(RelativeLayout.RIGHT_OF, buildNormalTowerId);
+		buildFreezeTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		buildFreezeTowerButton.setLayoutParams(buildFreezeTowerButtonLayout);
+
+
+		buildFreezeTowerButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+				Toast.makeText(context, "freeze", Toast.LENGTH_SHORT).show();
+				towerDefenseGame.showTowerOptions();
+				//towerDefenseGame.showTowerOptions();
+			}
+		});
+
+
+	}
+
+	private void initializeBuildNormalTowerButton() {
+		buildNormalTowerButton= new ImageButton(context);
+		buildNormalTowerId = 1434523;
+		buildNormalTowerButton.setId(buildNormalTowerId);
+		Bitmap BuildnormalTowerImage = getImage(R.drawable.build_tower_button);
+		BuildnormalTowerImage = Bitmap.createScaledBitmap( BuildnormalTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		buildNormalTowerButton.setImageBitmap(BuildnormalTowerImage);
+		buildNormalTowerButton.setBackgroundResource(0);
+
+
+		LayoutParams buildNormalTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		buildNormalTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		buildNormalTowerButton.setLayoutParams(buildNormalTowerButtonLayout);
+
+		buildNormalTowerButton.setOnClickListener(new OnClickListener() {            
 			public void onClick(View v) {
 
+				//towerDefenseGame.showTowerOptions();
+				Toast.makeText(context, "normal", Toast.LENGTH_SHORT).show();
 				towerDefenseGame.showTowerOptions();
 			}
 		});
 
 
+	}
+
+	private void initializePauseButton() {
 		pauseButton= new ImageButton(context);
 		pauseImage = getImage(R.drawable.pause_button);
 		pauseImage = Bitmap.createScaledBitmap( pauseImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		
+
 		startImage = getImage(R.drawable.start_button);
 		startImage = Bitmap.createScaledBitmap( startImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 		pauseButton.setImageBitmap(startImage);
 		pauseButton.setBackgroundResource(0);
 		pauseButton.setClickable(true);
-		pauseButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0));
+		LayoutParams pauseButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		pauseButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		pauseButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		pauseButton.setLayoutParams(pauseButtonLayout);
+
 
 		pauseButton.setOnClickListener(new OnClickListener() {            
 			public void onClick(View v) {
@@ -81,31 +219,96 @@ public class ButtonsWrapper {
 
 		});
 
-		
 
-		roundView = new TextView(context);
-		roundView.setTextSize(24);
-		roundView.setTextColor(Color.WHITE);
-		roundView.setText("Round: " + gameStatistics.getRound() + " ");
-		roundView.setBackgroundColor(Color.BLACK);
+	}
 
-		moneyView = new TextView(context);
-		moneyView.setTextSize(24);
-		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
-		moneyView.setTextColor(Color.WHITE);
-		moneyView.setBackgroundColor(Color.BLACK);
+	private void initializeTowerUpgradeButton() {
+		upgradeTowerButton= new ImageButton(context);
+		Bitmap upgradeImage = getImage(R.drawable.upgrade_tower_button);
+		upgradeImage = Bitmap.createScaledBitmap( upgradeImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		upgradeTowerButton.setImageBitmap(upgradeImage);
+		upgradeTowerButton.setBackgroundResource(0);
 
-		livesView = new TextView(context);
-		livesView.setTextSize(24);
-		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
-		livesView.setTextColor(Color.WHITE);
-		livesView.setBackgroundColor(Color.BLACK);
 
-		buttons.addView(roundView);
-		buttons.addView(moneyView);
-		buttons.addView(livesView);
-		buttons.addView(pauseButton);
-		buttons.addView(buildTowerButton);
+		LayoutParams upgradeTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		upgradeTowerButtonLayout.addRule(RelativeLayout.ABOVE,buildTowerId);
+		upgradeTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		upgradeTowerButton.setLayoutParams(upgradeTowerButtonLayout);
+
+		upgradeTowerButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+
+				towerDefenseGame.showTowerUpgradeOptions();
+			}
+		});
+
+
+
+
+	}
+
+	private void initializeTowerSelectorToggleButton() {
+		towerSelectorToggleButton= new ImageButton(context);
+		buildTowerId = 12235423;
+		towerSelectorToggleButton.setId(buildTowerId);
+		Bitmap buttonImage = getImage(R.drawable.build_tower_button);
+		buttonImage = Bitmap.createScaledBitmap( buttonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		towerSelectorToggleButton.setImageBitmap(buttonImage);
+		towerSelectorToggleButton.setBackgroundResource(0);
+
+
+		LayoutParams towerSelectorToggleButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		towerSelectorToggleButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		towerSelectorToggleButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		towerSelectorToggleButton.setLayoutParams(towerSelectorToggleButtonLayout);
+
+		towerSelectorToggleButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+
+				if(towerSelectorView.getVisibility() == View.GONE){
+					towerSelectorView.setVisibility(View.VISIBLE);
+					TranslateAnimation a = new TranslateAnimation(
+							Animation.RELATIVE_TO_SELF,
+							0.0f,
+							Animation.RELATIVE_TO_SELF,
+							0.0f,
+							Animation.RELATIVE_TO_SELF,
+							1.0f,
+							Animation.RELATIVE_TO_SELF,
+							0.0f);
+
+					a.setDuration(500);
+					towerSelectorView.startAnimation(a);
+				}else{
+
+					TranslateAnimation a = new TranslateAnimation(
+							Animation.RELATIVE_TO_SELF,
+							0.0f,
+							Animation.RELATIVE_TO_SELF,
+							0.0f,
+							Animation.RELATIVE_TO_SELF,
+							0.0f,
+							Animation.RELATIVE_TO_SELF,
+							1.0f);
+					a.setDuration(500);
+					towerSelectorView.startAnimation(a);
+					towerSelectorView.setVisibility(View.GONE);
+				}
+
+
+			}
+		});
+
+
+	}
+
+	private void initializeTowerSelectorView() {
+		towerSelectorView = new RelativeLayout(context);
+		LayoutParams towerSelectorViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		towerSelectorViewLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		towerSelectorViewLayout.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		towerSelectorView.setLayoutParams(towerSelectorViewLayout);
+
 	}
 
 	private Bitmap getImage(int id) {
@@ -114,7 +317,7 @@ public class ButtonsWrapper {
 	public void setTowerDefenseGame(TowerDefenseGame towerDefenseGame){
 		this.towerDefenseGame = towerDefenseGame;
 	}
-	
+
 	public void togglePausePlayButtons(){
 		if (!showingPaused){
 			pauseButton.setImageBitmap(pauseImage);
@@ -125,8 +328,19 @@ public class ButtonsWrapper {
 			pauseButton.setImageBitmap(startImage);
 		}
 	}
-	
+
 	public boolean isShowingPaused(){
 		return showingPaused;
+	}
+
+	public RelativeLayout getButtons(){
+		return buttons;
+	}
+
+	public void refreshButtons(){
+		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
+		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
+		roundView.setText("Round: " + gameStatistics.getRound() + " ");
+		Log.e("refreshing buttons", "money: " + gameStatistics.getMoney() + moneyView.getText());
 	}
 }

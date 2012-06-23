@@ -216,5 +216,27 @@ public class TowerDefenseView extends LinearLayout {
 		return buttonsWrapper;
 	}
 
+	public void showTowerUpgradeOptions() {
+		mHandler.post(new Runnable() {
+			public void run() {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+				builder.setMessage("Choose an upgrade!")
+				.setCancelable(false)
+				.setPositiveButton("shoot farther", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						//towerDefenseGame.buildTowerClicked();
+					}
+				})
+				.setNegativeButton("shoot faster", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+					}
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
+		
+	}
+
 
 }

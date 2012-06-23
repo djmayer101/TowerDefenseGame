@@ -116,4 +116,9 @@ public class TowerDefenseGame{
 
 	}
 
+	public void showTowerUpgradeOptions() {
+		towerDefenseView.showTowerUpgradeOptions();
+		
+	}
+
 }
