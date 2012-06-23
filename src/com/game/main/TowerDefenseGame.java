@@ -123,4 +123,9 @@ public class TowerDefenseGame{
 		
 	}
 
+	public void showMenu() {
+		towerDefenseView.showMenu();
+		
+	}
+
 }

@@ -39,6 +39,9 @@ public class ButtonsWrapper {
 	private ImageButton buildHeavyTowerButton;
 	private RelativeLayout infoView;
 	private int buildFastTowerId;
+	private int pauseButtonId;
+	private ImageButton menuButton;
+	private Bitmap menuButtonImage;
 
 	public ButtonsWrapper(Context context, TowerDefenseGame towerDefenseGame,GameStatistics gameStatistics){
 		this.context = context;
@@ -59,6 +62,7 @@ public class ButtonsWrapper {
 		initializeBuildFastTowerButton();
 		initializeBuildHeavyTowerButton();
 		initializeInfoView();
+		initializeMenuButton();
 
 		infoView.addView(roundView);
 		infoView.addView(moneyView);
@@ -73,6 +77,31 @@ public class ButtonsWrapper {
 		buttons.addView(towerSelectorToggleButton);
 		buttons.addView(upgradeTowerButton);
 		buttons.addView(towerSelectorView);
+		buttons.addView(menuButton);
+	}
+
+	private void initializeMenuButton() {
+		menuButton= new ImageButton(context);
+		menuButtonImage = getImage(R.drawable.options_button);
+		menuButtonImage = Bitmap.createScaledBitmap( menuButtonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+
+		menuButton.setImageBitmap(menuButtonImage);
+		menuButton.setBackgroundResource(0);
+		menuButton.setClickable(true);
+		LayoutParams menuButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		menuButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		menuButtonLayout.addRule(RelativeLayout.ABOVE,pauseButtonId );
+		menuButton.setLayoutParams(menuButtonLayout);
+
+
+		menuButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+				towerDefenseGame.showMenu();
+			}
+
+
+		});
+
 	}
 
 	private void initializeInfoView() {
@@ -190,6 +219,8 @@ public class ButtonsWrapper {
 
 	private void initializePauseButton() {
 		pauseButton= new ImageButton(context);
+		pauseButtonId = 67543;
+		pauseButton.setId(pauseButtonId);
 		pauseImage = getImage(R.drawable.pause_button);
 		pauseImage = Bitmap.createScaledBitmap( pauseImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 
