@@ -19,7 +19,7 @@ public class Constants {
 	public static final int WORLD_WIDTH = NUM_COLUMNS*GRID_SQUARE_SIZE;
 	public static final int WORLD_HEIGHT = NUM_ROWS*GRID_SQUARE_SIZE;
 
-	public static final double BASIC_CANNON_SPEED = 30;
+	public static final double BASIC_CANNON_SPEED = 50;
 	public static final double BASIC_ENEMY_SPEED = 8;
 	public static final double BASIC_TOWER_SPEED = 0;
 	
@@ -44,28 +44,28 @@ public class Constants {
 	public static final GridPoint SPAWN_POINT = new GridPoint(1,1);
 	public static final GridPoint END_POINT = new GridPoint(NUM_COLUMNS-2,NUM_ROWS-2);
 
-	public static final int BASIC_ENEMY_HEALTH = 80;
-	public static final int ICE_ENEMY_HEALTH = 130;
+	public static final int BASIC_ENEMY_HEALTH = 70;
+	public static final int ICE_ENEMY_HEALTH = 110;
 	public static final int BASIC_ENEMY_DELAY = 40;
 
-	public static final int ICE_ENEMY_VALUE = 8;
-	public static final int BASIC_ENEMY_VALUE = 5;
+	public static final int ICE_ENEMY_VALUE = 5;
+	public static final int BASIC_ENEMY_VALUE = 3;
 	
 	public static final int BASIC_TOWER_COOLDOWN = 30;
-	public static final int FAST_TOWER_COOLDOWN = 15;
+	public static final int FAST_TOWER_COOLDOWN = 10;
 	public static final int HEAVY_TOWER_COOLDOWN = 50;
 	public static final int ICE_TOWER_COOLDOWN = 50;
-	public static final int FIRE_TOWER_COOLDOWN = 25;
+	public static final int FIRE_TOWER_COOLDOWN = 10;
 	
 	public static final int FAST_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*3), 2);
-	public static final int HEAVY_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*5), 2);
-	public static final int ICE_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*3), 2);
+	public static final int HEAVY_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*6), 2);
+	public static final int ICE_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*4), 2);
 	public static final int FIRE_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*3), 2);
 	public static final int BASIC_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*4), 2);
 	
 	public static final int BASIC_TOWER_DAMAGE = 20;
 	public static final int FAST_TOWER_DAMAGE = 10;
-	public static final int HEAVY_TOWER_DAMAGE = 40;
+	public static final int HEAVY_TOWER_DAMAGE = 50;
 	public static final int ICE_TOWER_DAMAGE = 20;
 	public static final int FIRE_TOWER_DAMAGE = 15;
 	
@@ -74,5 +74,9 @@ public class Constants {
 	public static final int HEAVY_TOWER_COST = 50;
 	public static final int ICE_TOWER_COST = 50;
 	public static final int FIRE_TOWER_COST = 40;
+	public static final int STARTING_LIVES = 10;
+	public static final int STARTING_MONEY = 150;
+	
+	
 	
 }
