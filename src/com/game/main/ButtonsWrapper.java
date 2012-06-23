@@ -1,5 +1,6 @@
 package com.game.main;
 
+import com.game.main.Constants.TowerType;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ButtonsWrapper {
 
@@ -34,11 +34,11 @@ public class ButtonsWrapper {
 	private ImageButton upgradeTowerButton;
 	private ImageButton buildNormalTowerButton;
 	private int buildNormalTowerId;
-	private int buildFreezeTowerId;
-	private ImageButton buildFreezeTowerButton;
-	private int buildSuperTowerId;
-	private ImageButton buildSuperTowerButton;
+	private ImageButton buildFastTowerButton;
+	private int buildHeavyTowerId;
+	private ImageButton buildHeavyTowerButton;
 	private RelativeLayout infoView;
+	private int buildFastTowerId;
 
 	public ButtonsWrapper(Context context, TowerDefenseGame towerDefenseGame,GameStatistics gameStatistics){
 		this.context = context;
@@ -56,8 +56,8 @@ public class ButtonsWrapper {
 		initializeTowerUpgradeButton();
 		initializePauseButton();
 		initializeBuildNormalTowerButton();
-		initializeBuildFreezeTowerButton();
-		initializeBuildSuperTowerButton();
+		initializeBuildFastTowerButton();
+		initializeBuildHeavyTowerButton();
 		initializeInfoView();
 
 		infoView.addView(roundView);
@@ -65,8 +65,8 @@ public class ButtonsWrapper {
 		infoView.addView(livesView);
 
 		towerSelectorView.addView(buildNormalTowerButton);
-		towerSelectorView.addView(buildFreezeTowerButton);
-		towerSelectorView.addView(buildSuperTowerButton);
+		towerSelectorView.addView(buildFastTowerButton);
+		towerSelectorView.addView(buildHeavyTowerButton);
 
 		buttons.addView(infoView);
 		buttons.addView(pauseButton);
@@ -116,53 +116,49 @@ public class ButtonsWrapper {
 
 	}
 
-	private void initializeBuildSuperTowerButton() {
-		buildSuperTowerButton= new ImageButton(context);
-		buildSuperTowerId = 243;
-		buildSuperTowerButton.setId(buildSuperTowerId);
-		Bitmap buildSuperTowerImage = getImage(R.drawable.build_tower_button);
-		buildSuperTowerImage = Bitmap.createScaledBitmap( buildSuperTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		buildSuperTowerButton.setImageBitmap(buildSuperTowerImage);
-		buildSuperTowerButton.setBackgroundResource(0);
+	private void initializeBuildHeavyTowerButton() {
+		buildHeavyTowerButton= new ImageButton(context);
+		buildHeavyTowerId = 243;
+		buildHeavyTowerButton.setId(buildHeavyTowerId);
+		Bitmap buildHeavyTowerImage = getImage(R.drawable.build_tower_button);
+		buildHeavyTowerImage = Bitmap.createScaledBitmap( buildHeavyTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		buildHeavyTowerButton.setImageBitmap(buildHeavyTowerImage);
+		buildHeavyTowerButton.setBackgroundResource(0);
 
 
-		LayoutParams buildSuperTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		buildSuperTowerButtonLayout.addRule(RelativeLayout.RIGHT_OF, buildFreezeTowerId);
-		buildSuperTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		buildSuperTowerButton.setLayoutParams(buildSuperTowerButtonLayout);
+		LayoutParams buildHeavyTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		buildHeavyTowerButtonLayout.addRule(RelativeLayout.RIGHT_OF, buildFastTowerId);
+		buildHeavyTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		buildHeavyTowerButton.setLayoutParams(buildHeavyTowerButtonLayout);
 
 
-		buildSuperTowerButton.setOnClickListener(new OnClickListener() {            
+		buildHeavyTowerButton.setOnClickListener(new OnClickListener() {            
 			public void onClick(View v) {
-				Toast.makeText(context, "super", Toast.LENGTH_SHORT).show();
-				towerDefenseGame.showTowerOptions();
-				//towerDefenseGame.showTowerOptions();
+				towerDefenseGame.buildTowerClicked(TowerType.HEAVY);
 			}
 		});
 
 	}
 
-	private void initializeBuildFreezeTowerButton() {
-		buildFreezeTowerButton= new ImageButton(context);
-		buildFreezeTowerId = 243523;
-		buildFreezeTowerButton.setId(buildFreezeTowerId);
-		Bitmap BuildFreezeTowerImage = getImage(R.drawable.build_tower_button);
-		BuildFreezeTowerImage = Bitmap.createScaledBitmap( BuildFreezeTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		buildFreezeTowerButton.setImageBitmap(BuildFreezeTowerImage);
-		buildFreezeTowerButton.setBackgroundResource(0);
+	private void initializeBuildFastTowerButton() {
+		buildFastTowerButton= new ImageButton(context);
+		buildFastTowerId = 243523;
+		buildFastTowerButton.setId(buildFastTowerId);
+		Bitmap BuildFastTowerImage = getImage(R.drawable.build_tower_button);
+		BuildFastTowerImage = Bitmap.createScaledBitmap( BuildFastTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		buildFastTowerButton.setImageBitmap(BuildFastTowerImage);
+		buildFastTowerButton.setBackgroundResource(0);
 
 
-		LayoutParams buildFreezeTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		buildFreezeTowerButtonLayout.addRule(RelativeLayout.RIGHT_OF, buildNormalTowerId);
-		buildFreezeTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		buildFreezeTowerButton.setLayoutParams(buildFreezeTowerButtonLayout);
+		LayoutParams buildFastTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		buildFastTowerButtonLayout.addRule(RelativeLayout.RIGHT_OF, buildNormalTowerId);
+		buildFastTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		buildFastTowerButton.setLayoutParams(buildFastTowerButtonLayout);
 
 
-		buildFreezeTowerButton.setOnClickListener(new OnClickListener() {            
+		buildFastTowerButton.setOnClickListener(new OnClickListener() {            
 			public void onClick(View v) {
-				Toast.makeText(context, "freeze", Toast.LENGTH_SHORT).show();
-				towerDefenseGame.showTowerOptions();
-				//towerDefenseGame.showTowerOptions();
+				towerDefenseGame.buildTowerClicked(TowerType.FAST);
 			}
 		});
 
@@ -185,10 +181,7 @@ public class ButtonsWrapper {
 
 		buildNormalTowerButton.setOnClickListener(new OnClickListener() {            
 			public void onClick(View v) {
-
-				//towerDefenseGame.showTowerOptions();
-				Toast.makeText(context, "normal", Toast.LENGTH_SHORT).show();
-				towerDefenseGame.showTowerOptions();
+				towerDefenseGame.buildTowerClicked(TowerType.BASIC);
 			}
 		});
 

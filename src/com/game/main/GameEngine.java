@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
 import com.game.main.Constants.DrawObject;
+import com.game.main.Constants.TowerType;
+
 import android.graphics.Canvas;
 import android.graphics.Point;
 
@@ -57,7 +59,16 @@ public class GameEngine {
 		for (Tower tower:obstacleManager.towers){
 			Point location = new Point(tower.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
-			spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_TOWER);
+			if (tower.getTowerType() == TowerType.BASIC){
+				spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_TOWER);
+			}
+			else if(tower.getTowerType() == TowerType.HEAVY){
+				spriteDrawer.drawGameObject(canvas,location, DrawObject.HEAVY_TOWER);
+			}
+			else if(tower.getTowerType() == TowerType.FAST){
+				spriteDrawer.drawGameObject(canvas,location, DrawObject.FAST_TOWER);
+			}
+
 		}
 		for (BasicEnemy enemy:basicEnemies){
 			Point location = new Point(enemy.getLocation());

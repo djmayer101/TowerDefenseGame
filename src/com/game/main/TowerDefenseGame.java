@@ -1,5 +1,7 @@
 package com.game.main;
 
+import com.game.main.Constants.TowerType;
+
 import android.graphics.Point;
 
 public class TowerDefenseGame{
@@ -64,8 +66,7 @@ public class TowerDefenseGame{
 	}
 
 
-	void buildTowerClicked() {
-		Constants.TowerType towerType = Constants.TowerType.FAST;
+	void buildTowerClicked(TowerType towerType) {
 		boolean built = gameEngine.buildTowerClicked(towerType);
 		if(!built){
 			//todo - flash focus red or something
@@ -97,10 +98,6 @@ public class TowerDefenseGame{
 
 	public UpdateTaskManager getUpdateTaskManager() {
 		return updateTaskManager;
-	}
-
-	public void showTowerOptions() {
-		towerDefenseView.showTowerOptions();
 	}
 
 	public void showRoundOver(){

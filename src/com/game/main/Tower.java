@@ -34,10 +34,10 @@ public class Tower extends BasicGameObject {
 			range = Constants.FAST_TOWER_RANGE;
 			damage = Constants.FAST_TOWER_DAMAGE;
 		break;
-		case	SLOW:	
-			coolDown = Constants.SLOW_TOWER_COOLDOWN;
-			range = Constants.SLOW_TOWER_RANGE;
-			damage = Constants.SLOW_TOWER_DAMAGE;
+		case	HEAVY:	
+			coolDown = Constants.HEAVY_TOWER_COOLDOWN;
+			range = Constants.HEAVY_TOWER_RANGE;
+			damage = Constants.HEAVY_TOWER_DAMAGE;
 		break;
 		case	ICE:	
 			coolDown = Constants.ICE_TOWER_COOLDOWN;
@@ -86,6 +86,9 @@ public class Tower extends BasicGameObject {
 
 
 	}
+	public TowerType getTowerType(){
+		return towerType;
+	}
 
 	@Override
 	void updateState() {}
@@ -97,7 +100,7 @@ public class Tower extends BasicGameObject {
 		break;
 		case	FAST:		cost = Constants.FAST_TOWER_COST;
 		break;
-		case	SLOW:		cost = Constants.SLOW_TOWER_COST;
+		case	HEAVY:		cost = Constants.HEAVY_TOWER_COST;
 		break;
 		case	ICE:		cost = Constants.ICE_TOWER_COST;
 		break;

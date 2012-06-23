@@ -10,7 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 
 public class SpriteDrawer {
-	private Bitmap towerImage;
+	private Bitmap basicTowerImage;
 	private Bitmap basicEnemyImage;
 	private Bitmap iceEnemyImage;
 	private Bitmap cannonBallImage;
@@ -24,11 +24,19 @@ public class SpriteDrawer {
 	private Bitmap GRASS_2TerrainTile;
 	private Bitmap startTerrainTile;
 	private Bitmap endTerrainTile;
+	private Bitmap heavyTowerImage;
+	private Bitmap fastTowerImage;
 
 	public SpriteDrawer(Context context){
 		this.context = context;
-		towerImage = getImage(R.drawable.awesome_castle);
-		towerImage = Bitmap.createScaledBitmap( towerImage, Constants.OBJECT_CELL_SIDE_LENGTH, Constants.OBJECT_CELL_SIDE_LENGTH, false);
+		basicTowerImage = getImage(R.drawable.awesome_castle);
+		basicTowerImage = Bitmap.createScaledBitmap( basicTowerImage, Constants.OBJECT_CELL_SIDE_LENGTH, Constants.OBJECT_CELL_SIDE_LENGTH, false);
+		
+		heavyTowerImage = getImage(R.drawable.heavy_tower);
+		heavyTowerImage = Bitmap.createScaledBitmap( heavyTowerImage, Constants.OBJECT_CELL_SIDE_LENGTH, Constants.OBJECT_CELL_SIDE_LENGTH, false);
+		
+		fastTowerImage = getImage(R.drawable.awesome_castle);
+		fastTowerImage = Bitmap.createScaledBitmap( fastTowerImage, Constants.OBJECT_CELL_SIDE_LENGTH, Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
 		basicEnemyImage = getImage(R.drawable.crazy_enemy);
 		basicEnemyImage = Bitmap.createScaledBitmap(basicEnemyImage, Constants.OBJECT_CELL_SIDE_LENGTH,Constants.OBJECT_CELL_SIDE_LENGTH, false);
@@ -71,7 +79,11 @@ public class SpriteDrawer {
 		switch (drawObject) {
 		case CURSOR:				image = cursorImage;
 		break;
-		case BASIC_TOWER:			image = towerImage;
+		case BASIC_TOWER:			image = basicTowerImage;
+		break;
+		case HEAVY_TOWER:			image = heavyTowerImage;
+		break;
+		case FAST_TOWER:			image = fastTowerImage;
 		break;
 		case CANNON_BALL:			image = cannonBallImage;
 		break;

@@ -171,28 +171,6 @@ public class TowerDefenseView extends LinearLayout {
 		});
 
 	}
-	public void showTowerOptions() {
-		mHandler.post(new Runnable() {
-			public void run() {
-				AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-				builder.setMessage("Choose a tower!")
-				.setCancelable(false)
-				.setPositiveButton("regular", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						towerDefenseGame.buildTowerClicked();
-					}
-				})
-				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-					}
-				});
-				AlertDialog alert = builder.create();
-				alert.show();
-			}
-		});
-
-
-	}
 
 	public TowerDefenseGame getGame() {
 		return towerDefenseGame;
