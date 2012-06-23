@@ -1,6 +1,5 @@
 package com.game.main;
 
-import android.graphics.Point;
 
 public class Constants {
 
@@ -42,8 +41,8 @@ public class Constants {
 	public static enum EnemyType{BASIC,ICE,FIRE,BOSS1,BOSS2,BOSS3};
 
 
-	public static final Point SPAWN_POINT = new Point(1,1);
-	public static final Point END_POINT = new Point(NUM_COLUMNS-2,NUM_ROWS-2);
+	public static final GridPoint SPAWN_POINT = new GridPoint(1,1);
+	public static final GridPoint END_POINT = new GridPoint(NUM_COLUMNS-2,NUM_ROWS-2);
 
 	public static final int BASIC_ENEMY_HEALTH = 80;
 	public static final int ICE_ENEMY_HEALTH = 130;

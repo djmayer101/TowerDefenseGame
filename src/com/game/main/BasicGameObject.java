@@ -1,22 +1,20 @@
 package com.game.main;
-import android.graphics.Point;
-
 
 public abstract class BasicGameObject {
 
-	Point location;
+	PixelPoint location;
 	double theta = 0;
 	Constants.State state = Constants.State.INITIAL;
 	double speed;
 
-	public BasicGameObject(Point location,double  speed){
+	public BasicGameObject(PixelPoint location,double  speed){
 		this.location = location;
 		this.speed = speed;
 	}
 
 	abstract void updateState();
 
-	public void updateTheta(Point focus){
+	public void updateTheta(PixelPoint focus){
 		int x0 = location.x;
 		int y0 = location.y;
 		int x1 = focus.x;
@@ -32,14 +30,14 @@ public abstract class BasicGameObject {
 	public void updateLocation(){
 		int x = (int) (this.location.x + getVx());
 		int y = (int) (this.location.y + getVy());
-		this.location = new Point(x,y);
+		this.location = new PixelPoint(x,y);
 	}
 
 	public Constants.State getState(){
 		return state;
 	}
 
-	public Point getLocation(){
+	public PixelPoint getLocation(){
 		return location;
 	}
 

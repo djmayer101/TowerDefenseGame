@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -107,7 +106,7 @@ public class TowerDefenseView extends LinearLayout {
 			break;
 		default:
 			if (event.getAction() == MotionEvent.ACTION_DOWN){
-				gameEngine.tileClicked(new Point((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
+				gameEngine.tileClicked(new PixelPoint((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
 			}
 		}
 		return true;

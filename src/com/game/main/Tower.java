@@ -1,11 +1,7 @@
 package com.game.main;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.game.main.Constants.TowerType;
-
-import android.graphics.Point;
-
 
 public class Tower extends BasicGameObject {
 
@@ -15,7 +11,7 @@ public class Tower extends BasicGameObject {
 	private TowerType towerType;
 	private int damage;
 
-	public Tower(Point location, Constants.TowerType type){
+	public Tower(PixelPoint location, Constants.TowerType type){
 		super(location,Constants.BASIC_TOWER_SPEED);
 		this.coolDownCounter = 0;
 		this.towerType = type;

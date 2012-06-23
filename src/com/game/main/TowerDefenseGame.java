@@ -1,8 +1,9 @@
 package com.game.main;
 
+
 import com.game.main.Constants.TowerType;
 
-import android.graphics.Point;
+
 
 public class TowerDefenseGame{
 
@@ -28,7 +29,7 @@ public class TowerDefenseGame{
 		spriteDrawer = new SpriteDrawer(towerDefenseView.getContext());
 		obstacleManager = new ObstacleManager();
 		terrainMap = new TerrainMap(towerDefenseView.getWidth(), towerDefenseView.getHeight(), obstacleManager);
-		terrainMap.setFocus(new Point(Constants.GRID_SQUARE_SIZE,Constants.GRID_SQUARE_SIZE));
+		terrainMap.setFocus(new PixelPoint(Constants.GRID_SQUARE_SIZE,Constants.GRID_SQUARE_SIZE));
 		pathBuilder = new PathBuilder(terrainMap,obstacleManager);
 		gameEngine = new GameEngine(terrainMap,spriteDrawer,pathBuilder,obstacleManager,gameStatistics,this);
 		updateTaskManager = new UpdateTaskManager(towerDefenseView, this);
