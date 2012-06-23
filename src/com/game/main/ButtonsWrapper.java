@@ -40,9 +40,7 @@ public class ButtonsWrapper {
 	private RelativeLayout infoView;
 	private int buildFastTowerId;
 	private int pauseButtonId;
-	private ImageButton menuButton;
-	private Bitmap menuButtonImage;
-
+	
 	public ButtonsWrapper(Context context, TowerDefenseGame towerDefenseGame,GameStatistics gameStatistics){
 		this.context = context;
 		this.towerDefenseGame = towerDefenseGame;
@@ -58,51 +56,15 @@ public class ButtonsWrapper {
 		initializeTowerSelectorToggleButton();
 		initializeTowerUpgradeButton();
 		initializePauseButton();
-		initializeBuildNormalTowerButton();
-		initializeBuildFastTowerButton();
-		initializeBuildHeavyTowerButton();
 		initializeInfoView();
-		initializeMenuButton();
-
-		infoView.addView(roundView);
-		infoView.addView(moneyView);
-		infoView.addView(livesView);
-
-		towerSelectorView.addView(buildNormalTowerButton);
-		towerSelectorView.addView(buildFastTowerButton);
-		towerSelectorView.addView(buildHeavyTowerButton);
 
 		buttons.addView(infoView);
 		buttons.addView(pauseButton);
 		buttons.addView(towerSelectorToggleButton);
 		buttons.addView(upgradeTowerButton);
 		buttons.addView(towerSelectorView);
-		buttons.addView(menuButton);
 	}
 
-	private void initializeMenuButton() {
-		menuButton= new ImageButton(context);
-		menuButtonImage = getImage(R.drawable.options_button);
-		menuButtonImage = Bitmap.createScaledBitmap( menuButtonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-
-		menuButton.setImageBitmap(menuButtonImage);
-		menuButton.setBackgroundResource(0);
-		menuButton.setClickable(true);
-		LayoutParams menuButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		menuButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-		menuButtonLayout.addRule(RelativeLayout.ABOVE,pauseButtonId );
-		menuButton.setLayoutParams(menuButtonLayout);
-
-
-		menuButton.setOnClickListener(new OnClickListener() {            
-			public void onClick(View v) {
-				towerDefenseGame.showMenu();
-			}
-
-
-		});
-
-	}
 
 	private void initializeInfoView() {
 		infoView = new RelativeLayout(context);
@@ -116,14 +78,14 @@ public class ButtonsWrapper {
 		roundView.setId(roundViewId);
 		roundView.setTextSize(24);
 		roundView.setTextColor(Color.WHITE);
-		roundView.setText("Round: " + gameStatistics.getRound() + " ");
+		roundView.setText("Round:" + gameStatistics.getRound() + " ");
 		roundView.setBackgroundColor(Color.BLACK);
 
 		int moneyViewId = 9876;
 		moneyView = new TextView(context);
 		moneyView.setId(moneyViewId);
 		moneyView.setTextSize(24);
-		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
+		moneyView.setText(" $:" + gameStatistics.getMoney() + " ");
 		moneyView.setTextColor(Color.WHITE);
 		moneyView.setBackgroundColor(Color.BLACK);
 
@@ -134,7 +96,7 @@ public class ButtonsWrapper {
 
 		livesView = new TextView(context);
 		livesView.setTextSize(24);
-		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
+		livesView.setText(" Lives:" + gameStatistics.getLives()  + " ");
 		livesView.setTextColor(Color.WHITE);
 		livesView.setBackgroundColor(Color.BLACK);
 
@@ -142,6 +104,10 @@ public class ButtonsWrapper {
 		livesViewLayout.addRule(RelativeLayout.RIGHT_OF,moneyViewId);
 		livesViewLayout.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		livesView.setLayoutParams(livesViewLayout);
+		
+		infoView.addView(roundView);
+		infoView.addView(moneyView);
+		infoView.addView(livesView);
 
 	}
 
@@ -152,7 +118,7 @@ public class ButtonsWrapper {
 		Bitmap buildHeavyTowerImage = getImage(R.drawable.heavy_tower_button);
 		buildHeavyTowerImage = Bitmap.createScaledBitmap( buildHeavyTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 		buildHeavyTowerButton.setImageBitmap(buildHeavyTowerImage);
-		buildHeavyTowerButton.setBackgroundResource(0);
+		//buildHeavyTowerButton.setBackgroundResource(0);
 
 
 		LayoutParams buildHeavyTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -176,7 +142,7 @@ public class ButtonsWrapper {
 		Bitmap BuildFastTowerImage = getImage(R.drawable.fast_tower_button);
 		BuildFastTowerImage = Bitmap.createScaledBitmap( BuildFastTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 		buildFastTowerButton.setImageBitmap(BuildFastTowerImage);
-		buildFastTowerButton.setBackgroundResource(0);
+		//buildFastTowerButton.setBackgroundResource(0);
 
 
 		LayoutParams buildFastTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -201,7 +167,7 @@ public class ButtonsWrapper {
 		Bitmap BuildnormalTowerImage = getImage(R.drawable.build_tower_button);
 		BuildnormalTowerImage = Bitmap.createScaledBitmap( BuildnormalTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 		buildNormalTowerButton.setImageBitmap(BuildnormalTowerImage);
-		buildNormalTowerButton.setBackgroundResource(0);
+		//buildNormalTowerButton.setBackgroundResource(0);
 
 
 		LayoutParams buildNormalTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -272,6 +238,7 @@ public class ButtonsWrapper {
 	}
 
 	private void initializeTowerSelectorToggleButton() {
+
 		towerSelectorToggleButton= new ImageButton(context);
 		buildTowerId = 12235423;
 		towerSelectorToggleButton.setId(buildTowerId);
@@ -327,11 +294,20 @@ public class ButtonsWrapper {
 	}
 
 	private void initializeTowerSelectorView() {
+		
 		towerSelectorView = new RelativeLayout(context);
 		LayoutParams towerSelectorViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		towerSelectorViewLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		towerSelectorViewLayout.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		towerSelectorView.setLayoutParams(towerSelectorViewLayout);
+		
+		initializeBuildNormalTowerButton();
+		initializeBuildFastTowerButton();
+		initializeBuildHeavyTowerButton();
+		
+		towerSelectorView.addView(buildNormalTowerButton);
+		towerSelectorView.addView(buildFastTowerButton);
+		towerSelectorView.addView(buildHeavyTowerButton);
 
 	}
 

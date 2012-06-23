@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 
-public class GameMain extends Activity {
+public class GameMainMenuActivity extends Activity {
 	/** Called when the activity is first created. */
 	Button myButton;
 	@Override
@@ -30,8 +30,9 @@ public class GameMain extends Activity {
 	}
 
 	public void startNewGame(View view){
-		Intent i = new Intent(GameMain.this, TowerDefenseActivity.class);
+		Intent i = new Intent(GameMainMenuActivity.this, TowerDefenseActivity.class);
 		startActivity(i);
+		finish();
 	}
 
 }

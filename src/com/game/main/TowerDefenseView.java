@@ -9,8 +9,10 @@ import android.graphics.Canvas;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class TowerDefenseView extends LinearLayout {
 
@@ -216,10 +218,14 @@ public class TowerDefenseView extends LinearLayout {
 	}
 
 	public void showMenu() {
+		
 		mHandler.post(new Runnable() {
 			public void run() {
+				TextView myMsg = new TextView(getContext());
+				myMsg.setText("Game Menu");
+				myMsg.setGravity(Gravity.CENTER_HORIZONTAL);
 				AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-				builder.setMessage("Game Menu!")
+				builder.setView(myMsg)
 				.setCancelable(false)
 				.setPositiveButton("Leave Game", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
