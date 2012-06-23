@@ -196,11 +196,16 @@ public class GameEngine {
 	public void buildTowerClicked(){
 		if ((obstacleManager.isTowerAt(terrainMap.getFocus()) == false) ){
 			if(gameStatistics.getMoney() >= Constants.TOWER_COST){
-				gameStatistics.decrementMoney(Constants.TOWER_COST);
 				Tower tower = new Tower(terrainMap.getFocus());
 				obstacleManager.addTower(tower);
-				//path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
-				updateIsNewTowerBuilt(true);
+				boolean impossibru = checkPaths();
+				if(!impossibru){
+					updateIsNewTowerBuilt(true);
+					gameStatistics.decrementMoney(Constants.TOWER_COST);
+				}
+				else {
+					obstacleManager.remove(tower);
+				}
 			}
 		}
 	}
@@ -215,5 +220,20 @@ public class GameEngine {
 		}
 	}
 
+	public boolean checkPaths(){
+		boolean impossibru= false;
+		for (BasicEnemy enemy: basicEnemies){
+			path = pathBuilder.getPath(TerrainMap.scalePixelToGridPoint(enemy.getLocation()), enemyEndPoint);
+			if(path.size() == 0){
+				impossibru = true;
+				break;
+			}		
+		}
+		path = pathBuilder.getPath(enemyStartPoint, enemyEndPoint);
+		if(path.size() == 0){
+			impossibru = true;
+		}
+		return impossibru;
+	}
 
 }
