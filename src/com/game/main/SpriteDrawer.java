@@ -34,7 +34,7 @@ public class SpriteDrawer {
 		heavyTowerImage = getImage(R.drawable.heavy_tower);
 		heavyTowerImage = Bitmap.createScaledBitmap( heavyTowerImage, Constants.OBJECT_CELL_SIDE_LENGTH, Constants.OBJECT_CELL_SIDE_LENGTH, false);
 		
-		fastTowerImage = getImage(R.drawable.awesome_castle);
+		fastTowerImage = getImage(R.drawable.fast_tower);
 		fastTowerImage = Bitmap.createScaledBitmap( fastTowerImage, Constants.OBJECT_CELL_SIDE_LENGTH, Constants.OBJECT_CELL_SIDE_LENGTH, false);
 
 		basicEnemyImage = getImage(R.drawable.crazy_enemy);

@@ -120,7 +120,7 @@ public class ButtonsWrapper {
 		buildHeavyTowerButton= new ImageButton(context);
 		buildHeavyTowerId = 243;
 		buildHeavyTowerButton.setId(buildHeavyTowerId);
-		Bitmap buildHeavyTowerImage = getImage(R.drawable.build_tower_button);
+		Bitmap buildHeavyTowerImage = getImage(R.drawable.heavy_tower_button);
 		buildHeavyTowerImage = Bitmap.createScaledBitmap( buildHeavyTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 		buildHeavyTowerButton.setImageBitmap(buildHeavyTowerImage);
 		buildHeavyTowerButton.setBackgroundResource(0);
@@ -144,7 +144,7 @@ public class ButtonsWrapper {
 		buildFastTowerButton= new ImageButton(context);
 		buildFastTowerId = 243523;
 		buildFastTowerButton.setId(buildFastTowerId);
-		Bitmap BuildFastTowerImage = getImage(R.drawable.build_tower_button);
+		Bitmap BuildFastTowerImage = getImage(R.drawable.fast_tower_button);
 		BuildFastTowerImage = Bitmap.createScaledBitmap( BuildFastTowerImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 		buildFastTowerButton.setImageBitmap(BuildFastTowerImage);
 		buildFastTowerButton.setBackgroundResource(0);
