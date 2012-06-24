@@ -46,8 +46,8 @@ public class Constants {
 
 	public static enum EnemyType{BASIC,ICE,FIRE,BOSS1,BOSS2,BOSS3};
 	
-	public static final int BASIC_ENEMY_HEALTH = 70;
-	public static final int ICE_ENEMY_HEALTH = 110;
+	public static final int BASIC_ENEMY_HEALTH = 30;
+	public static final int ICE_ENEMY_HEALTH = 50;
 
 	public static final int ICE_ENEMY_VALUE = 5;
 	public static final int BASIC_ENEMY_VALUE = 3;
@@ -64,10 +64,10 @@ public class Constants {
 	
 	public static final double BASIC_TOWER_SPEED = 0;
 	
-	public static final int BASIC_TOWER_COOLDOWN = 30;
-	public static final int FAST_TOWER_COOLDOWN = 10;
-	public static final int HEAVY_TOWER_COOLDOWN = 50;
-	public static final int ICE_TOWER_COOLDOWN = 50;
+	public static final int BASIC_TOWER_COOLDOWN = 20;
+	public static final int FAST_TOWER_COOLDOWN = 8;
+	public static final int HEAVY_TOWER_COOLDOWN = 35;
+	public static final int ICE_TOWER_COOLDOWN = 35;
 	public static final int FIRE_TOWER_COOLDOWN = 10;
 	
 	public static final int FAST_TOWER_RANGE = (int) Math.pow((GRID_SQUARE_SIZE*3), 2);
@@ -82,9 +82,9 @@ public class Constants {
 	public static final int ICE_TOWER_DAMAGE = 20;
 	public static final int FIRE_TOWER_DAMAGE = 15;
 	
-	public static final int BASIC_TOWER_COST = 20;
-	public static final int FAST_TOWER_COST = 30;
-	public static final int HEAVY_TOWER_COST = 50;
-	public static final int ICE_TOWER_COST = 50;
-	public static final int FIRE_TOWER_COST = 40;
+	public static final int BASIC_TOWER_COST = 40;
+	public static final int FAST_TOWER_COST = 60;
+	public static final int HEAVY_TOWER_COST = 100;
+	public static final int ICE_TOWER_COST = 100;
+	public static final int FIRE_TOWER_COST = 80;
 }
