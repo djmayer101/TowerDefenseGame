@@ -4,7 +4,8 @@ package com.game.main;
 public class Constants {
 
 
-
+	public static final int STARTING_LIVES = 10;
+	public static final int STARTING_MONEY = 150;
 
 	public static final double SOUTH = 270;
 	public static final double NORTH = 90;
@@ -82,11 +83,8 @@ public class Constants {
 	public static final int FIRE_TOWER_DAMAGE = 15;
 	
 	public static final int BASIC_TOWER_COST = 20;
-	public static final int FAST_TOWER_COST = 25;
+	public static final int FAST_TOWER_COST = 30;
 	public static final int HEAVY_TOWER_COST = 50;
 	public static final int ICE_TOWER_COST = 50;
 	public static final int FIRE_TOWER_COST = 40;
-	public static final int STARTING_LIVES = 10;
-	public static final int STARTING_MONEY = 150;
-
 }
