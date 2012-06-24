@@ -6,25 +6,20 @@ public class GameStatistics {
 	private int money = Constants.STARTING_MONEY;
 
 	public GameRound currentGameRound;
-	private TowerDefenseView towerDefenseView;
 
-	public GameStatistics(TowerDefenseView towerDefenseView){
-		this.towerDefenseView = towerDefenseView;
+	public GameStatistics(){
 	}
 
 	public void decrementLives(){
 		lives -= 1;
-		towerDefenseView.refreshButtons();
 	}
 
 	public void decrementMoney(int amountSpent){
 		money -= amountSpent;
-		towerDefenseView.refreshButtons();
 	}
 
 	public void incrementRound(){
 		round += 1;
-		towerDefenseView.refreshButtons();
 	}
 
 	public int getRound() {
@@ -43,10 +38,8 @@ public class GameStatistics {
 		this.currentGameRound = new GameRound(this.round);
 	}
 
-
 	public void incrementMoney(int amountSpent){
 		money += amountSpent;
-		towerDefenseView.refreshButtons();
 	}
 
 }

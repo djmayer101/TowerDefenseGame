@@ -23,7 +23,7 @@ public class TowerDefenseActivity extends Activity{
 		view = factory.inflate(R.layout.main, null);
 		setContentView(view);
 
-		towerDefenseView = (TowerDefenseView) this.findViewById(R.id.ll_absolute);
+		towerDefenseView = (TowerDefenseView) this.findViewById(R.id.tower_defense_view);
 		towerDefenseView.setTowerDefenseActivity(this);
 
 		view.setFocusable(true);

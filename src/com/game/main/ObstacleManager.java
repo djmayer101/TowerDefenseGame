@@ -7,6 +7,11 @@ public class ObstacleManager {
 	public ConcurrentHashMap<PixelPoint,Tower> towersHash = new ConcurrentHashMap<PixelPoint,Tower>();
 	public ConcurrentHashMap<GridPoint,Object> obstaclesHash = new ConcurrentHashMap<GridPoint,Object>();
 	public CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<Tower>();
+	
+	public CopyOnWriteArrayList<BasicEnemy> basicEnemies = new CopyOnWriteArrayList<BasicEnemy>();
+
+	public CopyOnWriteArrayList <CannonBall> cannonBalls = new CopyOnWriteArrayList <CannonBall>();
+	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
 
 	public ObstacleManager(){}
 

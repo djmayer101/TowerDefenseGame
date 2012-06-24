@@ -1,33 +1,31 @@
 package com.game.main;
 
-import com.game.main.Constants.DrawObject;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class SpriteDrawer {
-	private Bitmap basicTowerImage;
-	private Bitmap basicEnemyImage;
-	private Bitmap iceEnemyImage;
-	private Bitmap cannonBallImage;
-	private Bitmap cannonBallExplosionImage;
-	private Bitmap cursorImage;
+public class Sprites {
+	protected Bitmap basicTowerImage;
+	protected Bitmap basicEnemyImage;
+	protected Bitmap iceEnemyImage;
+	protected Bitmap cannonBallImage;
+	protected Bitmap cannonBallExplosionImage;
+	protected Bitmap cursorImage;
 
-	private Paint mBitmapPaint = new Paint();
-	private Context context;
-	private Bitmap borderTerrainTile;
-	private Bitmap GRASS_1TerrainTile;
-	private Bitmap GRASS_2TerrainTile;
-	private Bitmap startTerrainTile;
-	private Bitmap endTerrainTile;
-	private Bitmap heavyTowerImage;
-	private Bitmap fastTowerImage;
+	protected Paint mBitmapPaint = new Paint();
+	protected Context context;
+	protected Bitmap borderTerrainTile;
+	protected Bitmap GRASS_1TerrainTile;
+	protected Bitmap GRASS_2TerrainTile;
+	protected Bitmap startTerrainTile;
+	protected Bitmap endTerrainTile;
+	protected Bitmap heavyTowerImage;
+	protected Bitmap fastTowerImage;
 
-	public SpriteDrawer(Context context){
+	public Sprites(Context context){
 		this.context = context;
+
 		basicTowerImage = getImage(R.drawable.awesome_castle);
 		basicTowerImage = Bitmap.createScaledBitmap( basicTowerImage, Constants.OBJECT_CELL_SIDE_LENGTH, Constants.OBJECT_CELL_SIDE_LENGTH, false);
 		
@@ -69,44 +67,7 @@ public class SpriteDrawer {
 		endTerrainTile = Bitmap.createScaledBitmap( endTerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
 	}
 
-	protected Bitmap getImage(int id) {
+	private Bitmap getImage(int id) {
 		return BitmapFactory.decodeResource(context.getResources(), id);
-	}
-
-	public void drawGameObject(Canvas canvas, PixelPoint location, DrawObject drawObject){
-		Bitmap image;
-		switch (drawObject) {
-		case CURSOR:				image = cursorImage;
-		break;
-		case BASIC_TOWER:			image = basicTowerImage;
-		break;
-		case HEAVY_TOWER:			image = heavyTowerImage;
-		break;
-		case FAST_TOWER:			image = fastTowerImage;
-		break;
-		case CANNON_BALL:			image = cannonBallImage;
-		break;
-		case CANNON_BALL_EXPLOSION:	image = cannonBallExplosionImage;
-		break;
-		case BASIC_ENEMY:			image = basicEnemyImage;
-		break;
-		case ICE_ENEMY:				image = iceEnemyImage;
-		break;
-		case GRASSTILE_1:			image = GRASS_1TerrainTile;
-		break;
-		case GRASSTILE_2:			image = GRASS_2TerrainTile;
-		break;
-		case BORDERTILE:			image = borderTerrainTile;
-		break;
-		case STARTTILE:				image = startTerrainTile;
-		break;
-		case ENDTILE:				image = endTerrainTile;
-		break;
-		default:					image = null;
-		}
-		if(image==null){
-			//error
-		}
-		canvas.drawBitmap(image, location.x, location.y, mBitmapPaint);
 	}
 }

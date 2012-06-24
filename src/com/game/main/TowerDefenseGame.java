@@ -1,12 +1,6 @@
 package com.game.main;
 
-
-import android.util.Log;
-import android.widget.Toast;
-
 import com.game.main.Constants.TowerType;
-
-
 
 public class TowerDefenseGame{
 
@@ -14,13 +8,13 @@ public class TowerDefenseGame{
 	private boolean inround = false;
 	
 	private TowerDefenseView towerDefenseView;
-	private SpriteDrawer spriteDrawer;
 	private ObstacleManager obstacleManager;
 	private TerrainMap terrainMap;
 	private PathBuilder pathBuilder;
 	private GameStatistics gameStatistics;
-	private GameEngine gameEngine;
+	private PhysicsEngine gameEngine;
 	private UpdateTaskManager updateTaskManager;
+	private SpriteEngine spriteEngine;
 
 	public TowerDefenseGame(TowerDefenseView towerDefenseView, GameStatistics gameStatistics) {
 		this.towerDefenseView = towerDefenseView;
@@ -29,17 +23,16 @@ public class TowerDefenseGame{
 	}
 
 	private void initializeClasses() {
-		spriteDrawer = new SpriteDrawer(towerDefenseView.getContext());
+
 		obstacleManager = new ObstacleManager();
 		terrainMap = new TerrainMap(towerDefenseView.getWidth(), towerDefenseView.getHeight(), obstacleManager);
 		terrainMap.setFocus(new PixelPoint(Constants.GRID_SQUARE_SIZE,Constants.GRID_SQUARE_SIZE));
 		pathBuilder = new PathBuilder(terrainMap,obstacleManager);
-		gameEngine = new GameEngine(terrainMap,spriteDrawer,pathBuilder,obstacleManager,gameStatistics,this);
+		spriteEngine = new SpriteEngine(towerDefenseView.getContext(),obstacleManager,terrainMap);
+		gameEngine = new PhysicsEngine(terrainMap,pathBuilder,obstacleManager,gameStatistics,this);
 		updateTaskManager = new UpdateTaskManager(towerDefenseView, this);
 
 	}
-
-
 
 	void pauseOrStartRoundClicked() {
 		if (ingame){
@@ -85,13 +78,11 @@ public class TowerDefenseGame{
 		towerDefenseView.showGameOver();
 	}
 
-
 	void buildTowerClicked(TowerType towerType) {
 		boolean built = gameEngine.buildTowerClicked(towerType);
 		if(built){
 			towerDefenseView.showUpgradeView();
 		}
-
 	}
 
 	protected void updatePhysics() {
@@ -108,13 +99,12 @@ public class TowerDefenseGame{
 		return gameStatistics;
 	}
 
-	public GameEngine getGameEngine() {
+	public PhysicsEngine getGameEngine() {
 		return gameEngine;
 	}
 
 	public void setIngame(boolean b) {
 		ingame = b;
-
 	}
 
 	public UpdateTaskManager getUpdateTaskManager() {
@@ -158,8 +148,10 @@ public class TowerDefenseGame{
 		Tower tower = obstacleManager.towersHash.get(terrainMap.getFocus());
 		gameEngine.sellTowerClicked(tower);
 		towerDefenseView.showBuildView();
+	}
 
-		
+	public SpriteEngine getSpriteEngine() {
+		return spriteEngine;
 	}
 
 }

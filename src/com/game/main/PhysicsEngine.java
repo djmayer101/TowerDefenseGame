@@ -3,16 +3,12 @@ package com.game.main;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
-import com.game.main.Constants.DrawObject;
-import com.game.main.Constants.TowerType;
-
-import android.graphics.Canvas;
 
 
-public class GameEngine {
+
+public class PhysicsEngine {
 
 	private TerrainMap terrainMap;
-	private SpriteDrawer spriteDrawer;
 	private PathBuilder pathBuilder;
 	private ObstacleManager obstacleManager;
 	private GameStatistics gameStatistics;
@@ -24,80 +20,18 @@ public class GameEngine {
 	GridPoint enemyStartPoint = Constants.SPAWN_POINT;
 	GridPoint enemyEndPoint = Constants.END_POINT;
 
-
-	public CopyOnWriteArrayList<BasicEnemy> basicEnemies = new CopyOnWriteArrayList<BasicEnemy>();
-
-	public CopyOnWriteArrayList <CannonBall> cannonBalls = new CopyOnWriteArrayList <CannonBall>();
-	CopyOnWriteArrayList<CannonBall> finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
-
 	private CopyOnWriteArrayList<GridPoint> path;
 	private TowerDefenseGame towerDefenseGame;
 
 
-	public GameEngine(TerrainMap terrainMap, SpriteDrawer mySpriteDrawer, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics, TowerDefenseGame towerDefenseGame){
+	public PhysicsEngine(TerrainMap terrainMap, PathBuilder myPathBuilder, ObstacleManager myObstacleManager, GameStatistics gameStatistics, TowerDefenseGame towerDefenseGame){
 		this.terrainMap = terrainMap;
-		this.spriteDrawer = mySpriteDrawer;
 		this.pathBuilder = myPathBuilder;
 		this.obstacleManager = myObstacleManager;
 		this.gameStatistics = gameStatistics;
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
 		this.towerDefenseGame = towerDefenseGame;
 		mutex = new Semaphore(1, true);
-	}
-
-
-
-
-	public void drawAll(Canvas canvas) {
-
-		for (int i=0; i<Constants.NUM_COLUMNS; i++){
-			for (int j=0; j<Constants.NUM_ROWS; j++){
-				spriteDrawer.drawGameObject(canvas, new PixelPoint(i*Constants.GRID_SQUARE_SIZE + TowerDefenseView.X_offset, j*Constants.GRID_SQUARE_SIZE  + TowerDefenseView.Y_offset), terrainMap.worldTerrainGrid[i][j]);
-			}
-		}
-		for (Tower tower:obstacleManager.towers){
-			PixelPoint location = new PixelPoint(tower.getLocation());
-			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
-			if (tower.getTowerType() == TowerType.BASIC){
-				spriteDrawer.drawGameObject(canvas,location, DrawObject.BASIC_TOWER);
-			}
-			else if(tower.getTowerType() == TowerType.HEAVY){
-				spriteDrawer.drawGameObject(canvas,location, DrawObject.HEAVY_TOWER);
-			}
-			else if(tower.getTowerType() == TowerType.FAST){
-				spriteDrawer.drawGameObject(canvas,location, DrawObject.FAST_TOWER);
-			}
-
-		}
-		for (BasicEnemy enemy:basicEnemies){
-			PixelPoint location = new PixelPoint(enemy.getLocation());
-			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
-			Constants.DrawObject drawObject;
-			switch(enemy.getType()){
-			case	BASIC:	drawObject = DrawObject.BASIC_ENEMY;	
-			break;
-			case	ICE:	drawObject = DrawObject.ICE_ENEMY;	
-			break;	
-			default:	drawObject = DrawObject.BASIC_ENEMY;
-			}
-			spriteDrawer.drawGameObject(canvas,location, drawObject);
-
-		}
-		for (CannonBall cannonBall: cannonBalls){
-			PixelPoint location = new PixelPoint(cannonBall.getLocation());
-			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
-			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL);
-
-		}
-
-		for (CannonBall cannonBall: finishedCannonBalls){
-			PixelPoint location = new PixelPoint(cannonBall.getLocation());
-			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);
-			spriteDrawer.drawGameObject(canvas,location, DrawObject.CANNON_BALL_EXPLOSION);
-
-		}
-		PixelPoint cursor_location = new PixelPoint(terrainMap.getFocus().x+ TowerDefenseView.X_offset,terrainMap.getFocus().y+ TowerDefenseView.Y_offset);
-		spriteDrawer.drawGameObject(canvas,cursor_location, DrawObject.CURSOR);
 	}
 
 	public void updatePhysics() {
@@ -109,7 +43,7 @@ public class GameEngine {
 		try {
 			mutex.acquire();
 			if(isNewTowerBuilt){
-				for (BasicEnemy enemy: basicEnemies){
+				for (BasicEnemy enemy: obstacleManager.basicEnemies){
 					path = pathBuilder.getPath(enemy.getLocation().scaleToGridPoint(), enemyEndPoint);
 					enemy.updatePath(path);
 				}
@@ -123,12 +57,12 @@ public class GameEngine {
 
 
 		ArrayList<BasicEnemy> finishedEnemies = new ArrayList<BasicEnemy>();
-		if (basicEnemies.size() == 0 && gameStatistics.currentGameRound.isRoundDeployed() && towerDefenseGame.getInGame()){
+		if (obstacleManager.basicEnemies.size() == 0 && gameStatistics.currentGameRound.isRoundDeployed() && towerDefenseGame.getInGame()){
 			towerDefenseGame.showRoundOver();
 			towerDefenseGame.setIngame(false);
-			cannonBalls.clear();
+			obstacleManager.cannonBalls.clear();
 		}
-		for (BasicEnemy enemy: basicEnemies){
+		for (BasicEnemy enemy: obstacleManager.basicEnemies){
 			enemy.updateLocalGoal();
 			enemy.updateLocation();
 			enemy.updateState();
@@ -151,33 +85,33 @@ public class GameEngine {
 		updateIsNewTowerBuilt(false);
 
 		for (Tower tower: obstacleManager.towers){
-			CannonBall cannonBall = tower.update(basicEnemies);
+			CannonBall cannonBall = tower.update(obstacleManager.basicEnemies);
 			if(cannonBall != null){
-				cannonBalls.add(cannonBall);
+				obstacleManager.cannonBalls.add(cannonBall);
 			}
 		}
-		finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
-		for (CannonBall cannonBall: cannonBalls){
+		obstacleManager.finishedCannonBalls = new CopyOnWriteArrayList<CannonBall>();
+		for (CannonBall cannonBall: obstacleManager.cannonBalls){
 			cannonBall.updateLocation();
 			cannonBall.updateState();
 			if (cannonBall.getState() == Constants.State.DONE){
 				explodeCannonBall(cannonBall);
-				finishedCannonBalls.add(cannonBall);
+				obstacleManager.finishedCannonBalls.add(cannonBall);
 			}
 		}
 
 
 		for (BasicEnemy enemy: finishedEnemies){
-			basicEnemies.remove(enemy);
+			obstacleManager.basicEnemies.remove(enemy);
 		}
-		for (CannonBall cannonBall : finishedCannonBalls){
-			cannonBalls.remove(cannonBall);
+		for (CannonBall cannonBall : obstacleManager.finishedCannonBalls){
+			obstacleManager.cannonBalls.remove(cannonBall);
 
 		}
 	}
 
 	private void explodeCannonBall(CannonBall cannonBall){
-		for (BasicEnemy enemy: basicEnemies){
+		for (BasicEnemy enemy: obstacleManager.basicEnemies){
 			double distanceSquared = TerrainMap.calculateDistanceSquared(enemy.getLocation(), cannonBall.getLocation());
 			if (distanceSquared < Constants.CANNONBALL_EXPLOSION_RADIUS_SQUARED){
 				enemy.reduceHeath(cannonBall.getDamage());
@@ -188,7 +122,7 @@ public class GameEngine {
 	private void addEnemy(BasicEnemy myEnemy){
 		path = pathBuilder.getPath(enemyStartPoint,enemyEndPoint);
 		myEnemy.updatePath(path);
-		basicEnemies.add(myEnemy);
+		obstacleManager.basicEnemies.add(myEnemy);
 	}
 
 	public PixelPoint computeNearestTowerLocation(PixelPoint p) {
@@ -227,7 +161,7 @@ public class GameEngine {
 
 	public boolean checkPaths(){
 		boolean impossibru= false;
-		for (BasicEnemy enemy: basicEnemies){
+		for (BasicEnemy enemy: obstacleManager.basicEnemies){
 			path = pathBuilder.getPath(enemy.getLocation().scaleToGridPoint(), enemyEndPoint);
 			if(path.size() == 0){
 				impossibru = true;

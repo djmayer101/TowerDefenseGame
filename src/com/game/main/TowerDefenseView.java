@@ -11,10 +11,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 public class TowerDefenseView extends LinearLayout {
 
@@ -39,7 +38,7 @@ public class TowerDefenseView extends LinearLayout {
 
 	public TowerDefenseView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		gameStatistics = new GameStatistics(this);
+		gameStatistics = new GameStatistics();
 		buttonsWrapper = new ButtonsWrapper(getContext(),towerDefenseGame,gameStatistics);
 		this.addView(buttonsWrapper.getButtons());
 		gameStartedMutex = new Semaphore(1, true);
@@ -73,7 +72,8 @@ public class TowerDefenseView extends LinearLayout {
 	protected void onDraw(Canvas canvas) 
 	{
 		super.dispatchDraw(canvas);
-		towerDefenseGame.getGameEngine().drawAll(canvas);
+		buttonsWrapper.refreshButtons();
+		towerDefenseGame.getSpriteEngine().drawAll(canvas);
 	}
 	
 	
