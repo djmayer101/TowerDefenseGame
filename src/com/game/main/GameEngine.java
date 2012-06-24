@@ -196,14 +196,8 @@ public class GameEngine {
 		return towerLocation;
 	}
 
-	public void tileClicked(PixelPoint location) {
-		if(obstacleManager.isObstacleAt(location.scaleToGridPoint()) == false){
-			terrainMap.setFocus(computeNearestTowerLocation(location));
-		}
-	}
-
 	public boolean buildTowerClicked(Constants.TowerType towerType){
-		boolean impossibru = false;
+		boolean impossibru = true;
 		if ((obstacleManager.isTowerAt(terrainMap.getFocus()) == false) ){
 			if(gameStatistics.getMoney() >= Tower.getTowerCost(towerType)){
 				Tower tower = new Tower(terrainMap.getFocus(), towerType);
@@ -245,6 +239,12 @@ public class GameEngine {
 			impossibru = true;
 		}
 		return impossibru;
+	}
+
+
+	public void sellTowerClicked(Tower tower) {
+		gameStatistics.incrementMoney(Tower.getTowerCost(tower.getTowerType()));
+		obstacleManager.remove(tower);
 	}
 
 }

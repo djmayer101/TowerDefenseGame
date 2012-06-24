@@ -1,6 +1,9 @@
 package com.game.main;
 
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.game.main.Constants.TowerType;
 
 
@@ -60,6 +63,22 @@ public class TowerDefenseGame{
 		
 
 	}
+	public boolean isfocusOnTower(){
+		return obstacleManager.towersHash.containsKey(terrainMap.getFocus());
+	}
+	
+	public void focusChanged(PixelPoint unprocessedFocus){
+		if(obstacleManager.isObstacleAt(unprocessedFocus.scaleToGridPoint()) == false){
+			PixelPoint newFocus = gameEngine.computeNearestTowerLocation(unprocessedFocus);
+			terrainMap.setFocus(newFocus);
+			if (obstacleManager.towersHash.containsKey(newFocus)){
+				towerDefenseView.showUpgradeView();
+			}
+			else{
+				towerDefenseView.showBuildView();
+			}
+		}
+	}
 
 	public void gameOver() {
 		ingame = false;
@@ -69,9 +88,10 @@ public class TowerDefenseGame{
 
 	void buildTowerClicked(TowerType towerType) {
 		boolean built = gameEngine.buildTowerClicked(towerType);
-		if(!built){
-			//todo - flash focus red or something
+		if(built){
+			towerDefenseView.showUpgradeView();
 		}
+
 	}
 
 	protected void updatePhysics() {
@@ -115,16 +135,30 @@ public class TowerDefenseGame{
 
 	public void killedEnemy(BasicEnemy enemy) {
 		gameStatistics.incrementMoney(enemy.value());
-
 	}
 
 	public void showTowerUpgradeOptions() {
 		towerDefenseView.showTowerUpgradeOptions();
-		
 	}
 
 	public void showMenu() {
 		towerDefenseView.showMenu();
+	}
+
+	public void toggleBuildAndUpgradeButtonClicked() {
+		towerDefenseView.toggleBuildAndUpgradeButtonClicked();
+	}
+
+	public void showSellTowerDialog() {
+		towerDefenseView.showSellTowerDialog();
+		
+	}
+
+	public void sellTower() {
+		Tower tower = obstacleManager.towersHash.get(terrainMap.getFocus());
+		gameEngine.sellTowerClicked(tower);
+		towerDefenseView.showBuildView();
+
 		
 	}
 

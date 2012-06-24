@@ -11,8 +11,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TowerDefenseView extends LinearLayout {
 
@@ -30,9 +32,9 @@ public class TowerDefenseView extends LinearLayout {
 	private TowerDefenseGame towerDefenseGame;
 	private TowerDefenseActivity towerDefenseActivity;
 
-	private GameEngine gameEngine;
 	private ButtonsWrapper buttonsWrapper;
 	private GameStatistics gameStatistics;
+	private boolean keepBuildAndUpgradeHidden = false;
 
 
 	public TowerDefenseView(Context context, AttributeSet attrs) {
@@ -58,7 +60,6 @@ public class TowerDefenseView extends LinearLayout {
 
 		if(!gameStarted){
 			towerDefenseGame = new TowerDefenseGame(this,gameStatistics);
-			gameEngine = towerDefenseGame.getGameEngine();
 			buttonsWrapper.setTowerDefenseGame(towerDefenseGame);
 			setGameStarted(true);
 		}
@@ -74,7 +75,8 @@ public class TowerDefenseView extends LinearLayout {
 		super.dispatchDraw(canvas);
 		towerDefenseGame.getGameEngine().drawAll(canvas);
 	}
-
+	
+	
 	public boolean onTouchEvent(MotionEvent event){
 
 		int size;
@@ -106,10 +108,11 @@ public class TowerDefenseView extends LinearLayout {
 				Y_offset = this.screen_height-Constants.WORLD_HEIGHT;
 			}
 			break;
-		default:
-			if (event.getAction() == MotionEvent.ACTION_DOWN){
-				gameEngine.tileClicked(new PixelPoint((int) event.getX()-X_offset,(int)event.getY()-Y_offset));
-			}
+		case MotionEvent.ACTION_DOWN:
+			PixelPoint newFocus = new PixelPoint((int) event.getX()-X_offset,(int)event.getY()-Y_offset);
+			towerDefenseGame.focusChanged(newFocus);
+			break;
+
 		}
 		return true;
 	}
@@ -123,8 +126,7 @@ public class TowerDefenseView extends LinearLayout {
 			}
 		});
 	}
-	
-	// This gets executed in a non-UI thread:
+
 	public void togglePausePlayButtons() {
 		mHandler.post(new Runnable() {
 			public void run() {
@@ -132,6 +134,9 @@ public class TowerDefenseView extends LinearLayout {
 			}
 		});
 	}
+
+
+
 
 	public void showGameOver() {
 		mHandler.post(new Runnable() {
@@ -214,11 +219,11 @@ public class TowerDefenseView extends LinearLayout {
 				alert.show();
 			}
 		});
-		
+
 	}
 
 	public void showMenu() {
-		
+
 		mHandler.post(new Runnable() {
 			public void run() {
 				TextView myMsg = new TextView(getContext());
@@ -240,7 +245,85 @@ public class TowerDefenseView extends LinearLayout {
 				alert.show();
 			}
 		});
-		
+
+	}
+
+	public void showUpgradeView() {
+		if(buttonsWrapper.isShowingUpgradeView() == false && keepBuildAndUpgradeHidden == false){
+			if (buttonsWrapper.isShowingBuildView()){
+				buttonsWrapper.hideBuildView();
+			}
+			buttonsWrapper.showUpgradeView();
+		}
+
+	}
+
+	public void showBuildView() {
+
+		if(buttonsWrapper.isShowingBuildView() == false && keepBuildAndUpgradeHidden == false){
+			if (buttonsWrapper.isShowingUpgradeView()){
+				buttonsWrapper.hideUpgradeView();
+			}
+			buttonsWrapper.showBuildView();
+		}
+	}
+
+	public void hideBuildAndUpgradeViews(){
+		if (buttonsWrapper.isShowingBuildView()){
+			buttonsWrapper.hideBuildView();
+		}
+		else{
+			buttonsWrapper.hideUpgradeView();
+		}
+
+		keepBuildAndUpgradeHidden = true;
+	}
+
+	public void showBuildAndUpgradeViews(){
+		keepBuildAndUpgradeHidden = false;
+		if(towerDefenseGame.isfocusOnTower()){
+			showUpgradeView();
+		}
+		else{
+			showBuildView();
+		}
+
+	}
+
+	public void toggleBuildAndUpgradeButtonClicked() {
+		if (keepBuildAndUpgradeHidden){
+			showBuildAndUpgradeViews();
+
+		}
+		else{
+			hideBuildAndUpgradeViews();
+		}
+
+	}
+
+	public void showSellTowerDialog() {
+		mHandler.post(new Runnable() {
+			public void run() {
+				TextView myMsg = new TextView(getContext());
+				myMsg.setText("Sell Tower?");
+				myMsg.setGravity(Gravity.CENTER_HORIZONTAL);
+				AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+				builder.setView(myMsg)
+				.setCancelable(false)
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						towerDefenseGame.sellTower();
+					}
+				})
+				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+					}
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
+
 	}
 
 

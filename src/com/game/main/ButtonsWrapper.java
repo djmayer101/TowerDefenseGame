@@ -27,8 +27,9 @@ public class ButtonsWrapper {
 	private ImageButton pauseButton;
 	private Bitmap pauseImage;
 	private boolean showingPaused = false;
+	private boolean isShowingUpgradeView = false;
 	private Bitmap startImage;
-	private RelativeLayout towerSelectorView;
+	private RelativeLayout towerBuildView;
 	private ImageButton towerSelectorToggleButton;
 	private int buildTowerId;
 	private ImageButton upgradeTowerButton;
@@ -40,7 +41,11 @@ public class ButtonsWrapper {
 	private RelativeLayout infoView;
 	private int buildFastTowerId;
 	private int pauseButtonId;
-	
+	private RelativeLayout towerUpgradeView;
+	private ImageButton sellTowerButton;
+	private int upgradeTowerButtonId;
+	private boolean isShowingBuildView = true;
+
 	public ButtonsWrapper(Context context, TowerDefenseGame towerDefenseGame,GameStatistics gameStatistics){
 		this.context = context;
 		this.towerDefenseGame = towerDefenseGame;
@@ -53,16 +58,16 @@ public class ButtonsWrapper {
 	private void initializeButtons() {
 
 		initializeTowerSelectorView();
+		initializeTowerUpgradeView();
 		initializeTowerSelectorToggleButton();
-		initializeTowerUpgradeButton();
 		initializePauseButton();
 		initializeInfoView();
 
 		buttons.addView(infoView);
 		buttons.addView(pauseButton);
 		buttons.addView(towerSelectorToggleButton);
-		buttons.addView(upgradeTowerButton);
-		buttons.addView(towerSelectorView);
+		buttons.addView(towerBuildView);
+		buttons.addView(towerUpgradeView);
 	}
 
 
@@ -208,34 +213,8 @@ public class ButtonsWrapper {
 
 
 		});
-
-
 	}
 
-	private void initializeTowerUpgradeButton() {
-		upgradeTowerButton= new ImageButton(context);
-		Bitmap upgradeImage = getImage(R.drawable.upgrade_tower_button);
-		upgradeImage = Bitmap.createScaledBitmap( upgradeImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
-		upgradeTowerButton.setImageBitmap(upgradeImage);
-		upgradeTowerButton.setBackgroundResource(0);
-
-
-		LayoutParams upgradeTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		upgradeTowerButtonLayout.addRule(RelativeLayout.ABOVE,buildTowerId);
-		upgradeTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-		upgradeTowerButton.setLayoutParams(upgradeTowerButtonLayout);
-
-		upgradeTowerButton.setOnClickListener(new OnClickListener() {            
-			public void onClick(View v) {
-
-				towerDefenseGame.showTowerUpgradeOptions();
-			}
-		});
-
-
-
-
-	}
 
 	private void initializeTowerSelectorToggleButton() {
 
@@ -255,38 +234,7 @@ public class ButtonsWrapper {
 
 		towerSelectorToggleButton.setOnClickListener(new OnClickListener() {            
 			public void onClick(View v) {
-
-				if(towerSelectorView.getVisibility() == View.GONE){
-					towerSelectorView.setVisibility(View.VISIBLE);
-					TranslateAnimation a = new TranslateAnimation(
-							Animation.RELATIVE_TO_SELF,
-							0.0f,
-							Animation.RELATIVE_TO_SELF,
-							0.0f,
-							Animation.RELATIVE_TO_SELF,
-							1.0f,
-							Animation.RELATIVE_TO_SELF,
-							0.0f);
-
-					a.setDuration(500);
-					towerSelectorView.startAnimation(a);
-				}else{
-
-					TranslateAnimation a = new TranslateAnimation(
-							Animation.RELATIVE_TO_SELF,
-							0.0f,
-							Animation.RELATIVE_TO_SELF,
-							0.0f,
-							Animation.RELATIVE_TO_SELF,
-							0.0f,
-							Animation.RELATIVE_TO_SELF,
-							1.0f);
-					a.setDuration(500);
-					towerSelectorView.startAnimation(a);
-					towerSelectorView.setVisibility(View.GONE);
-				}
-
-
+				towerDefenseGame.toggleBuildAndUpgradeButtonClicked();
 			}
 		});
 
@@ -295,21 +243,82 @@ public class ButtonsWrapper {
 
 	private void initializeTowerSelectorView() {
 		
-		towerSelectorView = new RelativeLayout(context);
+		towerBuildView = new RelativeLayout(context);
 		LayoutParams towerSelectorViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		towerSelectorViewLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		towerSelectorViewLayout.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		towerSelectorView.setLayoutParams(towerSelectorViewLayout);
+		towerBuildView.setLayoutParams(towerSelectorViewLayout);
 		
 		initializeBuildNormalTowerButton();
 		initializeBuildFastTowerButton();
 		initializeBuildHeavyTowerButton();
 		
-		towerSelectorView.addView(buildNormalTowerButton);
-		towerSelectorView.addView(buildFastTowerButton);
-		towerSelectorView.addView(buildHeavyTowerButton);
+		towerBuildView.addView(buildNormalTowerButton);
+		towerBuildView.addView(buildFastTowerButton);
+		towerBuildView.addView(buildHeavyTowerButton);
 
 	}
+	
+private void initializeTowerUpgradeView() {
+		
+		towerUpgradeView = new RelativeLayout(context);
+		LayoutParams towerUpgradeViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		towerUpgradeViewLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		towerUpgradeViewLayout.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		towerUpgradeView.setLayoutParams(towerUpgradeViewLayout);
+		
+		
+		initializeUpgradeTowerButton();
+		initializeSellTowerButton();
+		
+		
+		
+		towerUpgradeView.addView(sellTowerButton);
+		towerUpgradeView.addView(upgradeTowerButton);
+		towerUpgradeView.setVisibility(View.GONE);
+
+	}
+
+	private void initializeUpgradeTowerButton() {
+		upgradeTowerButton= new ImageButton(context);
+		upgradeTowerButtonId = 143497;
+		upgradeTowerButton.setId(upgradeTowerButtonId);
+		Bitmap upgradeTowerButtonImage = getImage(R.drawable.upgrade_tower_button);
+		upgradeTowerButtonImage = Bitmap.createScaledBitmap( upgradeTowerButtonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		upgradeTowerButton.setImageBitmap(upgradeTowerButtonImage);
+
+
+		LayoutParams upgradeTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		upgradeTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		upgradeTowerButton.setLayoutParams(upgradeTowerButtonLayout);
+
+		upgradeTowerButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+				towerDefenseGame.showTowerUpgradeOptions();
+			}
+		});
+	
+}
+
+	private void initializeSellTowerButton() {
+		sellTowerButton= new ImageButton(context);
+		Bitmap sellTowerButtonImage = getImage(R.drawable.sell_tower);
+		sellTowerButtonImage = Bitmap.createScaledBitmap( sellTowerButtonImage, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		sellTowerButton.setImageBitmap(sellTowerButtonImage);
+
+
+		LayoutParams sellTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		sellTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		sellTowerButtonLayout.addRule(RelativeLayout.RIGHT_OF, upgradeTowerButtonId);
+		sellTowerButton.setLayoutParams(sellTowerButtonLayout);
+
+		sellTowerButton.setOnClickListener(new OnClickListener() {            
+			public void onClick(View v) {
+				towerDefenseGame.showSellTowerDialog();
+			}
+		});
+	
+}
 
 	private Bitmap getImage(int id) {
 		return BitmapFactory.decodeResource(context.getResources(), id);
@@ -342,5 +351,86 @@ public class ButtonsWrapper {
 		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
 		roundView.setText("Round: " + gameStatistics.getRound() + " ");
 		Log.e("refreshing buttons", "money: " + gameStatistics.getMoney() + moneyView.getText());
+	}
+
+
+	public boolean isShowingUpgradeView() {
+		return isShowingUpgradeView;
+	}
+	
+	public boolean isShowingBuildView() {
+		return isShowingBuildView;
+	}
+
+	public void hideBuildView(){
+		isShowingBuildView = false;
+		towerBuildView.setClickable(false);
+		TranslateAnimation a = new TranslateAnimation(
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				1.0f);
+		a.setDuration(200);
+		towerBuildView.startAnimation(a);
+		towerBuildView.setVisibility(View.GONE);
+	}
+	
+	public void showBuildView() {
+		isShowingBuildView = true;
+		//towerBuildView.setClickable(true);
+		towerBuildView.setVisibility(View.VISIBLE);
+		TranslateAnimation a = new TranslateAnimation(
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				1.0f,
+				Animation.RELATIVE_TO_SELF,
+				0.0f);
+
+		a.setDuration(200);
+		towerBuildView.startAnimation(a);
+
+	}
+	
+	public void hideUpgradeView(){
+		isShowingUpgradeView = false;
+		towerUpgradeView.setClickable(false);
+		TranslateAnimation b = new TranslateAnimation(
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				1.0f);
+		b.setDuration(200);
+		towerUpgradeView.startAnimation(b);
+		towerUpgradeView.setVisibility(View.GONE);
+	}
+
+	public void showUpgradeView() {
+		isShowingUpgradeView = true;
+		//towerUpgradeView.setClickable(true);
+		towerUpgradeView.setVisibility(View.VISIBLE);
+		TranslateAnimation b = new TranslateAnimation(
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				0.0f,
+				Animation.RELATIVE_TO_SELF,
+				1.0f,
+				Animation.RELATIVE_TO_SELF,
+				0.0f);
+
+		b.setDuration(200);
+		towerUpgradeView.startAnimation(b);
+		
 	}
 }
