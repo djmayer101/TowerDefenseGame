@@ -146,13 +146,44 @@ public class TowerDefenseGame{
 	}
 
 	public void sellTower() {
-		Tower tower = obstacleManager.towersHash.get(terrainMap.getFocus());
+		Tower tower = getCurrentTower();
 		gameEngine.sellTowerClicked(tower);
 		towerDefenseView.showBuildView();
 	}
 
 	public SpriteEngine getSpriteEngine() {
 		return spriteEngine;
+	}
+
+	public void upgradeTowerRange() {
+		Tower tower = getCurrentTower();
+		if(gameStatistics.getMoney() >= Constants.RANGE_UPGRADE_COST){
+			tower.incrementRange();
+			gameStatistics.decrementMoney(Constants.RANGE_UPGRADE_COST);
+		}
+		else{
+			//not enought money msg
+		}
+	}
+
+	public Tower getCurrentTower() {
+		return obstacleManager.towersHash.get(terrainMap.getFocus());
+	}
+
+	public void upgradeTowerCoolDown() {
+		Tower tower = getCurrentTower();
+		if(gameStatistics.getMoney() >= Constants.COOL_DOWN_UPGRADE_COST){
+			if(tower.decrementCoolDown()){
+				gameStatistics.decrementMoney(Constants.COOL_DOWN_UPGRADE_COST);
+			}
+			else{
+				//cooldown maxed
+			}
+		}
+		else{
+			//not enought money msg
+		}
+		
 	}
 	
 

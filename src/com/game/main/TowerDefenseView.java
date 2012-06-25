@@ -208,11 +208,14 @@ public class TowerDefenseView extends LinearLayout {
 				.setCancelable(false)
 				.setPositiveButton("shoot farther", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						//towerDefenseGame.buildTowerClicked();
+						towerDefenseGame.upgradeTowerRange();
+						buttonsWrapper.refreshTowerInfo(towerDefenseGame.getCurrentTower());
 					}
 				})
 				.setNegativeButton("shoot faster", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
+						towerDefenseGame.upgradeTowerCoolDown();
+						buttonsWrapper.refreshTowerInfo(towerDefenseGame.getCurrentTower());
 					}
 				});
 				AlertDialog alert = builder.create();
