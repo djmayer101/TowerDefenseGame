@@ -65,7 +65,7 @@ public class TowerDefenseGame{
 			PixelPoint newFocus = gameEngine.computeNearestTowerLocation(unprocessedFocus);
 			terrainMap.setFocus(newFocus);
 			if (obstacleManager.towersHash.containsKey(newFocus)){
-				towerDefenseView.showUpgradeView();
+				towerDefenseView.showUpgradeView(obstacleManager.towersHash.get(newFocus));
 			}
 			else{
 				towerDefenseView.showBuildView();
@@ -79,9 +79,10 @@ public class TowerDefenseGame{
 	}
 
 	void buildTowerClicked(TowerType towerType) {
-		boolean built = gameEngine.buildTowerClicked(towerType);
+		Tower tower = new Tower(terrainMap.getFocus(), towerType);
+		boolean built = gameEngine.buildTowerClicked(tower);
 		if(built){
-			towerDefenseView.showUpgradeView();
+			towerDefenseView.showUpgradeView(tower);
 		}
 	}
 
@@ -145,7 +146,7 @@ public class TowerDefenseGame{
 	}
 
 	public void sellTower() {
-		Tower tower = obstacleManager.towersHash.get(terrainMap.getFocus());
+		Tower tower = getCurrentTower();
 		gameEngine.sellTowerClicked(tower);
 		towerDefenseView.showBuildView();
 	}
@@ -153,5 +154,39 @@ public class TowerDefenseGame{
 	public SpriteEngine getSpriteEngine() {
 		return spriteEngine;
 	}
+
+	public void upgradeTowerRange() {
+		Tower tower = getCurrentTower();
+		if(gameStatistics.getMoney() >= Constants.RANGE_UPGRADE_COST){
+			tower.incrementRange();
+			gameStatistics.decrementMoney(Constants.RANGE_UPGRADE_COST);
+		}
+		else{
+			//not enought money msg
+		}
+	}
+
+	public Tower getCurrentTower() {
+		return obstacleManager.towersHash.get(terrainMap.getFocus());
+	}
+
+	public void upgradeTowerCoolDown() {
+		Tower tower = getCurrentTower();
+		if(gameStatistics.getMoney() >= Constants.COOL_DOWN_UPGRADE_COST){
+			if(tower.decrementCoolDown()){
+				gameStatistics.decrementMoney(Constants.COOL_DOWN_UPGRADE_COST);
+			}
+			else{
+				//cooldown maxed
+			}
+		}
+		else{
+			//not enought money msg
+		}
+		
+	}
+	
+
+	
 
 }

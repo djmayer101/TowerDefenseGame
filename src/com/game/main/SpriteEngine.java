@@ -19,12 +19,11 @@ public class SpriteEngine {
 	}
 	
 	public void drawAll(Canvas canvas) {
-
-		for (int i=0; i<Constants.NUM_COLUMNS; i++){
+		/*for (int i=0; i<Constants.NUM_COLUMNS; i++){
 			for (int j=0; j<Constants.NUM_ROWS; j++){
 				drawGameObject(canvas, new PixelPoint(i*Constants.GRID_SQUARE_SIZE + TowerDefenseView.X_offset, j*Constants.GRID_SQUARE_SIZE  + TowerDefenseView.Y_offset), terrainMap.worldTerrainGrid[i][j]);
 			}
-		}
+		}*/
 		for (Tower tower:obstacleManager.towers){
 			PixelPoint location = new PixelPoint(tower.getLocation());
 			location.offset(Constants.IMAGE_OFFSET+ TowerDefenseView.X_offset, Constants.IMAGE_OFFSET+ TowerDefenseView.Y_offset);

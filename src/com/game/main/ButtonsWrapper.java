@@ -5,12 +5,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -41,7 +41,7 @@ public class ButtonsWrapper {
 	private InfoView infoView;
 	private int buildFastTowerId;
 	private int pauseButtonId;
-	private RelativeLayout towerUpgradeView;
+	private LinearLayout towerUpgradeView;
 	private ImageButton sellTowerButton;
 	private int upgradeTowerButtonId;
 	private boolean isShowingBuildView = true;
@@ -198,41 +198,42 @@ public class ButtonsWrapper {
 	}
 
 	private void initializeTowerSelectorView() {
-		
+
 		towerBuildView = new RelativeLayout(context);
 		LayoutParams towerSelectorViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		towerSelectorViewLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		towerSelectorViewLayout.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		towerBuildView.setLayoutParams(towerSelectorViewLayout);
-		
+
 		initializeBuildNormalTowerButton();
 		initializeBuildFastTowerButton();
 		initializeBuildHeavyTowerButton();
-		
+
 		towerBuildView.addView(buildNormalTowerButton);
 		towerBuildView.addView(buildFastTowerButton);
 		towerBuildView.addView(buildHeavyTowerButton);
 
 	}
-	
-private void initializeTowerUpgradeView() {
-		
-		towerUpgradeView = new RelativeLayout(context);
+
+	private void initializeTowerUpgradeView() {
+
+		towerUpgradeView = new LinearLayout(context);
 		LayoutParams towerUpgradeViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		towerUpgradeViewLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		towerUpgradeViewLayout.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		towerUpgradeView.setLayoutParams(towerUpgradeViewLayout);
-		
-		
+
+
 		initializeUpgradeTowerButton();
 		initializeSellTowerButton();
 		initializeSelectedTowerInfoView();
+
+
+
 		
-		
-		
-		towerUpgradeView.addView(sellTowerButton);
 		towerUpgradeView.addView(upgradeTowerButton);
 		towerUpgradeView.addView(towerInfoView);
+		towerUpgradeView.addView(sellTowerButton);
 		towerUpgradeView.setVisibility(View.GONE);
 
 	}
@@ -240,9 +241,10 @@ private void initializeTowerUpgradeView() {
 	private void initializeSelectedTowerInfoView() {
 		towerInfoView= new TextView(context);
 		towerInfoView.setText("Print Dammit");
-		
 
-		
+		towerInfoView.setTextColor(Color.BLACK);
+		towerInfoView.setWidth(150);
+
 
 
 
@@ -250,8 +252,8 @@ private void initializeTowerUpgradeView() {
 		towerInfoViewLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		towerInfoViewLayout.addRule(RelativeLayout.LEFT_OF, upgradeTowerButtonId);
 		towerInfoView.setLayoutParams(towerInfoViewLayout);
-	
-}
+
+	}
 
 	private void initializeUpgradeTowerButton() {
 		upgradeTowerButton= new ImageButton(context);
@@ -272,8 +274,8 @@ private void initializeTowerUpgradeView() {
 				towerDefenseGame.showTowerUpgradeOptions();
 			}
 		});
-	
-}
+
+	}
 
 	private void initializeSellTowerButton() {
 		sellTowerButton= new ImageButton(context);
@@ -292,8 +294,8 @@ private void initializeTowerUpgradeView() {
 				towerDefenseGame.showSellTowerDialog();
 			}
 		});
-	
-}
+
+	}
 
 	private Bitmap getImage(int id) {
 		return BitmapFactory.decodeResource(context.getResources(), id);
@@ -323,13 +325,14 @@ private void initializeTowerUpgradeView() {
 
 	public void refreshButtons(){
 		infoView.refreshButtons();
+		//textInfoView.
 	}
 
 
 	public boolean isShowingUpgradeView() {
 		return isShowingUpgradeView;
 	}
-	
+
 	public boolean isShowingBuildView() {
 		return isShowingBuildView;
 	}
@@ -350,7 +353,7 @@ private void initializeTowerUpgradeView() {
 		towerBuildView.startAnimation(a);
 		towerBuildView.setVisibility(View.GONE);
 	}
-	
+
 	public void showBuildView() {
 		isShowingBuildView = true;
 		//towerBuildView.setClickable(true);
@@ -369,7 +372,7 @@ private void initializeTowerUpgradeView() {
 		towerBuildView.startAnimation(a);
 
 	}
-	
+
 	public void hideUpgradeView(){
 		isShowingUpgradeView = false;
 		towerUpgradeView.setClickable(false);
@@ -403,6 +406,13 @@ private void initializeTowerUpgradeView() {
 
 		b.setDuration(200);
 		towerUpgradeView.startAnimation(b);
+
+	}
+
+	public void refreshTowerInfo(Tower tower) {
+		if(tower != null){
+			towerInfoView.setText(tower.toString());
+		}
 		
 	}
 }

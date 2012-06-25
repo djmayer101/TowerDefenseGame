@@ -67,7 +67,7 @@ public class Tower extends BasicGameObject {
 	}
 
 	public CannonBall update(CopyOnWriteArrayList<BasicEnemy> basicEnemies) {
-		if (coolDownCounter == coolDown){
+		if (coolDownCounter >= coolDown){
 			BasicEnemy nearestEnemy = findNearestEnemy(basicEnemies);
 			coolDownCounter =0;
 			if (nearestEnemy != null){
@@ -104,5 +104,29 @@ public class Tower extends BasicGameObject {
 		break;
 		}
 		return cost;
+	}
+	
+	@Override
+	public String toString(){
+		String towerInfo;
+		towerInfo = towerType + " Tower" + "\nDamage: " 
+				+ damage + "\nRange: " + Math.sqrt(range)/Constants.GRID_SQUARE_SIZE + "\nCool Down: " + coolDown;
+		return towerInfo;
+	}
+
+	public void incrementRange() {
+		range = (int) Math.pow((Math.sqrt(range) + Constants.GRID_SQUARE_SIZE), 2);
+		
+	}
+
+	public boolean decrementCoolDown() {
+		if(coolDown > 1){
+			coolDown = (int) ((double)coolDown*0.9);
+			return true;
+		}
+		else{
+			return false;
+		}
+		
 	}
 }

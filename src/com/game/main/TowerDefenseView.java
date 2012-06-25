@@ -5,7 +5,10 @@ import java.util.concurrent.Semaphore;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -34,6 +37,7 @@ public class TowerDefenseView extends LinearLayout {
 	private ButtonsWrapper buttonsWrapper;
 	private GameStatistics gameStatistics;
 	private boolean keepBuildAndUpgradeHidden = false;
+	private Bitmap backgroundImage;
 
 
 	public TowerDefenseView(Context context, AttributeSet attrs) {
@@ -65,8 +69,14 @@ public class TowerDefenseView extends LinearLayout {
 
 		towerDefenseActivity.setTowerDefenseGame();
 		towerDefenseGame.getUpdateTaskManager().startUpdateTimer();
+		
+		backgroundImage = getImage(R.drawable.fiery_dirt_background);
+		Bitmap localBackgroundImage = Bitmap.createBitmap(backgroundImage,X_offset, Y_offset, 800, 480, null, false);
+		this.setBackgroundDrawable(new BitmapDrawable(localBackgroundImage));
 	}
-
+	private Bitmap getImage(int id) {
+		return BitmapFactory.decodeResource(getContext().getResources(), id);
+	}
 
 	@Override
 	protected void onDraw(Canvas canvas) 
@@ -81,6 +91,7 @@ public class TowerDefenseView extends LinearLayout {
 
 		int size;
 		Log.e("offsets", "x: " + X_offset + " y: " + Y_offset );
+		Bitmap localBackgroundImage;
 		switch(event.getAction()){
 		case MotionEvent.ACTION_MOVE:
 			float initialTouchX = event.getX();
@@ -107,6 +118,9 @@ public class TowerDefenseView extends LinearLayout {
 			if(Y_offset < this.screen_height-Constants.WORLD_HEIGHT){
 				Y_offset = this.screen_height-Constants.WORLD_HEIGHT;
 			}
+			
+			localBackgroundImage = Bitmap.createBitmap(backgroundImage,-X_offset, -Y_offset, 800, 480, null, false);
+			this.setBackgroundDrawable(new BitmapDrawable(localBackgroundImage));
 			break;
 		case MotionEvent.ACTION_DOWN:
 			PixelPoint newFocus = new PixelPoint((int) event.getX()-X_offset,(int)event.getY()-Y_offset);
@@ -208,11 +222,14 @@ public class TowerDefenseView extends LinearLayout {
 				.setCancelable(false)
 				.setPositiveButton("shoot farther", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						//towerDefenseGame.buildTowerClicked();
+						towerDefenseGame.upgradeTowerRange();
+						buttonsWrapper.refreshTowerInfo(towerDefenseGame.getCurrentTower());
 					}
 				})
 				.setNegativeButton("shoot faster", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
+						towerDefenseGame.upgradeTowerCoolDown();
+						buttonsWrapper.refreshTowerInfo(towerDefenseGame.getCurrentTower());
 					}
 				});
 				AlertDialog alert = builder.create();
@@ -248,13 +265,14 @@ public class TowerDefenseView extends LinearLayout {
 
 	}
 
-	public void showUpgradeView() {
+	public void showUpgradeView(Tower tower) {
 		if(buttonsWrapper.isShowingUpgradeView() == false && keepBuildAndUpgradeHidden == false){
 			if (buttonsWrapper.isShowingBuildView()){
 				buttonsWrapper.hideBuildView();
 			}
 			buttonsWrapper.showUpgradeView();
 		}
+		buttonsWrapper.refreshTowerInfo(tower);
 
 	}
 
@@ -282,7 +300,7 @@ public class TowerDefenseView extends LinearLayout {
 	public void showBuildAndUpgradeViews(){
 		keepBuildAndUpgradeHidden = false;
 		if(towerDefenseGame.isfocusOnTower()){
-			showUpgradeView();
+			showUpgradeView(null);
 		}
 		else{
 			showBuildView();

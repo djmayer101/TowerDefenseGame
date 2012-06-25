@@ -87,4 +87,6 @@ public class Constants {
 	public static final int HEAVY_TOWER_COST = 100;
 	public static final int ICE_TOWER_COST = 100;
 	public static final int FIRE_TOWER_COST = 80;
+	public static final int RANGE_UPGRADE_COST = 20;
+	public static final int COOL_DOWN_UPGRADE_COST = 20;
 }

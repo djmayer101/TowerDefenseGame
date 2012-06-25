@@ -3,6 +3,7 @@ package com.game.main;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 
 public class Sprites {
@@ -22,6 +23,7 @@ public class Sprites {
 	protected Bitmap endTerrainTile;
 	protected Bitmap heavyTowerImage;
 	protected Bitmap fastTowerImage;
+	private Bitmap backgroundImage;
 
 	public Sprites(Context context){
 		this.context = context;
@@ -65,6 +67,9 @@ public class Sprites {
 
 		endTerrainTile = getImage(R.drawable.end_square);
 		endTerrainTile = Bitmap.createScaledBitmap( endTerrainTile, Constants.GRID_SQUARE_SIZE, Constants.GRID_SQUARE_SIZE, false);
+		
+
+		
 	}
 
 	private Bitmap getImage(int id) {

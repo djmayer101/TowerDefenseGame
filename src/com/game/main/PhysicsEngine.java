@@ -130,16 +130,15 @@ public class PhysicsEngine {
 		return towerLocation;
 	}
 
-	public boolean buildTowerClicked(Constants.TowerType towerType){
+	public boolean buildTowerClicked(Tower tower){
 		boolean impossibru = true;
 		if ((obstacleManager.isTowerAt(terrainMap.getFocus()) == false) ){
-			if(gameStatistics.getMoney() >= Tower.getTowerCost(towerType)){
-				Tower tower = new Tower(terrainMap.getFocus(), towerType);
+			if(gameStatistics.getMoney() >= Tower.getTowerCost(tower.getTowerType())){
 				obstacleManager.addTower(tower);
 				impossibru = checkPaths();
 				if(!impossibru){
 					updateIsNewTowerBuilt(true);
-					gameStatistics.decrementMoney(Tower.getTowerCost(towerType));
+					gameStatistics.decrementMoney(Tower.getTowerCost(tower.getTowerType()));
 				}
 				else {
 					obstacleManager.remove(tower);
