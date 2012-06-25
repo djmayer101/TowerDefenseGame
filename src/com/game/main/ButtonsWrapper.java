@@ -240,7 +240,6 @@ private void initializeTowerUpgradeView() {
 	private void initializeSelectedTowerInfoView() {
 		towerInfoView= new TextView(context);
 		towerInfoView.setText("Print Dammit");
-		towerInfoView.setWidth(100);
 		
 
 		
