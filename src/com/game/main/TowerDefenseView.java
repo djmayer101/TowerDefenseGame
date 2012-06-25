@@ -248,13 +248,14 @@ public class TowerDefenseView extends LinearLayout {
 
 	}
 
-	public void showUpgradeView() {
+	public void showUpgradeView(Tower tower) {
 		if(buttonsWrapper.isShowingUpgradeView() == false && keepBuildAndUpgradeHidden == false){
 			if (buttonsWrapper.isShowingBuildView()){
 				buttonsWrapper.hideBuildView();
 			}
 			buttonsWrapper.showUpgradeView();
 		}
+		buttonsWrapper.refreshTowerInfo(tower);
 
 	}
 
@@ -282,7 +283,7 @@ public class TowerDefenseView extends LinearLayout {
 	public void showBuildAndUpgradeViews(){
 		keepBuildAndUpgradeHidden = false;
 		if(towerDefenseGame.isfocusOnTower()){
-			showUpgradeView();
+			showUpgradeView(null);
 		}
 		else{
 			showBuildView();

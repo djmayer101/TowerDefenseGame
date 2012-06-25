@@ -65,7 +65,7 @@ public class TowerDefenseGame{
 			PixelPoint newFocus = gameEngine.computeNearestTowerLocation(unprocessedFocus);
 			terrainMap.setFocus(newFocus);
 			if (obstacleManager.towersHash.containsKey(newFocus)){
-				towerDefenseView.showUpgradeView();
+				towerDefenseView.showUpgradeView(obstacleManager.towersHash.get(newFocus));
 			}
 			else{
 				towerDefenseView.showBuildView();
@@ -79,9 +79,10 @@ public class TowerDefenseGame{
 	}
 
 	void buildTowerClicked(TowerType towerType) {
-		boolean built = gameEngine.buildTowerClicked(towerType);
+		Tower tower = new Tower(terrainMap.getFocus(), towerType);
+		boolean built = gameEngine.buildTowerClicked(tower);
 		if(built){
-			towerDefenseView.showUpgradeView();
+			towerDefenseView.showUpgradeView(tower);
 		}
 	}
 
@@ -153,5 +154,8 @@ public class TowerDefenseGame{
 	public SpriteEngine getSpriteEngine() {
 		return spriteEngine;
 	}
+	
+
+	
 
 }

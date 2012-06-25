@@ -105,4 +105,16 @@ public class Tower extends BasicGameObject {
 		}
 		return cost;
 	}
+	
+	@Override
+	public String toString(){
+		String towerInfo;
+		towerInfo = towerType + " Tower" + "\nDamage: " 
+				+ damage + "\nRange: " + Math.sqrt(range)/Constants.GRID_SQUARE_SIZE + "\nCool Down: " + coolDown;
+		
+		
+		
+		return towerInfo;
+		
+	}
 }
