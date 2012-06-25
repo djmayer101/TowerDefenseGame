@@ -38,13 +38,14 @@ public class ButtonsWrapper {
 	private ImageButton buildFastTowerButton;
 	private int buildHeavyTowerId;
 	private ImageButton buildHeavyTowerButton;
-	private RelativeLayout infoView;
+	private InfoView infoView;
 	private int buildFastTowerId;
 	private int pauseButtonId;
 	private RelativeLayout towerUpgradeView;
 	private ImageButton sellTowerButton;
 	private int upgradeTowerButtonId;
 	private boolean isShowingBuildView = true;
+	private TextView towerInfoView;
 
 	public ButtonsWrapper(Context context, TowerDefenseGame towerDefenseGame,GameStatistics gameStatistics){
 		this.context = context;
@@ -61,7 +62,7 @@ public class ButtonsWrapper {
 		initializeTowerUpgradeView();
 		initializeTowerSelectorToggleButton();
 		initializePauseButton();
-		initializeInfoView();
+		infoView = new InfoView(context, gameStatistics);
 
 		buttons.addView(infoView);
 		buttons.addView(pauseButton);
@@ -70,51 +71,6 @@ public class ButtonsWrapper {
 		buttons.addView(towerUpgradeView);
 	}
 
-
-	private void initializeInfoView() {
-		infoView = new RelativeLayout(context);
-		LayoutParams infoViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		infoViewLayout.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		infoViewLayout.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		infoView.setLayoutParams(infoViewLayout);
-
-		int roundViewId = 1234667;
-		roundView = new TextView(context);
-		roundView.setId(roundViewId);
-		roundView.setTextSize(24);
-		roundView.setTextColor(Color.WHITE);
-		roundView.setText("Round:" + gameStatistics.getRound() + " ");
-		roundView.setBackgroundColor(Color.BLACK);
-
-		int moneyViewId = 9876;
-		moneyView = new TextView(context);
-		moneyView.setId(moneyViewId);
-		moneyView.setTextSize(24);
-		moneyView.setText(" $:" + gameStatistics.getMoney() + " ");
-		moneyView.setTextColor(Color.WHITE);
-		moneyView.setBackgroundColor(Color.BLACK);
-
-		LayoutParams moneyViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		moneyViewLayout.addRule(RelativeLayout.RIGHT_OF,roundViewId);
-		moneyViewLayout.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		moneyView.setLayoutParams(moneyViewLayout);
-
-		livesView = new TextView(context);
-		livesView.setTextSize(24);
-		livesView.setText(" Lives:" + gameStatistics.getLives()  + " ");
-		livesView.setTextColor(Color.WHITE);
-		livesView.setBackgroundColor(Color.BLACK);
-
-		LayoutParams livesViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		livesViewLayout.addRule(RelativeLayout.RIGHT_OF,moneyViewId);
-		livesViewLayout.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		livesView.setLayoutParams(livesViewLayout);
-		
-		infoView.addView(roundView);
-		infoView.addView(moneyView);
-		infoView.addView(livesView);
-
-	}
 
 	private void initializeBuildHeavyTowerButton() {
 		buildHeavyTowerButton= new ImageButton(context);
@@ -270,14 +226,33 @@ private void initializeTowerUpgradeView() {
 		
 		initializeUpgradeTowerButton();
 		initializeSellTowerButton();
+		initializeSelectedTowerInfoView();
 		
 		
 		
 		towerUpgradeView.addView(sellTowerButton);
 		towerUpgradeView.addView(upgradeTowerButton);
+		towerUpgradeView.addView(towerInfoView);
 		towerUpgradeView.setVisibility(View.GONE);
 
 	}
+
+	private void initializeSelectedTowerInfoView() {
+		towerInfoView= new TextView(context);
+		towerInfoView.setText("Print Dammit");
+		towerInfoView.setWidth(100);
+		
+
+		
+
+
+
+		LayoutParams towerInfoViewLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		towerInfoViewLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		towerInfoViewLayout.addRule(RelativeLayout.LEFT_OF, upgradeTowerButtonId);
+		towerInfoView.setLayoutParams(towerInfoViewLayout);
+	
+}
 
 	private void initializeUpgradeTowerButton() {
 		upgradeTowerButton= new ImageButton(context);
@@ -290,6 +265,7 @@ private void initializeTowerUpgradeView() {
 
 		LayoutParams upgradeTowerButtonLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		upgradeTowerButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		upgradeTowerButtonLayout.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		upgradeTowerButton.setLayoutParams(upgradeTowerButtonLayout);
 
 		upgradeTowerButton.setOnClickListener(new OnClickListener() {            
@@ -347,10 +323,7 @@ private void initializeTowerUpgradeView() {
 	}
 
 	public void refreshButtons(){
-		moneyView.setText(" Cash: " + gameStatistics.getMoney() + " ");
-		livesView.setText(" Lives: " + gameStatistics.getLives()  + " ");
-		roundView.setText("Round: " + gameStatistics.getRound() + " ");
-		Log.e("refreshing buttons", "money: " + gameStatistics.getMoney() + moneyView.getText());
+		infoView.refreshButtons();
 	}
 
 
